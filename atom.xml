@@ -1433,6 +1433,227 @@
   </entry>
   
   <entry>
+    <title>寒哥细谈之AutoLayout全解</title>
+    <link href="http://valiantcat.com/2015/10/14/LearnAutoLayout/"/>
+    <id>http://valiantcat.com/2015/10/14/LearnAutoLayout/</id>
+    <published>2015-10-14T08:18:54.000Z</published>
+    <updated>2016-07-22T07:06:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><code>觉得我的文章写的好 请关注我的简书</code><a href="http://www.jianshu.com/users/cc1e4faec5f7" target="_blank" rel="external">南栀倾寒</a></p>
+<hr>
+<blockquote>
+<p>看到群中好多朋友还停留在Frame布局的痛苦时代  ,以及有些开发者接手别人的就项目发现布局一团乱 。<br> 而且没有启动图的时候并不是真正真正适配iPhone 6(S)  iPhone6(S) Plus等设备 。<br>   寒哥准备尽可能详细的讲一讲我所掌握的AutoLayout 。</p>
+</blockquote>
+<p>###AutoLayout很难？      </p>
+<blockquote>
+<p> 我觉得AutoLayout的难的 约束的选择性太多 ，抽象性增加，<br>大家直接看书或者看博客不太好理解  但是有人教的话还是挺快的  。<br>所以我尽量用GIF的方式给大家展现  </p>
+</blockquote>
+<hr>
+<p>##AutoLayout是什么？</p>
+<ul>
+<li>Autolayout是一种布局技术，专门用来布局UI界面的。用来取代Frame布局在遇见屏幕尺寸多重多样的不足</li>
+<li>Autolayout自iOS6开始引入，由于Xcode4的不给力，当时并没有得到很大的推广</li>
+<li>在iOS7（Xcode5）开始，Autolayout的开发效率得到很大的提升<br>苹果官方也推荐开发者尽量使用Autolayout来布局UI界面<br>Autolayout能轻松的解决屏幕适配的问题</li>
+</ul>
+<p>##AutoLayout从哪里入手</p>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>自从Xcode6之后 你会看到我们新建一个Single Application 会发现一个ViewController的View非常大    ,跟任何一个iPhone  iPad的尺寸都不一样  ,这些都是 假象 假象  假象 Apple 把尺寸抽象为了一个正方形  到真正的设备上才是真正的布局 </p>
+</blockquote>
+<h2 id="autolayoutib中操作的属性介绍"><a href="#AutoLayout-IB中操作的属性介绍" class="headerlink" title="AutoLayout+IB中操作的属性介绍"></a>AutoLayout+IB中操作的属性介绍</h2><p><img src="/2015/10/14/LearnAutoLayout/" alt="Paste_Image.png"></p>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="Paste_Image.png"></p>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<p>我们会发现貌似这个玩意好多配置  貌似很麻烦的样子   下面我们挨个讲解  </p>
+<p>###1.相对处理（Pin）：<br><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<blockquote>
+<p>属性说明：<br>1:距离边缘  最上面的4个虚线表示某个View的距离上边 左边 右边 下边多高<br>2:那个蓝色的Constrain To Margins 是iPhone6出现之后。<br>  Apple 觉得更大的分辨率有点间距好看，   默认为8  ， 如果这个勾上了 这个View距离四周的值就变成了 你输入的值+8。  一般建议勾掉 。</p>
+</blockquote>
+<p>####let`s Play<br>我们开始Demo前先想想我们在Frame时代 布局需要什么？</p>
+<p>   ：<br>        {<br>        original：{x,y}<br>         size:{width,height}<br>    }</p>
+<p>在iOS中布局是绝对定位的（大致这么理解吧）<br>所以我们需要 某个View的X，Y，W，H<br>我们从基本的入门  我们无论添加多少约束 都是需要 定位好某个View的X，Y，W，H </p>
+<p> <strong><code>少了不行 多了更不行</code></strong><br>  <strong><code>少了不行 多了更不行</code></strong><br>  <strong><code>少了不行 多了更不行</code></strong><br>  <strong><code>重要的事情说三遍 这里先不讨论UIlabel UITextView UIImageView等自带的内建高度</code></strong></p>
+<ul>
+<li>Demo 1 某个View距离父View上下左右间距全部为20  </li>
+</ul>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>请注意我这里把距离下面的 ， 也就是BottomLayoutGuide的约束改成了距离控制器的View   为什么？<br>  因为BottomLayoutGuide是晚于View加载的 如果参考这个 会造成进入页面 会卡一下  尽量不要直接参考下面  TopLayoutGuide 则没事 </p>
+<p>加完约束你会发现貌似并没有什么效果？<br>不是的，屏幕中出现的黄色的线条   这是IB在提升我们你所添加的约束  和真实的尺寸不一样   怎么修改？ 继续图</p>
+</blockquote>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>属性说明3，4  固定某个View的宽高  </p>
+<ul>
+<li>Demo 2 某个View距离在父View的左侧20 上20 宽高为 100 ， 100 </li>
+</ul>
+</blockquote>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>注意我在添加约束的时候有个选项叫做updateFrame  如果勾选 会直接将Frame调整到真实值  ，而不需要再次update 。<br>这里我们只是讲了最简单定位单个View   你会觉得和Frame 并没有什么区别  。<br>区别在于：AutoLayout的核心是参照  也就是基本上任何一个View都可以参照另一个View   </p>
+<ul>
+<li>接下来讲解Pin里面第5，6个属性：<br>equal Width  equal Height    选中的多个View 宽高相等 </li>
+</ul>
+</blockquote>
+<ul>
+<li>Demo 3 某个View距离在父View的左侧20 demo2中白色View 上20   宽高和Demo2中的宽高一样</li>
+</ul>
+<p>![haha.gif](9.gif</p>
+<blockquote>
+<p>属性6 AspectRatio  比例<br>假设某个View距离父View右上角20 ，20 宽高比 2：1  宽100</p>
+</blockquote>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>第七个属性Align其实在第一个面板中已经有了 放在下一部分讲解<br><code>是时候给讲解下约束是什么玩意了</code>刚才你看到我对约束修改了 </p>
+</blockquote>
+<p>我们点击下某个约束</p>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="Paste_Image.png"></p>
+<p>###AutoLayout的公式<br><code>第一个Item的属性= (&lt;= /&gt;= )第二个Item的属性*Multiplier+Constant</code><br><code>第一个Item的属性= (&lt;= /&gt;= )第二个Item的属性*Multiplier+Constant</code><br><code>第一个Item的属性= (&lt;= /&gt;= )第二个Item的属性*Multiplier+Constant</code></p>
+<p>比如图中的View 约束 可以理解为 View的tralling（右侧） 等于（eauql） 1倍（multpiler）的控制的右侧 + 20（constant）</p>
+<p><code>注意比例是支持表达式的  如 2：3</code><br><code>releation是支持great than  lessthan</code> 具体是多少 系统自动算出</p>
+<hr>
+<p>##2. 对齐处理（Align）<br><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<blockquote>
+<p>介绍</p>
+<h1 id="属性说明leading-edges左对齐"><a href="#属性说明：Leading-Edges：左对齐" class="headerlink" title="属性说明：Leading Edges：左对齐"></a>属性说明：Leading Edges：左对齐</h1><ul>
+<li>Trailing Edges：右对齐</li>
+<li>Top Edges：上对齐</li>
+<li>Bottom Edges：下对齐</li>
+<li>Horizontal Centers：水平中心对齐</li>
+<li>Vertical Centers：竖向中心对齐</li>
+<li>Baselines：基线对齐</li>
+<li>Horizontal Center in Container：对齐容器中的水平中心</li>
+<li>Vertical Center in Container：对齐容器中的竖向中心</li>
+</ul>
+</blockquote>
+<ul>
+<li>Demo 4 某个View距离在父View的右侧20 demo3中白色View 上20   宽高和Demo3中的宽高一样 并且有对齐</li>
+</ul>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>Demo5 某个View 居中与父View  长宽50</p>
+</blockquote>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>某些控件是有baseLine 的 如UILabel  UITextView  看下不同吧</p>
+</blockquote>
+<ul>
+<li>Demo6 某个label 和另外一个label 基线对齐</li>
+</ul>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<hr>
+<p>###3. UILabel内建高度自适应高度</p>
+<p>像label 默认是有宽度的  宽度就是字体自适应的</p>
+<p>这样我们就可以不给UIlabel 高度 把Label的NumberOfline = 0就可以自适应高度了</p>
+<ul>
+<li>Demo7 Label自适应高度<br><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></li>
+</ul>
+<p>###4. 小技巧<br>1.有时候约束太多的时候  我们可以给某个VIew起个假名字 就能很方便的看到是哪个View 了    </p>
+<ol>
+<li>View总是选不中按 ctrl + shift + 单击</li>
+</ol>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p>3.AutoLayout遇见ScrollView<br>参看这个文章 <a href="http://grayluo.github.io/WeiFocusIo/autolayout/2015/01/27/autolayout3/" target="_blank" rel="external">AutoLayout深入浅出三[相遇Scrollview]</a><br>如图</p>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<ul>
+<li>Demo 8 ScrollView过长 无法编辑怎么办 </li>
+</ul>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>将控制器改为Freedom  修改ContentView的高度约束  这样ScrollView 就可以滚动了 也可以往下编辑了</p>
+</blockquote>
+<p>##5 AutoLayout遇见UItableViewCell</p>
+<p><a href="http://grayluo.github.io/WeiFocusIo/autolayout/2015/02/01/autolayout4/" target="_blank" rel="external">AutoLayout深入浅出四[不仅是UIWebView与UITableView的纠缠]</a><br><a href="http://grayluo.github.io/WeiFocusIo/autolayout/2015/02/01/autolayout5/" target="_blank" rel="external">AutoLayout深入浅出五[UITableView动态高度]</a><br><a href="http://www.90159.com/2015/07/21/54/" target="_blank" rel="external">动态计算UITableViewCell高度详解</a><br><a href="http://www.90159.com/2015/07/21/54/" target="_blank" rel="external">动态计算UITableViewCell高度详解</a></p>
+<p>以上4个为讲解  、<br>下面实践  </p>
+<p><a href="http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/" target="_blank" rel="external">https://github.com/forkingdog/UITableView-FDTemplateLayoutCell博客讲解</a></p>
+<hr>
+<p>##6 个人写的小技巧</p>
+<p><a href="http://www.jianshu.com/p/dc4e138221bf" target="_blank" rel="external">AutoLayout分分钟搞定等比例布局</a></p>
+<p><a href="http://www.jianshu.com/p/66e0b808d833" target="_blank" rel="external">友好的ContainerView&amp;AutoLayout资料推荐</a></p>
+<p>##7 iOS 9 及AutoLayout的注意点</p>
+<blockquote>
+<p>当然也是我写的 <a href="http://www.jianshu.com/p/094e6baccd5a" target="_blank" rel="external">AutoLayout好多好多不懂的 终于明白了</a></p>
+</blockquote>
+<hr>
+<p>##总结 在StoryBoard里面开发 其实就是拿着ViewController 当做View用 如果你还是觉得复杂 可以吧View抽象出去</p>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>时间仓促  有什么不懂的可以留言 或者加群:<code>532084214</code>细问呦</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;code&gt;觉得我的文章写的好 请关注我的简书&lt;/code&gt;&lt;a href=&quot;http://www.jianshu.com/users/cc1e4faec5f7&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;南栀倾寒&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;block
+    
+    </summary>
+    
+    
+      <category term="AutoLayout" scheme="http://valiantcat.com/tags/AutoLayout/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AutoLayout好多好多不懂的 终于明白了</title>
+    <link href="http://valiantcat.com/2015/10/10/AutoLayoutQuestion/"/>
+    <id>http://valiantcat.com/2015/10/10/AutoLayoutQuestion/</id>
+    <published>2015-10-10T08:16:27.000Z</published>
+    <updated>2016-07-22T07:06:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>AutoLayout这玩意越用越上瘾    自从我学会了这个  还是那句话 能不用代码就不用代码 </p>
+<p>这篇文章不讲解AutoLayout 怎么使用  只是总结下最近学的东西 和更多你不知道的细节总结</p>
+<p>本文大致讲解个部分</p>
+<ol>
+<li><p>UIStackView</p>
+</li>
+<li><p>AutoLayout与Frame的关系</p>
+</li>
+<li><p>AutoLayout动画</p>
+</li>
+</ol>
+<p>1 UIStackView<br>先推荐点资料  </p>
+<p>UIStakView入门   iOS 9新功能 具体支持到几我不清楚 </p>
+<p>看完这个你以后布局更方便了  </p>
+<p>举个例子 AutoLayout分分钟搞定等比例布局 之前我的帖子这样做</p>
+<p>现在有了更简单的</p>
+<p><img src="/2015/10/10/AutoLayoutQuestion/" alt="1"></p>
+<ol>
+<li>AutoLayout与Frame的关系<br>曾经有次我被面试官问了一个面试题     如果你用了AutoLayout 再修改Frame 会有什么效果 有没有什么不好的</li>
+</ol>
+<p>看这问题 所有人都能猜到肯定有不好的  但是具体也不知道是啥  </p>
+<p>看demo  一个view</p>
+<p><img src="/2015/10/10/AutoLayoutQuestion/" alt="1"></p>
+<p>3.AutoLayout动画</p>
+<p>如果你用了AutoLayout  那么做动画的时候  你就不要再操作 Frame  bounds center  等position属性</p>
+<p>因为这些动画都是临时的  下次的View 被 setNeedsUpdateConstraint  这些全都失效   </p>
+<p>但是其他的可动画属性（Animation Properties） 还是可以的 如 Color  alpha等 </p>
+<ol>
+<li>更新约束的内容  </li>
+</ol>
+<p>针对 Constraint 一掉要调用LayoutIfNeed()  不然会造成不可预料的结果。  有可能下一刻动画剩下  也有可能然并卵       在NSLayoutConstraint中  唯一可变的 也就是 可set 可 get的属性就    constant </p>
+<p>像其他FirstItem等是不可修改的      所以如果要修改参考物参看 下面的方法 </p>
+<p>2 .  替换约束的动画 </p>
+<p><img src="/2015/10/10/AutoLayoutQuestion/" alt="1"></p>
+<p>添加约束可以通过<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">self</span>.view.addConstraint(&lt;<span class="meta">#T##constraint: NSLayoutConstraint##NSLayoutConstraint#&gt;)</span></div><div class="line"></div><div class="line"><span class="keyword">self</span>.view.addConstraints(&lt;<span class="meta">#T##constraints: [NSLayoutConstraint]##[NSLayoutConstraint]#&gt;)</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">在iOS <span class="number">8</span>中有更好的方法  newConstraint.active=<span class="literal">true</span> 就可以</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;AutoLayout这玩意越用越上瘾    自从我学会了这个  还是那句话 能不用代码就不用代码 &lt;/p&gt;
+&lt;p&gt;这篇文章不讲解AutoLayout 怎么使用  只是总结下最近学的东西 和更多你不知道的细节总结&lt;/p&gt;
+&lt;p&gt;本文大致讲解个部分&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;
+    
+    </summary>
+    
+    
+      <category term="AutoLayout" scheme="http://valiantcat.com/tags/AutoLayout/"/>
+    
+  </entry>
+  
+  <entry>
     <title>寒哥带你深入了解下Swift中的Value Type</title>
     <link href="http://valiantcat.com/2015/09/22/SwiftValueType/"/>
     <id>http://valiantcat.com/2015/09/22/SwiftValueType/</id>
@@ -1618,6 +1839,36 @@ array2.first!.value = <span class="number">100</span>
     
     
       <category term="Swift" scheme="http://valiantcat.com/tags/Swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AutoLayout分分钟搞定等比例布局</title>
+    <link href="http://valiantcat.com/2015/09/14/AutoLayoutEqualLayout/"/>
+    <id>http://valiantcat.com/2015/09/14/AutoLayoutEqualLayout/</id>
+    <published>2015-09-14T08:09:11.000Z</published>
+    <updated>2016-07-22T07:06:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<ul>
+<li>9宫格布局  </li>
+</ul>
+<p>有时候开发中会碰到9宫格布局  注意不是collectionView 或者tableView  的数据驱动  就是个死的界面    感觉不难    但是代码写起来超级费劲 尤其是 碰见这个9宫格量比较大的  如 </p>
+<p><img src="/2015/09/14/AutoLayoutEqualLayout/" alt="计算器"></p>
+<p>我相信很多人都觉得这个比较坑爹   代码没有可重用性 又不得不写 autolayout貌似挺好用  但没有小技巧操作起来  非常费劲 一不小心各种错误<br>今天同事在看教程的适合找到了诀窍  1分钟搞定  </p>
+<p>上demo<br><img src="/2015/09/14/AutoLayoutEqualLayout/" alt="demo.gif"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;9宫格布局  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;有时候开发中会碰到9宫格布局  注意不是collectionView 或者tableView  的数据驱动  就是个死的界面    感觉不难    但是代码写起来超级费劲 尤其是 碰见这个9宫格量比较大的  如 &lt;/p
+    
+    </summary>
+    
+    
+      <category term="AutoLayout" scheme="http://valiantcat.com/tags/AutoLayout/"/>
     
   </entry>
   

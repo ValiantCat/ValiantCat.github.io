@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>寒哥细谈之AutoLayout全解 | 茶茶的小屋</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="茶茶的小屋">
+    <meta name="author" content="寒哥">
+    <meta name="description" content="iOS 开发， Swift，Objective-C,OC" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="茶茶的小屋" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/github.css" type="text/css">
+    
+
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <!-- <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://www.jianshu.com/users/cc1e4faec5f7" class="animsition-link">寒哥的简书</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/xinxinqiu" class="animsition-link">寒哥的CSDN</a></li>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" class="animsition-link">寒哥的Github</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">茶茶的小屋</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2015-10-14T08:18:54.000Z" itemprop="datePublished">
+          2015-10-14
+      </time>
+    
+    
+    | 
+    <a href='/tags/AutoLayout/'>AutoLayout</a>
+    
+    
+</span>
+                <h1>寒哥细谈之AutoLayout全解</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p><code>觉得我的文章写的好 请关注我的简书</code><a href="http://www.jianshu.com/users/cc1e4faec5f7" target="_blank" rel="external">南栀倾寒</a></p>
+<hr>
+<blockquote>
+<p>看到群中好多朋友还停留在Frame布局的痛苦时代  ,以及有些开发者接手别人的就项目发现布局一团乱 。<br> 而且没有启动图的时候并不是真正真正适配iPhone 6(S)  iPhone6(S) Plus等设备 。<br>   寒哥准备尽可能详细的讲一讲我所掌握的AutoLayout 。</p>
+</blockquote>
+<p>###AutoLayout很难？      </p>
+<blockquote>
+<p> 我觉得AutoLayout的难的 约束的选择性太多 ，抽象性增加，<br>大家直接看书或者看博客不太好理解  但是有人教的话还是挺快的  。<br>所以我尽量用GIF的方式给大家展现  </p>
+</blockquote>
+<hr>
+<p>##AutoLayout是什么？</p>
+<ul>
+<li>Autolayout是一种布局技术，专门用来布局UI界面的。用来取代Frame布局在遇见屏幕尺寸多重多样的不足</li>
+<li>Autolayout自iOS6开始引入，由于Xcode4的不给力，当时并没有得到很大的推广</li>
+<li>在iOS7（Xcode5）开始，Autolayout的开发效率得到很大的提升<br>苹果官方也推荐开发者尽量使用Autolayout来布局UI界面<br>Autolayout能轻松的解决屏幕适配的问题</li>
+</ul>
+<p>##AutoLayout从哪里入手</p>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>自从Xcode6之后 你会看到我们新建一个Single Application 会发现一个ViewController的View非常大    ,跟任何一个iPhone  iPad的尺寸都不一样  ,这些都是 假象 假象  假象 Apple 把尺寸抽象为了一个正方形  到真正的设备上才是真正的布局 </p>
+</blockquote>
+<h2 id="autolayoutib中操作的属性介绍"><a href="#AutoLayout-IB中操作的属性介绍" class="headerlink" title="AutoLayout+IB中操作的属性介绍"></a>AutoLayout+IB中操作的属性介绍</h2><p><img src="/2015/10/14/LearnAutoLayout/" alt="Paste_Image.png"></p>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="Paste_Image.png"></p>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<p>我们会发现貌似这个玩意好多配置  貌似很麻烦的样子   下面我们挨个讲解  </p>
+<p>###1.相对处理（Pin）：<br><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<blockquote>
+<p>属性说明：<br>1:距离边缘  最上面的4个虚线表示某个View的距离上边 左边 右边 下边多高<br>2:那个蓝色的Constrain To Margins 是iPhone6出现之后。<br>  Apple 觉得更大的分辨率有点间距好看，   默认为8  ， 如果这个勾上了 这个View距离四周的值就变成了 你输入的值+8。  一般建议勾掉 。</p>
+</blockquote>
+<p>####let`s Play<br>我们开始Demo前先想想我们在Frame时代 布局需要什么？</p>
+<p>   ：<br>        {<br>        original：{x,y}<br>         size:{width,height}<br>    }</p>
+<p>在iOS中布局是绝对定位的（大致这么理解吧）<br>所以我们需要 某个View的X，Y，W，H<br>我们从基本的入门  我们无论添加多少约束 都是需要 定位好某个View的X，Y，W，H </p>
+<p> <strong><code>少了不行 多了更不行</code></strong><br>  <strong><code>少了不行 多了更不行</code></strong><br>  <strong><code>少了不行 多了更不行</code></strong><br>  <strong><code>重要的事情说三遍 这里先不讨论UIlabel UITextView UIImageView等自带的内建高度</code></strong></p>
+<ul>
+<li>Demo 1 某个View距离父View上下左右间距全部为20  </li>
+</ul>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>请注意我这里把距离下面的 ， 也就是BottomLayoutGuide的约束改成了距离控制器的View   为什么？<br>  因为BottomLayoutGuide是晚于View加载的 如果参考这个 会造成进入页面 会卡一下  尽量不要直接参考下面  TopLayoutGuide 则没事 </p>
+<p>加完约束你会发现貌似并没有什么效果？<br>不是的，屏幕中出现的黄色的线条   这是IB在提升我们你所添加的约束  和真实的尺寸不一样   怎么修改？ 继续图</p>
+</blockquote>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>属性说明3，4  固定某个View的宽高  </p>
+<ul>
+<li>Demo 2 某个View距离在父View的左侧20 上20 宽高为 100 ， 100 </li>
+</ul>
+</blockquote>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>注意我在添加约束的时候有个选项叫做updateFrame  如果勾选 会直接将Frame调整到真实值  ，而不需要再次update 。<br>这里我们只是讲了最简单定位单个View   你会觉得和Frame 并没有什么区别  。<br>区别在于：AutoLayout的核心是参照  也就是基本上任何一个View都可以参照另一个View   </p>
+<ul>
+<li>接下来讲解Pin里面第5，6个属性：<br>equal Width  equal Height    选中的多个View 宽高相等 </li>
+</ul>
+</blockquote>
+<ul>
+<li>Demo 3 某个View距离在父View的左侧20 demo2中白色View 上20   宽高和Demo2中的宽高一样</li>
+</ul>
+<p>![haha.gif](9.gif</p>
+<blockquote>
+<p>属性6 AspectRatio  比例<br>假设某个View距离父View右上角20 ，20 宽高比 2：1  宽100</p>
+</blockquote>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>第七个属性Align其实在第一个面板中已经有了 放在下一部分讲解<br><code>是时候给讲解下约束是什么玩意了</code>刚才你看到我对约束修改了 </p>
+</blockquote>
+<p>我们点击下某个约束</p>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="Paste_Image.png"></p>
+<p>###AutoLayout的公式<br><code>第一个Item的属性= (&lt;= /&gt;= )第二个Item的属性*Multiplier+Constant</code><br><code>第一个Item的属性= (&lt;= /&gt;= )第二个Item的属性*Multiplier+Constant</code><br><code>第一个Item的属性= (&lt;= /&gt;= )第二个Item的属性*Multiplier+Constant</code></p>
+<p>比如图中的View 约束 可以理解为 View的tralling（右侧） 等于（eauql） 1倍（multpiler）的控制的右侧 + 20（constant）</p>
+<p><code>注意比例是支持表达式的  如 2：3</code><br><code>releation是支持great than  lessthan</code> 具体是多少 系统自动算出</p>
+<hr>
+<p>##2. 对齐处理（Align）<br><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<blockquote>
+<p>介绍</p>
+<h1 id="属性说明leading-edges左对齐"><a href="#属性说明：Leading-Edges：左对齐" class="headerlink" title="属性说明：Leading Edges：左对齐"></a>属性说明：Leading Edges：左对齐</h1><ul>
+<li>Trailing Edges：右对齐</li>
+<li>Top Edges：上对齐</li>
+<li>Bottom Edges：下对齐</li>
+<li>Horizontal Centers：水平中心对齐</li>
+<li>Vertical Centers：竖向中心对齐</li>
+<li>Baselines：基线对齐</li>
+<li>Horizontal Center in Container：对齐容器中的水平中心</li>
+<li>Vertical Center in Container：对齐容器中的竖向中心</li>
+</ul>
+</blockquote>
+<ul>
+<li>Demo 4 某个View距离在父View的右侧20 demo3中白色View 上20   宽高和Demo3中的宽高一样 并且有对齐</li>
+</ul>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>Demo5 某个View 居中与父View  长宽50</p>
+</blockquote>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>某些控件是有baseLine 的 如UILabel  UITextView  看下不同吧</p>
+</blockquote>
+<ul>
+<li>Demo6 某个label 和另外一个label 基线对齐</li>
+</ul>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<hr>
+<p>###3. UILabel内建高度自适应高度</p>
+<p>像label 默认是有宽度的  宽度就是字体自适应的</p>
+<p>这样我们就可以不给UIlabel 高度 把Label的NumberOfline = 0就可以自适应高度了</p>
+<ul>
+<li>Demo7 Label自适应高度<br><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></li>
+</ul>
+<p>###4. 小技巧<br>1.有时候约束太多的时候  我们可以给某个VIew起个假名字 就能很方便的看到是哪个View 了    </p>
+<ol>
+<li>View总是选不中按 ctrl + shift + 单击</li>
+</ol>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p>3.AutoLayout遇见ScrollView<br>参看这个文章 <a href="http://grayluo.github.io/WeiFocusIo/autolayout/2015/01/27/autolayout3/" target="_blank" rel="external">AutoLayout深入浅出三[相遇Scrollview]</a><br>如图</p>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<ul>
+<li>Demo 8 ScrollView过长 无法编辑怎么办 </li>
+</ul>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>将控制器改为Freedom  修改ContentView的高度约束  这样ScrollView 就可以滚动了 也可以往下编辑了</p>
+</blockquote>
+<p>##5 AutoLayout遇见UItableViewCell</p>
+<p><a href="http://grayluo.github.io/WeiFocusIo/autolayout/2015/02/01/autolayout4/" target="_blank" rel="external">AutoLayout深入浅出四[不仅是UIWebView与UITableView的纠缠]</a><br><a href="http://grayluo.github.io/WeiFocusIo/autolayout/2015/02/01/autolayout5/" target="_blank" rel="external">AutoLayout深入浅出五[UITableView动态高度]</a><br><a href="http://www.90159.com/2015/07/21/54/" target="_blank" rel="external">动态计算UITableViewCell高度详解</a><br><a href="http://www.90159.com/2015/07/21/54/" target="_blank" rel="external">动态计算UITableViewCell高度详解</a></p>
+<p>以上4个为讲解  、<br>下面实践  </p>
+<p><a href="http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/" target="_blank" rel="external">https://github.com/forkingdog/UITableView-FDTemplateLayoutCell博客讲解</a></p>
+<hr>
+<p>##6 个人写的小技巧</p>
+<p><a href="http://www.jianshu.com/p/dc4e138221bf" target="_blank" rel="external">AutoLayout分分钟搞定等比例布局</a></p>
+<p><a href="http://www.jianshu.com/p/66e0b808d833" target="_blank" rel="external">友好的ContainerView&amp;AutoLayout资料推荐</a></p>
+<p>##7 iOS 9 及AutoLayout的注意点</p>
+<blockquote>
+<p>当然也是我写的 <a href="http://www.jianshu.com/p/094e6baccd5a" target="_blank" rel="external">AutoLayout好多好多不懂的 终于明白了</a></p>
+</blockquote>
+<hr>
+<p>##总结 在StoryBoard里面开发 其实就是拿着ViewController 当做View用 如果你还是觉得复杂 可以吧View抽象出去</p>
+<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<blockquote>
+<p>时间仓促  有什么不懂的可以留言 或者加群:<code>532084214</code>细问呦</p>
+</blockquote>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/04/27/HowToUseRunloop/" style="float: left;">
+        ← How To Use Runloop，
+    </a>
+    
+    
+    <a class="pull-right" href="/2015/10/10/AutoLayoutQuestion/">
+        AutoLayout好多好多不懂的 终于明白了 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2015/10/14/LearnAutoLayout/" data-title="寒哥细谈之AutoLayout全解" data-url="http://valiantcat.com/2015/10/14/LearnAutoLayout/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"chachaHouse"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By 寒哥. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
