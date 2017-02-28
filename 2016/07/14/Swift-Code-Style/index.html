@@ -1,28 +1,239 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title>茶茶的小屋</title>
-  <subtitle>iOS 开发， Swift，Objective-C,OC</subtitle>
-  <link href="/atom.xml" rel="self"/>
-  
-  <link href="http://valiantcat.com/"/>
-  <updated>2016-07-14T03:46:25.000Z</updated>
-  <id>http://valiantcat.com/</id>
-  
-  <author>
-    <name>寒哥</name>
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>Swift-Code-Style | 茶茶的小屋</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="茶茶的小屋">
+    <meta name="author" content="寒哥">
+    <meta name="description" content="iOS 开发， Swift，Objective-C,OC" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="茶茶的小屋" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/github.css" type="text/css">
     
-  </author>
+
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <!-- <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
   
-  <generator uri="http://hexo.io/">Hexo</generator>
   
-  <entry>
-    <title>Swift-Code-Style</title>
-    <link href="http://valiantcat.com/2016/07/14/Swift-Code-Style/"/>
-    <id>http://valiantcat.com/2016/07/14/Swift-Code-Style/</id>
-    <published>2016-07-14T03:29:12.000Z</published>
-    <updated>2016-07-14T03:46:25.000Z</updated>
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://www.jianshu.com/users/cc1e4faec5f7" class="animsition-link">寒哥的简书</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/xinxinqiu" class="animsition-link">寒哥的CSDN</a></li>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" class="animsition-link">寒哥的Github</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
     
-    <content type="html"><![CDATA[<blockquote>
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">茶茶的小屋</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-07-14T03:29:12.000Z" itemprop="datePublished">
+          2016-07-14
+      </time>
+    
+    
+    | 
+    <a href='/tags/Swift/'>Swift</a>
+    
+    
+</span>
+                <h1>Swift-Code-Style</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<blockquote>
 <p>最近工作也比较稳定了，公司在做代码规范和组件化的跳转。 鉴于使用Objective-C的开发成员比较多， 我们架构师就整理了Objective-C的代码规范。不过作为Swift开发的老司机，也整理了一套适用与Swift的代码规范。 以后可以直接拿来用了。</p>
 </blockquote>
 <!-- toc -->
@@ -203,319 +414,106 @@
 <li><a href="https://github.com/raywenderlich/swift-style-guide" target="_blank" rel="external">Raywenderlich</a></li>
 </ol>
 </blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;最近工作也比较稳定了，公司在做代码规范和组件化的跳转。 鉴于使用Objective-C的开发成员比较多， 我们架构师就整理了Objective-C的代码规范。不过作为Swift开发的老司机，也整理了一套适用与Swift的代码规范。 以后可以直接拿来
-    
-    </summary>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
     
     
-      <category term="Swift" scheme="http://valiantcat.com/tags/Swift/"/>
+    <a class="pull-right" href="/2015/09/22/SwiftValueType/">
+        寒哥带你深入了解下Swift中的Value Type →
+    </a>
     
-  </entry>
-  
-  <entry>
-    <title>寒哥带你深入了解下Swift中的Value Type</title>
-    <link href="http://valiantcat.com/2015/09/22/SwiftValueType/"/>
-    <id>http://valiantcat.com/2015/09/22/SwiftValueType/</id>
-    <published>2015-09-22T08:11:00.000Z</published>
-    <updated>2016-07-22T07:07:15.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>关于开发到底使用<code>ValueType</code> <code>值类型</code>还是<code>Reference Type</code> <code>引用类型</code>  关于这个   <a href="http://swift.gg/2015/08/14/friday-qa-2015-07-17-when-to-use-swift-structs-and-classes/" target="_blank" rel="external">http://swift.gg/2015/08/14/friday-qa-2015-07-17-when-to-use-swift-structs-and-classes/</a><br>这个文章写得比较好  这里我就不再多说了  我只带大家深入了解一下</p>
-</blockquote>
-<p>大家都知道<code>值类型</code>在赋值的时候做的是值复制的过程  <code>引用类型</code>赋值做的是引用复制 但实例不复制</p>
-<p>但是有没有想过嵌套类型呢  比如以下4种（只讨论一层嵌套最后会做总结）</p>
-<ul>
-<li><p>引用类型嵌套引用类型</p>
-</li>
-<li><p>值类型嵌套值类型</p>
-</li>
-<li><p>引用类型嵌套值类型</p>
-</li>
-<li><p>值类型嵌套引用类型</p>
-</li>
-</ul>
-<hr>
-<p><strong>引用类型嵌套引用类型</strong><br>代码如下<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inner</span> </span>&#123;</div><div class="line">     <span class="keyword">var</span> value = <span class="number">99</span></div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Outter</span> </span>&#123;</div><div class="line">     <span class="keyword">var</span> value = <span class="number">99</span></div><div class="line">     <span class="keyword">var</span> inner = <span class="type">Inner</span>()</div><div class="line"></div><div class="line"> &#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> out1 = <span class="type">Outter</span>()</div><div class="line"><span class="keyword">var</span> out2 = out1</div><div class="line">out1.value = <span class="number">100</span></div><div class="line">out1.inner.value = <span class="number">100</span></div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="string">"outer2.value=<span class="subst">\(out2.value)</span> outer2.inner.value=<span class="subst">\(out2.inner.value)</span>"</span>)</div></pre></td></tr></table></figure></p>
-<p>结果为 </p>
-<blockquote>
-<p>“outer2.value=100 outer2.inner.value=100\n”</p>
-</blockquote>
-<p>画图分析</p>
-<p><img src="/2015/09/22/SwiftValueType/" alt="Paste_Image.png"><br>结论：</p>
-<blockquote>
-<p>如果你有一个引用类型嵌套了另外一个引用类型，没有什么特别的事会发生。像通常那样，任何一个指向内部或者外部值的指针都能操纵他指向的对象。只要其中一个引用操纵值使其改变，其他引用指向的值也就跟着变了。</p>
-</blockquote>
-<hr>
-<ul>
-<li>值类型嵌套值类型</li>
-</ul>
-<pre><code class="swift">
-    <span class="class"><span class="keyword">struct</span> <span class="title">Inner</span> </span>{
-      <span class="keyword">var</span>   value = <span class="number">99</span>
-    }
-    <span class="class"><span class="keyword">struct</span> <span class="title">Outter</span> </span>{
-        <span class="keyword">var</span> inner = <span class="type">Inner</span>()
-        <span class="keyword">var</span> value = <span class="number">99</span>
+</nav>
 
-    }
-<span class="number">1</span>. 情况<span class="number">1</span>  只复制外部值
-        <span class="keyword">var</span> out1 = <span class="type">Outter</span>()
-        <span class="keyword">var</span> out2 = out1
-        out1.value = <span class="number">100</span>
-        out1.inner.value = <span class="number">100</span>
-
-        <span class="built_in">print</span>(<span class="string">"outer2.value=<span class="subst">\(out2.value)</span> outer2.inner.value=<span class="subst">\(out2.inner.value)</span>"</span>)
-结果：
-&gt;<span class="string">"outer2.value=99 outer2.inner.value=99\n"</span>
-</code></pre>
-<p>画图分析</p>
-<p><img src="/2015/09/22/SwiftValueType/" alt="Paste_Image.png"></p>
-<p><em>2</em>  只复制内部值</p>
-<pre><code class="swift">
-<span class="keyword">var</span> out3 = <span class="type">Outter</span>()
-<span class="keyword">var</span> innter = out3.inner
-innter.value = <span class="number">100</span>
-out3.value <span class="comment">//99</span>
-out3.inner.value <span class="comment">//99</span>
-</code></pre>
-<p>画图</p>
-<p><img src="/2015/09/22/SwiftValueType/" alt="Paste_Image.png"><br>结论</p>
-<blockquote>
-<p>2 如果你有一个值类型嵌套了另外一个值类型，这就会有效地使值所占的内存区域变大。内部值是外部值的一部分。如果你把外部值放到一块新的存储空间里，所有的值包括内部值都会被拷贝。如果你把内部值放进一块新的存储空间中，只有内部值会被拷贝。</p>
-</blockquote>
-<hr>
-<ul>
-<li>引用类型嵌套值类型</li>
-</ul>
-<pre><code class="swift">    <span class="class"><span class="keyword">struct</span> <span class="title">Inner</span> </span>{
-      <span class="keyword">var</span> value = <span class="number">99</span>
-     }
-    <span class="class"><span class="keyword">class</span> <span class="title">Outter</span> </span>{
-        <span class="keyword">var</span> inner = <span class="type">Inner</span>()
-        <span class="keyword">var</span> value = <span class="number">99</span>
-    }
-
-    <span class="keyword">var</span> out1 = <span class="type">Outter</span>()
-    <span class="keyword">var</span> out2 = out1
-    out1.value = <span class="number">100</span>
-    out1.inner.value = <span class="number">100</span>
-
-    <span class="built_in">print</span>(<span class="string">"outer2.value=<span class="subst">\(out2.value)</span> outer2.inner.value=<span class="subst">\(out2.inner.value)</span>"</span>)
-
-结果 
-&gt;<span class="string">"outer2.value=100 outer2.inner.value=100\n"</span>
-</code></pre>
-<p>画图分析</p>
-<p><img src="/2015/09/22/SwiftValueType/" alt="Paste_Image.png"></p>
-<p>结论 </p>
-<blockquote>
-<p>3 一个引用类型嵌套了一个值类型会有效扩大这个引用类型所占内存区域。任何指向外部值的指针都可以操纵一切，包括嵌套的内部值。内部值的任何改变对于引用外部值的指针来说都是可见的。如果你把内部值放进一块新的存储区，就会在那块存储区拷贝一份新的值。</p>
-</blockquote>
-<hr>
-<p>以上是三种常见情况<br><code>下面是最重要的</code><br><code>下面是最重要的</code><br><code>下面是最重要的</code></p>
-<ul>
-<li>值类型嵌套引用类型</li>
-</ul>
-<pre><code class="swift">
-    <span class="class"><span class="keyword">class</span> <span class="title">Inner</span></span>{
-        <span class="keyword">var</span> value = <span class="number">99</span>
-    }
-    <span class="class"><span class="keyword">struct</span> <span class="title">Outter</span> </span>{
-        <span class="keyword">var</span> inner = <span class="type">Inner</span>()
-        <span class="keyword">var</span> value = <span class="number">99</span>
-    }
-
-    <span class="keyword">var</span> out1 = <span class="type">Outter</span>()
-    <span class="keyword">var</span> out2 = out1
-    out1.value = <span class="number">100</span>
-    out1.inner.value = <span class="number">100</span>
-
-    <span class="built_in">print</span>(<span class="string">"outer2.value=<span class="subst">\(out2.value)</span> outer2.inner.value=<span class="subst">\(out2.inner.value)</span>"</span>)
-结果 
-&gt;<span class="string">"outer2.value=99 outer2.inner.value=100\n"</span>
-</code></pre>
-<p>画图分析</p>
-<p><img src="/2015/09/22/SwiftValueType/" alt="Paste_Image.png"></p>
-<p>结论</p>
-<blockquote>
-<p> 一个值类型嵌套一个引用类型就没有那么简单了。你可以有效地打破值语义而不被察觉。这可能是好的也可能是坏的，取决于你怎么做。当你把一个引用类型嵌套进一个值类型中，外部值被放进一块新的内存区域时就会被拷贝，但是拷贝的对象仍然指向原始的那个嵌套对象。<br>对上面的举例</p>
-<p>尽管outer2获取了value的一份拷贝，它只拷贝了inner的引用，因此两个结构体就共用了同一个inner对象。这样一来当改变outer.inner.value的值也会影响outer2.inner.value的值。哎呀！</p>
-<p>这个行为会很有用。当你小心使用，你创建的结构体就具有写时拷贝功能（只有当你执行outer2.value = 43时才会真正的产生一个副本，否则outer2与outer仍指向共同的资源），这种高效的值语义的实现不会使数据拷贝得到处都是。Swift 中的集合就是这么做的，你也可以自己创建一个这样的类型。想要了解更多请看Let’s Build Swift.Array.</p>
-<p>无论在什么时候你移动一个值类型他都会被拷贝，而引用类型则是产生了对同样的底层对象的一个新的引用。那也就意味着引用类型的改变对所有其他的引用都是可见的，而改变值类型只影响你改变的那块内存区域。当选择使用哪种类型时，考虑你的类型是否适合被拷贝，当类型从本质上来说是可拷贝时倾向使用值类型。最后，记住如果你在值类型中嵌入引用类型，不小心的话就会出错！</p>
-</blockquote>
-<p>~~ByeBye</p>
-<p>等等 你给我讲了这么多 貌似没什么用啊  </p>
-<p>错  用出躲到你都遗忘了<br>在我们Swift 的世界中 String  Array Dictionary  都是ValueType  那么在他们装了一个AnyObject 的是不是一个<code>Value Type Contain a ReferenceType</code></p>
-<p>下面我们拿Array 距离 Array 可以看做一个特殊的Dictionary  表现形式其实是一样的  </p>
-<p><img src="/2015/09/22/SwiftValueType/" alt="Paste_Image.png"></p>
-<p>例子</p>
-<pre><code class="swift">
-
-<span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>{
-    <span class="keyword">var</span> value = <span class="number">99</span>
-
-}
-<span class="keyword">let</span> p1 = <span class="type">Person</span>()
-<span class="keyword">let</span> p2 = <span class="type">Person</span>()
-<span class="keyword">let</span> p3 = <span class="type">Person</span>()
-<span class="keyword">let</span> p4 = <span class="type">Person</span>()
-<span class="keyword">let</span> p5 = <span class="type">Person</span>()
-
-<span class="keyword">var</span> array1:<span class="type">Array</span>&lt;<span class="type">Person</span>&gt; = [p1,p2,p3,p4,p5]
-<span class="keyword">var</span> array2 = array1
-array2.removeLast()
-array2.first!.value = <span class="number">100</span>
-<span class="built_in">print</span>(array1.first!.value)
-</code></pre>
-<p>画图分析</p>
-<p><img src="/2015/09/22/SwiftValueType/" alt="Paste_Image.png"></p>
-<p>虽然数组是值类型 在复制的时候会重新生成一个结构体的实例<br>但是数组内部指向的元素还是同一个 </p>
-<p>到这里很多人或许还觉得讲的没用<br>那我们拿OC举例子</p>
-<pre><code class="objc"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">copy</span>) <span class="built_in">NSString</span> * verifyCode;
-</code></pre>
-<p>很多人都会这么写 但是不知道为什么   原因就是我们要保证对象的不变性  防止别人修改我自己的东西    那如果NSString 是ValueType 不就解决了   Swift中的String 是这样做的</p>
-<p>再来 </p>
-<pre><code class="objc"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)<span class="built_in">NSDictionary</span> *dataDic;
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/07/14/Swift-Code-Style/" data-title="Swift-Code-Style" data-url="http://valiantcat.com/2016/07/14/Swift-Code-Style/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"chachaHouse"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
 
 
-- (<span class="keyword">void</span>)setDataDic:(<span class="built_in">NSDictionary</span> *)dataDic {
-    _dataDic = [dataDic <span class="keyword">copy</span>];
-}
-</code></pre>
-<p>很多人没这样用过 但是对NSDictionary也copy 是为什么  也是为了 自己存的数据不能被别人修改    那么Swift Dictionary 也是这样设计的 </p>
-<p>对于Array也是这样设计的   </p>
-<p>如果你真的需要Reference Type 的Swift 在Foundation的库里面也有对应的实现  NSString  NSDictionary NSArray  </p>
-<p>最后建议 多多用ValueType 编程吧   </p>
-<p>文中的源代码和keynote 已上传到<br><a href="https://github.com/aiqiuqiu/ValueType" target="_blank" rel="external">Github</a></p>
-]]></content>
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By 寒哥. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
     
-    <summary type="html">
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
     
-      &lt;blockquote&gt;
-&lt;p&gt;关于开发到底使用&lt;code&gt;ValueType&lt;/code&gt; &lt;code&gt;值类型&lt;/code&gt;还是&lt;code&gt;Reference Type&lt;/code&gt; &lt;code&gt;引用类型&lt;/code&gt;  关于这个   &lt;a href=&quot;http://swift
+    resizeHero();
     
-    </summary>
-    
-    
-      <category term="Swift" scheme="http://valiantcat.com/tags/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于Swift  你可能连变量都不会定义</title>
-    <link href="http://valiantcat.com/2015/08/03/SwiftVariables/"/>
-    <id>http://valiantcat.com/2015/08/03/SwiftVariables/</id>
-    <published>2015-08-03T11:47:10.000Z</published>
-    <updated>2016-07-22T07:08:01.000Z</updated>
-    
-    <content type="html"><![CDATA[<ul>
-<li><!-- Swift 存储变量，计算变量探索 -->
-<blockquote>
-<p>  iOS开发者 群532084214 给大家提供一个交流技术 也可以聊天打屁的平台  </p>
-</blockquote>
-</li>
-</ul>
-<p><code>此文默认 读者有iOS开发经验  包括OC  Swift  和一点点的runtime的理解</code></p>
-<p>先新建个项目  Swift 和oc都行  </p>
-<p>新建一个OCClass:NSObject<br>我们来声明一个成员属性</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="1"></p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p>所有人都知道定义这都ivar的时候  系统会帮你做好几件事<br>生成带下划线的私有成员属性   对应 的setter 和getter</p>
-<p>那么我们来Swift中看一下怎么定义一个成员变量</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p>so easy 这个谁不会嘛   （我这里不讨论可选类型  而是讨论 什么叫做存储变量 什么叫做计算变量）</p>
-<p>我们会在想 Swift 会不会像oc一样 给我们同样的生成了 setter  和getter呢<br>于是有的人会这样写 </p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p>然后这样调用</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p>然后一运行程序 Crash了     很多人 会说 肯定了 不就是循环调用<br>断点出的堆栈信息 这样的</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p>很明显 这就是循环调用了   但是你把self.去掉  之后再次运行</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p> 还是崩    </p>
-<p>奶奶的要崩溃了   这是什么鬼    </p>
-<p>其实Swift设计的初衷和oc并不是特别一样</p>
-<p>后文解答  </p>
-<p>我们先来看一个mvc的结构图 </p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p>其实在mvc中 View是不能拿到model的   他们互相不知道<br>但是在开发过程中  我们很多view的数据来源自model   如果我们在外部提供一个一个的属性  然后等着控制器 去赋值  再在对应的setter里面去 修改view 的显示 我们会发现很累   因为一个页面可能有太多属性  所以在大多数情况 我们在view声明一个model的属性 等值控制器去赋值<br> <code>但是</code> <code>但是</code> <code>但是</code>  </p>
-<p>重要的事情说三遍<br>我们这样我违反了 mvc的思想  其实（mvvm）也是这样的  view不能拿到model   因为你拿到了model  就可以修改  就会造成页面中的数据不对应<br><code>大风险啊</code>   于是Swift中出现了 计算变量这种东西 </p>
-<ul>
-<li>什么叫计算变量   还有什么叫存储变量 ？<br><code>什么鬼</code>  <blockquote>
-<p>我们声明了一种变量就是为了存储数据 但是Swift中有一种特殊的变量 叫做 计算变量  这种变量是 不能存放数据  （你特么又在逗我 ）</p>
-</blockquote>
-</li>
-</ul>
-<p> 看官  我真的没逗你  是真的  这种变量主要就是为了 在view里面声明一个只读的变量 去来给页面赋值的   例子</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p>这种办法就巧妙的 避开了以前在OC开发iOS时 可能对mvc造成的规则不符的情况   </p>
-<ul>
-<li>这里出现了其他的情况 就是我真的想拥有一个变量  还想在setter方法里面做些别的操作 </li>
-</ul>
-<p>这里我们出现了先入为主的观念  很多java C++ 和OC开发者 都以为对于的setter就是对应的Set方法  其实不是这样的额<br>在Swift中访问控制是有访问控制关键字来决定的<br>如</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p>对于的监听方法就变成了这样 </p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<blockquote>
-<p>在早期 apple 建议开发者 都使用  view 使用kvo去观察model的变化 来给对于的页面赋值   但是也不知道程序员的习惯 还是如何 大家还是我行我素  就在view中拿到model  </p>
-</blockquote>
-<p>在Swift中 建议使用计算变量 来给view赋值</p>
-<ul>
-<li>关于网上对于计算变量的写法  </li>
-</ul>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p>很多人 都模仿 OC中的写法 自己写个带下划线的私有变量 然后提供 set和get方法    我只能说你根本就没有理解Swift   带着陈旧的思想去学习  多此一举嘛 </p>
-<ul>
-<li>关于两个问题</li>
-</ul>
-<ol>
-<li><p>我真的想在计算属性里面存值 </p>
-</li>
-<li><p>属性观察期的位置 固定了  那以前的kvo怎么办</p>
-</li>
-</ol>
-<blockquote>
-<p>  还记得OC中的面试题吗<br> category 声明一个property   是什么意思<br>怎么给category增加成员属性</p>
-</blockquote>
-<p>在oc的category中写了一个property  其实系统帮你做了一个对应的set 和 get方法的声明 具体也不会有私有变量生成   也不会有方法实现   如果你真的要加变量 就要用到kvo的 关联对象  <code>如果你对runtime不熟悉  去简述搜 runtime  很多好文章</code></p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p>在Swift中是这样的</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<blockquote>
-<p>关于kvo  Swift的初衷就是为了创造几门极度安全化的语言  所以Swift不建议我们再 使用kvo了   因为   在oc中kvo 会产生  一个私有的中间类   （不懂去看runtime ）      在Swift 真的想用kvo  就要用黑魔法了</p>
-</blockquote>
-<p><code>参看自喵神的tips</code><br><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<blockquote>
-<p>“在 Swift 中使用 KVO 有两个显而易见的问题。<br>首先是 Swift 的 KVO 需要依赖的东西比原来多。在 Objective-C 中我们几乎可以没有限制地对所有满足 KVC 的属性进行监听，而现在我们需要属性有 dynamic 进行修饰。大多数情况下，我们想要观察的类不一定是 dynamic 修饰的 (除非这个类的开发者有意为之，否则一般也不会有人愿意多花功夫在属性前加上 dynamic，因为这毕竟要损失一部分性能)，并且有时候我们很可能也无法修改想要观察的类的源码。遇到这样的情况的话，一个可能可行的方案是继承这个类并且将需”“要观察的属性使用 dynamic 进行重写。比如刚才我们的 MyClass 中如果 date 没有 dynamic 的话，我们可能就需要一个新的 MyChildClass 了：”</p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;&lt;!-- Swift 存储变量，计算变量探索 --&gt;
-&lt;blockquote&gt;
-&lt;p&gt;  iOS开发者 群532084214 给大家提供一个交流技术 也可以聊天打屁的平台  &lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;此文默认
-    
-    </summary>
-    
-    
-      <category term="Swift" scheme="http://valiantcat.com/tags/Swift/"/>
-    
-  </entry>
-  
-</feed>
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
