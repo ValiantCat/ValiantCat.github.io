@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>ReactiveCocoa-Swift部分入门指南-Signal | 茶茶的小屋</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="茶茶的小屋">
+    <meta name="author" content="寒哥">
+    <meta name="description" content="iOS 开发， Swift，Objective-C,OC" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="茶茶的小屋" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/github.css" type="text/css">
+    
+
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <!-- <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://www.jianshu.com/users/cc1e4faec5f7" class="animsition-link">寒哥的简书</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/xinxinqiu" class="animsition-link">寒哥的CSDN</a></li>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" class="animsition-link">寒哥的Github</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">茶茶的小屋</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-07-21T03:00:44.000Z" itemprop="datePublished">
+          2016-07-21
+      </time>
+    
+    
+    | 
+    <a href='/tags/ReactiveCocoa/'>ReactiveCocoa</a>
+    
+    
+</span>
+                <h1>ReactiveCocoa-Swift部分入门指南-Signal</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>学习过ReactiCocoa(以下简称RAC)的同学一般都会使用Objective-C的部分，不过RAC3之后支持了Swift，目前RAC3.x支持的是Swift1.x系列，RAC4支持的是Swift2.x系列。今天花了一点时间学习了下Swift部分示例代码。这里做些记录。Swift是支持playground，可以使用Markdown编写文档，并且所见即所得的界面方便学习。更可以插入图片。方便阅读。</p>
+<!-- toc -->
+<ul>
+<li><a href="#学习知识必备">学习知识必备</a></li>
+<li><a href="#start">Start</a></li>
+<li><a href="#playgroundutility">PlaygroundUtility</a></li>
+<li><a href="#signal">Signal</a><ul>
+<li><a href="#subscription">Subscription</a></li>
+<li><a href="#empty">empty</a></li>
+<li><a href="#never">Never</a></li>
+</ul>
+</li>
+<li><a href="#operators">Operators</a><ul>
+<li><a href="#uniquevalues-唯一值">uniqueValues 唯一值</a></li>
+<li><a href="#map">map</a></li>
+<li><a href="#maperror">mapError</a></li>
+<li><a href="#filter">filter</a></li>
+<li><a href="#ignorenil">ignoreNil</a></li>
+<li><a href="#take">take</a></li>
+<li><a href="#collect">collect</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1 id="学习知识必备"><a href="#学习知识必备" class="headerlink" title="学习知识必备"></a>学习知识必备</h1><p>默认你已经学过RAC-OC部分， Swift语言，并对Monad，functional Programming有些简单的了解，或者，如果你学习了RXSwift更好。</p>
+<h1 id="start"><a href="#Start" class="headerlink" title="Start"></a>Start</h1><pre><code>1.    git clone  git@github.com:ReactiveCocoa/ReactiveCocoa.git
+    •    执行script/bootstrap 脚本
+    •    如果你安装了 [Cartheage](https://github.com/Carthage/Carthage) 使用  carthage checkout
+2.    打开 ReactiveCocoa.xcworkspace
+3.    编译 Result-Mac scheme
+4.    编译 ReactiveCocoa-Mac scheme
+5.    在workSpace目录中打开ReactiveCocoa.playground
+6.    Choose View &gt; Show Debug Area、
+</code></pre><h1 id="playgroundutility"><a href="#PlaygroundUtility" class="headerlink" title="PlaygroundUtility"></a>PlaygroundUtility</h1><p>先来观察一下这个里面有两个方法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">scopedExample</span><span class="params">(exampleDescription: String, <span class="number">_</span> action: <span class="params">()</span></span></span> -&gt; <span class="type">Void</span>) &#123;</div><div class="line">	<span class="built_in">print</span>(<span class="string">"\n--- <span class="subst">\(exampleDescription)</span> ---\n"</span>)</div><div class="line">	action()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Error</span>: <span class="title">ErrorType</span> </span>&#123;</div><div class="line">	<span class="keyword">case</span> <span class="type">Example</span>(<span class="type">String</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>scopedExample 方便测试，并分割日志输出，Error也是为了测试方便。</p>
+<h1 id="signal"><a href="#Signal" class="headerlink" title="Signal"></a>Signal</h1><p>一个<code>Signal</code>类型的实例，代表了一个有时序的并且可以被<code>观察</code> (类似订阅)的<code>事件流</code></p>
+<p>信号通常被用来表示正在进行中的事件流，比如<code>通知</code>，<code>用户输入等</code>。用户(或者只要能造成事件的东西)产生的事件发送或者被接受，事件就被传递到信号上，并且被<code>推送</code>(push -Driven)到任何观察者哪里，并且所有观察者都是同时收到这些事件。</p>
+<p>如果你想访问一系列的事件，就必须<code>观察</code>一个信号，观察一个信号并不会触发任何附作用，可以这样理解。信号是由生产者生产和推动(push)的，消费者(观察者)是不会对事件的生命周期有任何影响。在观察一个信号时，发送了什么事件，只能对这个事件做操作，因为信号是有时序的，不能随机的访问其他事件。</p>
+<p>信号可以通过原函数去操作，比如 <code>filter</code>，<code>map</code>，<code>reduce</code>，也可以同时操作多个信号如<code>zip</code>，这些原函数只在 nextEvents生效(也就是对 comlete，failure等不生效)。<br>在一个信号的生命周期里，可以发送无数次的NextEvents事件，直到他们被终结，类似compleye，Faied，InterRuppet。终止事件没有数据值，所以他们必须被单独处理。</p>
+<h2 id="subscription"><a href="#Subscription" class="headerlink" title="Subscription"></a>Subscription</h2><p>一个信号通常被用来表示正在进行中的事件流,有时候他们被叫做热信号，这意味这订阅者可以错过一些在它订阅前发送的事件。订阅一个信号不会触发任何附作用。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">        scopedExample(<span class="string">"Subscription"</span>) &#123;</div><div class="line">            <span class="comment">// Signal.pipe is a way to manually control a signal. the returned observer can be used to send values to the signal</span></div><div class="line">            <span class="keyword">let</span> (signal, observer) = <span class="type">Signal</span>&lt;<span class="type">Int</span>, <span class="type">NonError</span>&gt;.pipe()</div><div class="line"></div><div class="line">            <span class="keyword">let</span> subscriber1 = <span class="type">Observer</span>&lt;<span class="type">Int</span>, <span class="type">NonError</span>&gt;(next: &#123; <span class="built_in">print</span>(<span class="string">"Subscriber 1 received <span class="subst">\($<span class="number">0</span>)</span>"</span>) &#125;)</div><div class="line">            <span class="keyword">let</span> subscriber2 = <span class="type">Observer</span>&lt;<span class="type">Int</span>, <span class="type">NonError</span>&gt;(next: &#123; <span class="built_in">print</span>(<span class="string">"Subscriber 2 received <span class="subst">\($<span class="number">0</span>)</span>"</span>) &#125;)</div><div class="line"></div><div class="line">            <span class="built_in">print</span>(<span class="string">"Subscriber 1 subscribes to the signal"</span>)</div><div class="line">            <span class="built_in">print</span>(<span class="string">"<span class="subst">\(observer)</span>"</span>)</div><div class="line">            signal.observe(subscriber1)</div><div class="line"></div><div class="line">            <span class="built_in">print</span>(<span class="string">"Send value `10` on the signal"</span>)</div><div class="line">            <span class="comment">// subscriber1 will receive the value</span></div><div class="line">            observer.sendNext(<span class="number">10</span>)</div><div class="line"></div><div class="line">            <span class="built_in">print</span>(<span class="string">"Subscriber 2 subscribes to the signal"</span>)</div><div class="line">            <span class="comment">// Notice how nothing happens at this moment, i.e. subscriber2 does not receive the previously sent value</span></div><div class="line">            signal.observe(subscriber2)</div><div class="line"></div><div class="line">            <span class="built_in">print</span>(<span class="string">"Send value `20` on the signal"</span>)</div><div class="line">            <span class="comment">// Notice that now, subscriber1 and subscriber2 will receive the value</span></div><div class="line">            observer.sendNext(<span class="number">20</span>)</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        </div><div class="line">--- <span class="type">Subscription</span> ---</div><div class="line"></div><div class="line"><span class="type">Subscriber</span> <span class="number">1</span> subscribes to the signal</div><div class="line"><span class="type">Observer</span>&lt;<span class="type">Int</span>, <span class="type">NonError</span>&gt;(action: (<span class="type">Function</span>))</div><div class="line"><span class="type">Send</span> value `<span class="number">10</span>` on the signal</div><div class="line"><span class="type">Subscriber</span> <span class="number">1</span> received <span class="number">10</span></div><div class="line"><span class="type">Subscriber</span> <span class="number">2</span> subscribes to the signal</div><div class="line"><span class="type">Send</span> value `<span class="number">20</span>` on the signal</div><div class="line"><span class="type">Subscriber</span> <span class="number">1</span> received <span class="number">20</span></div><div class="line"><span class="type">Subscriber</span> <span class="number">2</span> received <span class="number">20</span></div></pre></td></tr></table></figure>
+<p>因为Swift有泛型的存在，这样的话我们可以把Signal当作任何数据类型的容器，而不是像OC中利用上帝类型(id)。更加方便传递数据。</p>
+<p>首先我们通过Siganl.pipe()创建了一个信号和一个观察者。<br>奇怪的是，在RACOC部分中，我们很少主动创建观察者，我们通常直接订阅信号就可以。<br>在Siwft中，通过pipe创建的信号是个热信号，类似与OC中的RACSubject系列，在RACSubject继承自RACSiganl又继承自RACStream，RACStream是一个Monad,它可以代表数据和数据的一系列的操作如<code>map</code>,<code>flattenMap</code>,<code>bind</code><br>RACSubject又遵守了RACSubscriber协议，这个协议定义了可以发送数据的操作。<br>所以RACSubject即是一个信号，又是一个观察者。</p>
+<p>在Swift部分的实现中，Signal并没有实现发送数据的方法。所以它需要一个内部的Observer去发送数据。所以它被pipe直接返回，</p>
+<p>在外部我们需要自己实例化一个Observer观察者。去观察(订阅)事件，</p>
+<p>可能在你查看pipe的实现的时候并不太好理解。把尾随闭包补全相对好理解点。</p>
+<p><em>做个总结</em></p>
+<ol>
+<li>RACOC中：<blockquote>
+<p> RACSubject = RACSignal + RACSubscriper<br>在订阅的时候，订阅者被放在了RACSubject内部存放，我们只需要去关注订阅的block实现即可。</p>
+</blockquote>
+</li>
+<li>RACSwift中:<blockquote>
+<p> Signal：Just is a Signal<br> 所以需要一个内部观者者去充当发送数据的工具。外部的订阅需要自己手动实例观察者</p>
+</blockquote>
+</li>
+<li>热信号：<blockquote>
+<p> 由于pipe方法返回的是热信号，所以一个订阅者会错过在订阅之前发送的事件。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="empty"><a href="#empty" class="headerlink" title="empty"></a>empty</h2><p>空信号直接发送一个interrupted事件</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">        scopedExample(<span class="string">"`empty`"</span>) &#123;</div><div class="line">            <span class="keyword">let</span> emptySignal = <span class="type">Signal</span>&lt;<span class="type">Int</span>, <span class="type">NonError</span>&gt;.empty</div><div class="line">            </div><div class="line">            <span class="keyword">let</span> observer = <span class="type">Observer</span>&lt;<span class="type">Int</span>, <span class="type">NonError</span>&gt;(</div><div class="line">                failed: &#123; <span class="number">_</span> <span class="keyword">in</span> <span class="built_in">print</span>(<span class="string">"error not called"</span>) &#125;,</div><div class="line">                completed: &#123; <span class="built_in">print</span>(<span class="string">"completed not called"</span>) &#125;,</div><div class="line">                interrupted: &#123; <span class="built_in">print</span>(<span class="string">"interrupted called"</span>) &#125;,</div><div class="line">                next: &#123; <span class="number">_</span> <span class="keyword">in</span> <span class="built_in">print</span>(<span class="string">"next not called"</span>) &#125;</div><div class="line">            )</div><div class="line">            </div><div class="line">            emptySignal.observe(observer)</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        </div><div class="line">        </div><div class="line">--- `empty` ---</div><div class="line"></div><div class="line">interrupted called</div></pre></td></tr></table></figure>
+<h2 id="never"><a href="#Never" class="headerlink" title="Never"></a>Never</h2><p>一个never信号不会发送任何事件</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`never`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> neverSignal = <span class="type">Signal</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;.never</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> observer = <span class="type">Observer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(</div><div class="line">        failed: &#123; <span class="number">_</span> <span class="keyword">in</span> <span class="built_in">print</span>(<span class="string">"error not called"</span>) &#125;,</div><div class="line">        completed: &#123; <span class="built_in">print</span>(<span class="string">"completed not called"</span>) &#125;,</div><div class="line">        interrupted: &#123; <span class="built_in">print</span>(<span class="string">"interrupted not called"</span>) &#125;,</div><div class="line">        next: &#123; <span class="number">_</span> <span class="keyword">in</span> <span class="built_in">print</span>(<span class="string">"next not called"</span>) &#125;</div><div class="line">    )</div><div class="line">    </div><div class="line">    neverSignal.observe(observer)</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">--- `never` ---</div></pre></td></tr></table></figure>
+<h1 id="operators"><a href="#Operators" class="headerlink" title="Operators"></a>Operators</h1><h2 id="uniquevalues-唯一值"><a href="#uniqueValues-唯一值" class="headerlink" title="uniqueValues 唯一值"></a>uniqueValues 唯一值</h2><p>仅从集合中发送一次相同事件—类似与arrryQueue变成了SetQueue</p>
+<blockquote>
+<p>注意：这会造成被发送的值被保留下来，用于以后发送的时候来检查是否重复，你可以编写一个函数来过滤重复值，这样可以减少内存消耗。</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`uniqueValues`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> (signal, observer) = <span class="type">Signal</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;.pipe()</div><div class="line">    <span class="keyword">let</span> subscriber = <span class="type">Observer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(next: &#123; <span class="built_in">print</span>(<span class="string">"Subscriber received <span class="subst">\($<span class="number">0</span>)</span>"</span>) &#125; )</div><div class="line">    <span class="keyword">let</span> uniqueSignal = signal.uniqueValues()</div><div class="line"></div><div class="line">    uniqueSignal.observe(subscriber)</div><div class="line">    observer.sendNext(<span class="number">1</span>)</div><div class="line">    observer.sendNext(<span class="number">2</span>)</div><div class="line">    observer.sendNext(<span class="number">3</span>)</div><div class="line">    observer.sendNext(<span class="number">4</span>)</div><div class="line">    observer.sendNext(<span class="number">3</span>)</div><div class="line">    observer.sendNext(<span class="number">3</span>)</div><div class="line">    observer.sendNext(<span class="number">5</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `uniqueValues` ---</div><div class="line"></div><div class="line"><span class="type">Subscriber</span> received <span class="number">1</span></div><div class="line"><span class="type">Subscriber</span> received <span class="number">2</span></div><div class="line"><span class="type">Subscriber</span> received <span class="number">3</span></div><div class="line"><span class="type">Subscriber</span> received <span class="number">4</span></div><div class="line"><span class="type">Subscriber</span> received <span class="number">5</span></div></pre></td></tr></table></figure>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><p>把每一个发送的值转换成新的值</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`map`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> (signal, observer) = <span class="type">Signal</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;.pipe()</div><div class="line">    <span class="keyword">let</span> subscriber = <span class="type">Observer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(next: &#123; <span class="built_in">print</span>(<span class="string">"Subscriber received <span class="subst">\($<span class="number">0</span>)</span>"</span>) &#125; )</div><div class="line">    <span class="keyword">let</span> mappedSignal = signal.<span class="built_in">map</span> &#123; $<span class="number">0</span> * <span class="number">2</span> &#125;</div><div class="line"></div><div class="line">    mappedSignal.observe(subscriber)</div><div class="line">    <span class="built_in">print</span>(<span class="string">"Send value `10` on the signal"</span>)</div><div class="line">    observer.sendNext(<span class="number">10</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `<span class="built_in">map</span>` ---</div><div class="line"></div><div class="line"><span class="type">Send</span> value `<span class="number">10</span>` on the signal</div><div class="line"><span class="type">Subscriber</span> received <span class="number">20</span></div></pre></td></tr></table></figure>
+<h2 id="maperror"><a href="#mapError" class="headerlink" title="mapError"></a>mapError</h2><p>把收到的error值变成新的error值</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`mapError`"</span>) &#123;    </div><div class="line">        <span class="keyword">let</span> userInfo = [<span class="type">NSLocalizedDescriptionKey</span>: <span class="string">"🔥"</span>]</div><div class="line">        <span class="keyword">let</span> code = error.code + <span class="number">10000</span></div><div class="line">        <span class="keyword">let</span> mappedError = <span class="type">NSError</span>(domain: <span class="string">"com.reactivecocoa.errordomain"</span>, code: code, userInfo: userInfo)</div><div class="line">    <span class="keyword">let</span> (signal, observer) = <span class="type">Signal</span>&lt;<span class="type">Int</span>, <span class="type">NSError</span>&gt;.pipe()</div><div class="line">    <span class="keyword">let</span> subscriber = <span class="type">Observer</span>&lt;<span class="type">Int</span>, <span class="type">NSError</span>&gt;(failed: &#123; <span class="built_in">print</span>(<span class="string">"Subscriber received error: <span class="subst">\($<span class="number">0</span>)</span>"</span>) &#125; )</div><div class="line">    <span class="keyword">let</span> mappedErrorSignal = signal.mapError &#123; (error:<span class="type">NSError</span>) -&gt; <span class="type">NSError</span> <span class="keyword">in</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> mappedError</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    mappedErrorSignal.observe(subscriber)</div><div class="line">    <span class="built_in">print</span>(<span class="string">"Send error `NSError(domain: \"com.reactivecocoa.errordomain\", code: 4815, userInfo: nil)` on the signal"</span>)</div><div class="line">    observer.sendFailed(<span class="type">NSError</span>(domain: <span class="string">"com.reactivecocoa.errordomain"</span>, code: <span class="number">4815</span>, userInfo: <span class="literal">nil</span>))</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">--- `mapError` ---</div><div class="line"></div><div class="line"><span class="type">Send</span> error `<span class="type">NSError</span>(domain: <span class="string">"com.reactivecocoa.errordomain"</span>, code: <span class="number">4815</span>, userInfo: <span class="literal">nil</span>)` on the signal</div><div class="line"><span class="type">Subscriber</span> received error: <span class="type">Error</span> <span class="type">Domain</span>=com.reactivecocoa.errordomain <span class="type">Code</span>=<span class="number">14815</span> <span class="string">"🔥"</span> <span class="type">UserInfo</span>=&#123;<span class="type">NSLocalizedDescription</span>=🔥&#125;</div></pre></td></tr></table></figure>
+<h2 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h2><p>用于过滤一些值</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`filter`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> (signal, observer) = <span class="type">Signal</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;.pipe()</div><div class="line">    <span class="keyword">let</span> subscriber = <span class="type">Observer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(next: &#123; <span class="built_in">print</span>(<span class="string">"Subscriber received <span class="subst">\($<span class="number">0</span>)</span>"</span>) &#125; )</div><div class="line">    <span class="comment">// subscriber will only receive events with values greater than 12</span></div><div class="line">    <span class="keyword">let</span> filteredSignal = signal.<span class="built_in">filter</span> &#123; $<span class="number">0</span> &gt; <span class="number">12</span> ? <span class="literal">true</span> : <span class="literal">false</span> &#125;</div><div class="line"></div><div class="line">    filteredSignal.observe(subscriber)</div><div class="line">    observer.sendNext(<span class="number">10</span>)</div><div class="line">    observer.sendNext(<span class="number">11</span>)</div><div class="line">    observer.sendNext(<span class="number">12</span>)</div><div class="line">    observer.sendNext(<span class="number">13</span>)</div><div class="line">    observer.sendNext(<span class="number">14</span>)</div><div class="line">&#125;</div><div class="line">--- `<span class="built_in">filter</span>` ---</div><div class="line"></div><div class="line"><span class="type">Subscriber</span> received <span class="number">13</span></div><div class="line"><span class="type">Subscriber</span> received <span class="number">14</span></div></pre></td></tr></table></figure>
+<h2 id="ignorenil"><a href="#ignoreNil" class="headerlink" title="ignoreNil"></a>ignoreNil</h2><p>在发送的值为可选类型中：如果有值，把值解包，如果是nil 丢弃掉。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`ignoreNil`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> (signal, observer) = <span class="type">Signal</span>&lt;<span class="type">Int</span>?, <span class="type">NoError</span>&gt;.pipe()</div><div class="line">    <span class="comment">// note that the signal is of type `Int?` and observer is of type `Int`, given we're unwrapping</span></div><div class="line">    <span class="comment">// non-`nil` values</span></div><div class="line">    <span class="keyword">let</span> subscriber = <span class="type">Observer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(next: &#123; <span class="built_in">print</span>(<span class="string">"Subscriber received <span class="subst">\($<span class="number">0</span>)</span>"</span>) &#125; )</div><div class="line">    <span class="keyword">let</span> ignoreNilSignal = signal.ignoreNil()</div><div class="line"></div><div class="line">    ignoreNilSignal.observe(subscriber)</div><div class="line">    observer.sendNext(<span class="number">1</span>)</div><div class="line">    observer.sendNext(<span class="literal">nil</span>)</div><div class="line">    observer.sendNext(<span class="number">3</span>)</div><div class="line">&#125;</div><div class="line">--- `ignoreNil` ---</div><div class="line"></div><div class="line"><span class="type">Subscriber</span> received <span class="number">1</span></div><div class="line"><span class="type">Subscriber</span> received <span class="number">3</span></div></pre></td></tr></table></figure>
+<h2 id="take"><a href="#take" class="headerlink" title="take"></a>take</h2><p>take(num)只取前num此值的信号</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`take`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> (signal, observer) = <span class="type">Signal</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;.pipe()</div><div class="line">    <span class="keyword">let</span> subscriber = <span class="type">Observer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(next: &#123; <span class="built_in">print</span>(<span class="string">"Subscriber received <span class="subst">\($<span class="number">0</span>)</span>"</span>) &#125; )</div><div class="line">    <span class="keyword">let</span> takeSignal = signal.take(<span class="number">2</span>)</div><div class="line"></div><div class="line">    takeSignal.observe(subscriber)</div><div class="line">    observer.sendNext(<span class="number">1</span>)</div><div class="line">    observer.sendNext(<span class="number">2</span>)</div><div class="line">    observer.sendNext(<span class="number">3</span>)</div><div class="line">    observer.sendNext(<span class="number">4</span>)</div><div class="line">&#125;</div><div class="line">--- `take` ---</div><div class="line"></div><div class="line"><span class="type">Subscriber</span> received <span class="number">1</span></div><div class="line"><span class="type">Subscriber</span> received <span class="number">2</span></div></pre></td></tr></table></figure>
+<h2 id="collect"><a href="#collect" class="headerlink" title="collect"></a>collect</h2><p>在发送complete事件之后，观察者会收到一个由之前事件组成的数组，</p>
+<blockquote>
+<p>注意: 如果在发送cimplete事件的时候，没有任何事件发送，观察者会收到一个空的数组</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`collect`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> (signal, observer) = <span class="type">Signal</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;.pipe()</div><div class="line">    <span class="comment">// note that the signal is of type `Int` and observer is of type `[Int]` given we're "collecting"</span></div><div class="line">    <span class="comment">// `Int` values for the lifetime of the signal</span></div><div class="line">    <span class="keyword">let</span> subscriber = <span class="type">Observer</span>&lt;[<span class="type">Int</span>], <span class="type">NoError</span>&gt;(next: &#123; <span class="built_in">print</span>(<span class="string">"Subscriber received <span class="subst">\($<span class="number">0</span>)</span>"</span>) &#125; )</div><div class="line">    <span class="keyword">let</span> collectSignal = signal.collect()</div><div class="line"></div><div class="line">    collectSignal.observe(subscriber)</div><div class="line">    observer.sendNext(<span class="number">1</span>)</div><div class="line">    observer.sendNext(<span class="number">2</span>)</div><div class="line">    observer.sendNext(<span class="number">3</span>)</div><div class="line">    observer.sendNext(<span class="number">4</span>)</div><div class="line">    observer.sendCompleted()</div><div class="line">&#125;</div><div class="line">--- `collect` ---</div><div class="line"></div><div class="line"><span class="type">Subscriber</span> received [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</div></pre></td></tr></table></figure>
+<hr>
+<p>Signal大致讲解到这里结束了。给自己挖个坑，下一篇整理下<a href="http://valiantcat.com/2016/07/20/ReactiveCocoa-Swift%E9%83%A8%E5%88%86%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-SignalProducer/">SignalProduce</a></p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/07/22/ReactiveCocoa和RXSwift速查表/" style="float: left;">
+        ← ReactiveCocoa和RXSwift速查表
+    </a>
+    
+    
+    <a class="pull-right" href="/2016/07/20/ReactiveCocoa-Swift部分入门指南-SignalProducer/">
+        ReactiveCocoa-Swift部分入门指南-SignalProducer →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/07/21/ReactiveCocoa-Swift部分入门指南-Signal/" data-title="ReactiveCocoa-Swift部分入门指南-Signal" data-url="http://valiantcat.com/2016/07/21/ReactiveCocoa-Swift部分入门指南-Signal/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"chachaHouse"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By 寒哥. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

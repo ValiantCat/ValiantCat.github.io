@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Archives: 2015 | 茶茶的小屋</title>
+  <title>友好的ContainerView&amp;AutoLayout资料推荐 | 茶茶的小屋</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -86,7 +86,7 @@
 </head>
 
 <!--
-<body class="home-template">
+<body class="post-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -214,55 +214,127 @@
 
         <!-- ============================ END Hero Image =========================== -->
       
-
-
-<section id="services">
+<section id="intro">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="row boxes">
-                    
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/09/22/SwiftValueType/">寒哥带你深入了解下Swift中的Value Type</a></h4>
-                            
-                            <p><time datetime="2015-09-22T08:11:00.000Z"><a href="/2015/09/22/SwiftValueType/">2015-09-22</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/09/05/ContainerView/">友好的ContainerView&amp;AutoLayout资料推荐</a></h4>
-                            
-                            <p><time datetime="2015-09-05T06:43:53.000Z"><a href="/2015/09/05/ContainerView/">2015-09-05</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/08/03/SwiftVariables/">关于Swift  你可能连变量都不会定义</a></h4>
-                            
-                            <p><time datetime="2015-08-03T11:47:10.000Z"><a href="/2015/08/03/SwiftVariables/">2015-08-03</a></time></p>
-                        </div>
-                    
-                </div>
-            </div>    
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2015-09-05T06:43:53.000Z" itemprop="datePublished">
+          2015-09-05
+      </time>
+    
+    
+    | 
+    <a href='/tags/AutoLayout/'>AutoLayout</a>
+    
+    
+</span>
+                <h1>友好的ContainerView&AutoLayout资料推荐</h1>
+            </div>
         </div>
-    </div>
-</section> 
+        <div class="col-md-8 col-md-offset-2">
+      		<ul>
+<li>顺便来个广告 <blockquote>
+<p>  iOS开发者 群532084214 给大家提供一个交流技术 也可以聊天打屁的平台  </p>
+</blockquote>
+</li>
+</ul>
+<h1 id="storyboard开发"><a href="#StoryBoard开发" class="headerlink" title="StoryBoard开发"></a>StoryBoard开发</h1><p>很多iOS开发者喜欢用StoryBoard开发   实在是非常省心省事<br>但是涉及到一个也没也相对有很多复杂的状态 拖出来的约束也会多到让人恶心</p>
+<p>其实Xcode 帮我们提供了一些方便的容器来辅助开发<br>如图</p>
+<p><img src="/2015/09/05/ContainerView/" alt="Paste_Image.png"></p>
+<p>我们假设绿色的和橙色的view 里面设计到非常多乱七八糟的子View<br>按照一般的写法 我们就是指定一个绿色和橙色的view 然后在里面做事件操作  但是我们还是离不开在storyBoard 里面出现一坨约束（请原谅我用这个词汇）</p>
+<p>这样在构造IBOutLet时候就会出现一个ViewController有很多OutLet   多到让你起名字都很难起 而且控制器就代码就会非常多<br>在iOS 5之后出现了ChildViewController 类似于View 可以addSubview  之后viewController 可以addChildViewController</p>
+<p>#解决办法</p>
+<p><code>1</code><br><img src="/2015/09/05/ContainerView/" alt="Paste_Image.png"></p>
+<p>  <code>2</code> 这时候你会发现右边多了两个小的控制器</p>
+<p><img src="/2015/09/05/ContainerView/" alt="Paste_Image.png"></p>
+<p><code>3</code>这时候新建两个控制器<br>FirstContainerViewController<br>SecondContainerViewController</p>
+<p><img src="/2015/09/05/ContainerView/" alt="Paste_Image.png"></p>
+<p><code>4</code>运行项目</p>
+<p><img src="/2015/09/05/ContainerView/" alt="Paste_Image.png"></p>
+<blockquote>
+<p>很多人都会说我并不喜欢用StoryBoard  但是一个东西存在总归是有原因的  我以前也不喜欢用StoryBoard 觉得好难控制 AutoLayout<br>原因来自与对Autolayout不熟悉  很多公司的app 很多节目都是完全无法重用的 而且难度也不大  这样的界面要是一直用代码要累死  事实上 你也会写烦  apple 一直在推崇AutoLayout  这是大趋势  迂腐的程序员并不好   像iOS 9出的布局神奇<code>UIStackView</code> 和 <code>Storyboard refrence</code>都是为了简便开发</p>
+</blockquote>
+<p>给大家推荐点资料吧  拥有这些  应该会对AutoLayout有个大的提高  </p>
+<pre><code>`You will love\`t`
+</code></pre><h1 id="从入门到精通"><a href="#从入门到精通" class="headerlink" title="从入门到精通"></a>从入门到精通</h1><ul>
+<li><a href="http://grayluo.github.io/WeiFocusIo/autolayout/2015/01/24/autolayout1/" target="_blank" rel="external">AutoLayout深入浅出一[前传]</a></li>
+<li><p><a href="http://grayluo.github.io/WeiFocusIo/autolayout/2015/01/24/autolayout2/" target="_blank" rel="external">AutoLayout深入浅出二[基本使用]</a></p>
+</li>
+<li><p><a href="http://grayluo.github.io/WeiFocusIo/autolayout/2015/01/27/autolayout3/" target="_blank" rel="external"><code>AutoLayout深入浅出三\[相遇Scrollview\] 重要</code></a></p>
+</li>
+<li><a href="http://grayluo.github.io/WeiFocusIo/autolayout/2015/02/01/autolayout4/" target="_blank" rel="external">AutoLayout深入浅出四[不仅是UIWebView与UITableView的纠缠]</a></li>
+<li><a href="http://grayluo.github.io/WeiFocusIo/autolayout/2015/02/01/autolayout5/" target="_blank" rel="external">AutoLayout深入浅出五[UITableView动态高度]</a></li>
+<li><a href="http://www.90159.com/2015/07/21/54/" target="_blank" rel="external"><a href="http://www.90159.com/2015/07/21/54/" target="_blank" rel="external">动态计算UITableViewCell高度详解</a></a></li>
+<li><a href="http://www.imooc.com/wenda/detail/245446" target="_blank" rel="external">使用Autolayout实现UITableView的Cell动态布局和高度动态改变</a></li>
+</ul>
+<hr>
+<p>#其他补充</p>
+<ul>
+<li><p><a href="http://blog.csdn.net/ysy441088327/article/details/11117619" target="_blank" rel="external"><a href="http://blog.csdn.net/ysy441088327/article/details/11117619" target="_blank" rel="external">Auto Layout 入门及使用</a></a></p>
+</li>
+<li><p><a href="http://blog.csdn.net/ysy441088327/article/details/12558097" target="_blank" rel="external"> <a href="http://blog.csdn.net/ysy441088327/article/details/12558097" target="_blank" rel="external">Auto Layout 进阶</a></a></p>
+</li>
+<li><p><a href="http://www.cocoachina.com/ios/20141217/10669.html" target="_blank" rel="external">iOS 8 AutoLayout与Size Class自悟</a></p>
+</li>
+</ul>
+<hr>
+<h1 id="ios-9"><a href="#iOS-9" class="headerlink" title="iOS 9"></a>iOS 9</h1><ul>
+<li><a href="http://www.cocoachina.com/ios/20150820/13118.html" target="_blank" rel="external">UIStackView如何让你的开发更简单</a></li>
+<li><p><a href="http://www.cocoachina.com/ios/20150623/12233.html" target="_blank" rel="external"> UIStackView入门</a></p>
+</li>
+<li><p><a href="http://www.cocoachina.com/ios/20150617/12151.html" target="_blank" rel="external">新增 UIStackView 官方文档翻译</a></p>
+</li>
+</ul>
+<hr>
+<p>#开发者翻译</p>
+<ul>
+<li><a href="http://www.jianshu.com/p/610bc9d26afa" target="_blank" rel="external">Session218 Mysteries of AutoLayout Part1 听译加讲解第一篇</a></li>
+<li><a href="http://www.jianshu.com/p/1991e6c2881a" target="_blank" rel="external">iOS9 Day-by-Day :: Day 4 :: UIStack View</a></li>
+<li><a href="http://www.jianshu.com/p/184e3fb94bd8" target="_blank" rel="external">iOS 9: UIStackView 浅析</a></li>
+</ul>
+<blockquote>
+<p>到最后这篇文章变成了知识点推荐了 😂 主要是Autolayout 书面描述 挺难想清楚的  要是有个人讲解 很快就能理解了     多练就能很快的掌握了 </p>
+</blockquote>
+<hr>
+<p> 受到 公众号主人邀请   我的文章也会被发布到这个公众号</p>
+<pre><code>** 加个欢迎微信扫码关注吧**
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/239184-ae61d131ca1b8043.png?imageMogr2/auto-orient/strip|imageView2/2/w/1240" alt="Paste_Image.png"></p>
 
-<section id="statement">
-    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
-        <div class="row">
-            <p>不管生活有多不容易，都要守住自己的那一份优雅。</p>
+            <div class="clearfix"></div>
+            <hr class="nogutter">
         </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2015/09/22/SwiftValueType/" style="float: left;">
+        ← 寒哥带你深入了解下Swift中的Value Type
+    </a>
+    
+    
+    <a class="pull-right" href="/2015/08/03/SwiftVariables/">
+        关于Swift  你可能连变量都不会定义 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2015/09/05/ContainerView/" data-title="友好的ContainerView&amp;AutoLayout资料推荐" data-url="http://valiantcat.com/2015/09/05/ContainerView/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"chachaHouse"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
     </div>
 </section>
+
+
       
 <!-- ============================ Footer =========================== -->
 

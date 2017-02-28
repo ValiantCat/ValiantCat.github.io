@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://valiantcat.com/2016/07/22/ReactiveCocoa%E5%92%8CRXSwift%E9%80%9F%E6%9F%A5%E8%A1%A8/</loc>
+    
+    <lastmod>2017-02-28T15:01:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://valiantcat.com/2016/09/14/Effective-C-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2016-10-12T09:16:18.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://valiantcat.com/2016/07/25/%E5%B9%B2%E8%B4%A7%E9%9B%86%E4%B8%AD%E8%90%A5-ReactiveCocoa+RXSwift+MVVM/</loc>
+    
+    <lastmod>2016-07-25T09:26:35.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://valiantcat.com/2015/08/03/SwiftVariables/</loc>
     
     <lastmod>2016-07-22T07:08:01.000Z</lastmod>
@@ -12,6 +33,41 @@
     <loc>http://valiantcat.com/2015/09/22/SwiftValueType/</loc>
     
     <lastmod>2016-07-22T07:07:15.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://valiantcat.com/2016/04/27/HowToUseRunloop/</loc>
+    
+    <lastmod>2016-07-22T07:06:52.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://valiantcat.com/2015/09/05/ContainerView/</loc>
+    
+    <lastmod>2016-07-22T07:06:46.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://valiantcat.com/2016/06/03/%E4%BB%8E%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E5%88%B0%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</loc>
+    
+    <lastmod>2016-07-22T07:06:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://valiantcat.com/2016/07/20/ReactiveCocoa-Swift%E9%83%A8%E5%88%86%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-SignalProducer/</loc>
+    
+    <lastmod>2016-07-22T03:43:03.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://valiantcat.com/2016/07/21/ReactiveCocoa-Swift%E9%83%A8%E5%88%86%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-Signal/</loc>
+    
+    <lastmod>2016-07-22T03:40:04.000Z</lastmod>
     
   </url>
   

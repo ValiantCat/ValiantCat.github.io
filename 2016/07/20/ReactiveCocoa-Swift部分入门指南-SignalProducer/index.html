@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>ReactiveCocoa-Swift部分入门指南-SignalProducer | 茶茶的小屋</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="茶茶的小屋">
+    <meta name="author" content="寒哥">
+    <meta name="description" content="iOS 开发， Swift，Objective-C,OC" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="茶茶的小屋" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/github.css" type="text/css">
+    
+
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <!-- <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://www.jianshu.com/users/cc1e4faec5f7" class="animsition-link">寒哥的简书</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/xinxinqiu" class="animsition-link">寒哥的CSDN</a></li>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" class="animsition-link">寒哥的Github</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">茶茶的小屋</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-07-20T04:19:33.000Z" itemprop="datePublished">
+          2016-07-20
+      </time>
+    
+    
+    | 
+    <a href='/tags/ReactiveCocoa/'>ReactiveCocoa</a>
+    
+    
+</span>
+                <h1>ReactiveCocoa-Swift部分入门指南-SignalProducer</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>学习过ReactiCocoa(以下简称RAC)的同学一般都会使用Objective-C的部分，不过RAC3之后支持了Swift，目前RAC3.x支持的是Swift1.x系列，RAC4支持的是Swift2.x系列。今天花了一点时间学习了下Swift部分示例代码。这里做些记录。Swift是支持playground，可以使用Markdown编写文档，并且所见即所得的界面方便学习。更可以插入图片。方便阅读。</p>
+<!-- toc -->
+<ul>
+<li><a href="#学习知识必备">学习知识必备</a></li>
+<li><a href="#playgroundutility">PlaygroundUtility</a></li>
+<li><a href="#signalproducer">SignalProducer</a><ul>
+<li><a href="#subscription">Subscription</a></li>
+<li><a href="#empty">Empty</a></li>
+<li><a href="#never">Never</a></li>
+<li><a href="#buffer">buffer</a></li>
+<li><a href="#startwithsignal">startWithSignal</a></li>
+<li><a href="#startwithnext">startWithNext</a></li>
+<li><a href="#startwithcompleted">startWithCompleted</a></li>
+<li><a href="#startwithfailed">startWithFailed</a></li>
+<li><a href="#startwithinterrupted">startWithInterrupted</a></li>
+</ul>
+</li>
+<li><a href="#operators">operators</a><ul>
+<li><a href="#lift">lift</a></li>
+<li><a href="#map">map</a></li>
+<li><a href="#maperror">mapError</a></li>
+<li><a href="#filter">filter</a></li>
+<li><a href="#take">take</a></li>
+<li><a href="#observeon">observeOn</a></li>
+<li><a href="#collect">collect</a></li>
+<li><a href="#collectcount">collect(count:)</a></li>
+<li><a href="#collectpredicate-matching-values-inclusively">collect(predicate:) matching values inclusively</a></li>
+<li><a href="#collectpredicate-matching-values-exclusively">collect(predicate:) matching values exclusively</a></li>
+<li><a href="#combinelatestwith">combineLatestWith</a></li>
+<li><a href="#skip">skip</a></li>
+<li><a href="#materialize">materialize</a></li>
+<li><a href="#sampleon">sampleOn</a></li>
+<li><a href="#combineprevious">combinePrevious</a></li>
+<li><a href="#scan">scan</a></li>
+<li><a href="#reduce">reduce</a></li>
+<li><a href="#skiprepeats">skipRepeats</a></li>
+<li><a href="#skipwhile">skipWhile</a></li>
+<li><a href="#takeuntilreplacement">takeUntilReplacement</a></li>
+<li><a href="#takelast">takeLast</a></li>
+<li><a href="#ignorenil">ignoreNil</a></li>
+<li><a href="#zipwith">zipWith</a></li>
+<li><a href="#times">times</a></li>
+<li><a href="#retry">retry</a></li>
+<li><a href="#then">then</a></li>
+<li><a href="#replaylazily">replayLazily</a></li>
+<li><a href="#flatmaplatest">flatMap(.Latest)</a></li>
+<li><a href="#flatmaperror">flatMapError</a></li>
+<li><a href="#samplewith">sampleWith</a></li>
+<li><a href="#logevents">logEvents</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+<!-- tocstop -->
+<h1 id="学习知识必备"><a href="#学习知识必备" class="headerlink" title="学习知识必备"></a>学习知识必备</h1><p>默认你已经学过RAC-OC部分， Swift语言，并对Monad，functional Programming有些简单的了解，或者，如果你学习了RXSwift更好。</p>
+<p>#Start </p>
+<pre><code>1.    git clone  git@github.com:ReactiveCocoa/ReactiveCocoa.git
+    •    执行   script/bootstrap 脚本
+    •    如果你安装了 [Cartheage](https://github.com/Carthage/Carthage) 使用  carthage checkout
+2.    打开 ReactiveCocoa.xcworkspace
+3.    编译 Result-Mac scheme
+4.    编译 ReactiveCocoa-Mac scheme
+5.    在workSpace目录中打开ReactiveCocoa.playground
+6.    Choose View &gt; Show Debug Area
+</code></pre><h1 id="playgroundutility"><a href="#PlaygroundUtility" class="headerlink" title="PlaygroundUtility"></a>PlaygroundUtility</h1><p>先来观察一下这个里面有两个方法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">scopedExample</span><span class="params">(exampleDescription: String, <span class="number">_</span> action: <span class="params">()</span></span></span> -&gt; <span class="type">Void</span>) &#123;</div><div class="line">	<span class="built_in">print</span>(<span class="string">"\n--- <span class="subst">\(exampleDescription)</span> ---\n"</span>)</div><div class="line">	action()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Error</span>: <span class="title">ErrorType</span> </span>&#123;</div><div class="line">	<span class="keyword">case</span> <span class="type">Example</span>(<span class="type">String</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>scopedExample 方便测试，并分割日志输出，Error也是为了测试方便。</p>
+<h1 id="signalproducer"><a href="#SignalProducer" class="headerlink" title="SignalProducer"></a>SignalProducer</h1><p>一个信号发生器，是SignalProducer类型的实例，它可以创建信号（signals）并施加附作用（side effects）。</p>
+<p>信号发生器用来表示操作或者任务，比如网络请求，每一次对它调用start()将会生成一个新的潜在操作，并允许调用者观察它的结果。还有一个startWithSignal()方法，会给出产生的信号，允许在必要的情况下被监听多次。</p>
+<p>根据start()方法的动作方式，被同一个信号发生器生成的信号可能会有不同的事件顺序或版本，甚至事件流完全不一样！和普通的信号不同，在观察者连接上之前，信号发生器不会开始工作（也就没有事件会生成），并且在每一个新的监听器连接上时其工作都会重新开始<code>一个单独的工作流</code>。</p>
+<p>启动一个信号发生器会返回一个销毁器（disposable，我也不知道怎么翻译合适），它可用来打断或取消被生成信号的工作。</p>
+<p>和信号一样，信号生成器可以通过map、filter等原函数操作。使用lift方法，所有信号的原函数可以被提升成为以信号生成器为对象的操作。除此以外，还有一些用来控制何时与如何启动信号生成器的原函数，比如times。</p>
+<blockquote>
+<p>补充，这段我是参考自<a href="http://www.jianshu.com/p/617063a81136" target="_blank" rel="external">ReactiveCocoa 4 图解之六——信号发生器（SignalProducer）</a>,不过我觉得说的相当之晦涩，在学习这部份的时候，我已经学习了，RAC-OC部分，RXSwift，冷热信号等概念。突然出了一个SignalProducer的概念会让读者很难理解，其实很容易就发现，SignalProducer会带来附作用(冷信号)，Signal不会带来副作用(热信号)，那他们就很好理解了，SignalProducer类似RACOC中的RACDynamicSignal，Signal类似RACSubject。<br>通过lift函数可以让热信号转变为冷信号。<br>如果想学习Signal部分参考文章底部链接</p>
+</blockquote>
+<h2 id="subscription"><a href="#Subscription" class="headerlink" title="Subscription"></a>Subscription</h2><p>一个信号生成器代表了一种可以在需要的时候才被启动的操作(不像Signal是自启动的)，这种信号是冷信号，在刚开始这个信号的状态也为冷(未激活)， 既然是冷信号，那么就意味这一个观察者不会错过任何被信号生成器发出的值。</p>
+<blockquote>
+<p>补充:  像signal 是创建的时候状态为cold(理解为未激活) ，被订阅时状态为hot    (理解为激活)。<br> 但是冷信号和热信号与状态为冷热是两个不同的概念。冷信号会带来附作用，热信号不会<br>这里我把副作用(side effect) 理解为附作用，有时候这是一个很必要的附加操作，并不一定都是无益的，不然就没有存在的价值了。<br>如果读者觉得理解的不对，请指出后续会继续修改。</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"Subscription"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> producer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt; &#123; observer, <span class="number">_</span> <span class="keyword">in</span></div><div class="line">        <span class="built_in">print</span>(<span class="string">"New subscription, starting operation"</span>)</div><div class="line">        observer.sendNext(<span class="number">1</span>)</div><div class="line">        observer.sendNext(<span class="number">2</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> subscriber1 = <span class="type">Observer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(next: &#123; <span class="built_in">print</span>(<span class="string">"Subscriber 1 received <span class="subst">\($<span class="number">0</span>)</span>"</span>) &#125;)</div><div class="line">    <span class="keyword">let</span> subscriber2 = <span class="type">Observer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(next: &#123; <span class="built_in">print</span>(<span class="string">"Subscriber 2 received <span class="subst">\($<span class="number">0</span>)</span>"</span>) &#125;)</div><div class="line"></div><div class="line">    <span class="built_in">print</span>(<span class="string">"Subscriber 1 subscribes to producer"</span>)</div><div class="line">    producer.start(subscriber1)</div><div class="line"></div><div class="line">    <span class="built_in">print</span>(<span class="string">"Subscriber 2 subscribes to producer"</span>)</div><div class="line">    <span class="comment">// Notice, how the producer will start the work again</span></div><div class="line">    producer.start(subscriber2)</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">--- <span class="type">Subscription</span> ---</div><div class="line"></div><div class="line"><span class="type">Subscriber</span> <span class="number">1</span> subscribes to producer</div><div class="line"><span class="type">New</span> subscription, starting operation</div><div class="line"><span class="type">Subscriber</span> <span class="number">1</span> received <span class="number">1</span></div><div class="line"><span class="type">Subscriber</span> <span class="number">1</span> received <span class="number">2</span></div><div class="line"><span class="type">Subscriber</span> <span class="number">2</span> subscribes to producer</div><div class="line"><span class="type">New</span> subscription, starting operation</div><div class="line"><span class="type">Subscriber</span> <span class="number">2</span> received <span class="number">1</span></div><div class="line"><span class="type">Subscriber</span> <span class="number">2</span> received <span class="number">2</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>像不像是RACDynamicSignal的创建方式，这不过不同与Sinal的是 这里的发送信号的观察者是在内部通过 Signal.pipe() 生成的，不需要外部创建。<br>SignalProduce是冷信号，任何一个订阅者/观察者都不会错过任何事件<br>start方法类似与Signal的 signal.observe()方法，只不过Signal的方法只有一个作用，就是关联一个观察者，而SignalProduce的start方法还多了一个激活信号的功能。</p>
+</blockquote>
+<h2 id="empty"><a href="#Empty" class="headerlink" title="Empty"></a>Empty</h2><p>一个会立即调用complete事件的信号生成器</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*:</span></div><div class="line"> ### `empty`</div><div class="line"> A producer for a Signal that will immediately complete without sending</div><div class="line"> any values.</div><div class="line"> */</div><div class="line">scopedExample(<span class="string">"`empty`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> emptyProducer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;.empty</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> observer = <span class="type">Observer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(</div><div class="line">        failed: &#123; <span class="number">_</span> <span class="keyword">in</span> <span class="built_in">print</span>(<span class="string">"error not called"</span>) &#125;,</div><div class="line">        completed: &#123; <span class="built_in">print</span>(<span class="string">"completed called"</span>) &#125;,</div><div class="line">        interrupted: &#123; <span class="built_in">print</span>(<span class="string">"interrupted called"</span>) &#125;,</div><div class="line">        next: &#123; <span class="number">_</span> <span class="keyword">in</span> <span class="built_in">print</span>(<span class="string">"next not called"</span>) &#125;</div><div class="line">    )</div><div class="line">    </div><div class="line">    emptyProducer.start(observer)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `empty` ---</div><div class="line"></div><div class="line">completed called</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Signal调用的是interrup方法，暂时不知道为什么，可能是为了区分语义把。Signal是有时序的，SignalProduce是没有时序的。使用中断更合适吧。</p>
+</blockquote>
+<h2 id="never"><a href="#Never" class="headerlink" title="Never"></a>Never</h2><p>一个什么都不会发送的信号生成器</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*:</span></div><div class="line"> ### `never`</div><div class="line"> A producer for a Signal that never sends any events to its observers.</div><div class="line"> */</div><div class="line">scopedExample(<span class="string">"`never`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> neverProducer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;.never</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> observer = <span class="type">Observer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(</div><div class="line">        failed: &#123; <span class="number">_</span> <span class="keyword">in</span> <span class="built_in">print</span>(<span class="string">"error not called"</span>) &#125;,</div><div class="line">        completed: &#123; <span class="built_in">print</span>(<span class="string">"completed not called"</span>) &#125;,</div><div class="line">        next: &#123; <span class="number">_</span> <span class="keyword">in</span> <span class="built_in">print</span>(<span class="string">"next not called"</span>) &#125;</div><div class="line">    )</div><div class="line">    </div><div class="line">    neverProducer.start(observer)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `never` ---</div></pre></td></tr></table></figure>
+<h2 id="buffer"><a href="#buffer" class="headerlink" title="buffer"></a>buffer</h2><blockquote>
+<p>创建一个事件队列可以回放已经发送的事件。</p>
+<p>当一个值被发送的时候，它会被放进缓冲区内，如果缓冲区已经溢出，就会丢弃旧的值，<br>这些被缓存的值将会被保留，直到这个信号被终结。当一个信号启动的时候，如果队列里没有任何值，所有被发送的新值都会被自动转发到观察者哪里，知道观察者收到一个终止事件。</p>
+<p>当一个终止事件被发送到队列中，观察者不会再收到任何值，并且这个事件不会被计算buffer的缓冲区大小，所以没有缓存的值都会被丢弃。</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`buffer`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> (producer, observer) = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;.buffer(<span class="number">2</span>)</div><div class="line">    </div><div class="line">    observer.sendNext(<span class="number">1</span>)</div><div class="line">    observer.sendNext(<span class="number">2</span>)</div><div class="line">    observer.sendNext(<span class="number">3</span>)</div><div class="line">    </div><div class="line">    <span class="keyword">var</span> values: [<span class="type">Int</span>] = []</div><div class="line">    producer.start &#123; event <span class="keyword">in</span></div><div class="line">        <span class="keyword">switch</span> event &#123;</div><div class="line">        <span class="keyword">case</span> <span class="keyword">let</span> .<span class="type">Next</span>(value):</div><div class="line">            values.append(value)</div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            <span class="keyword">break</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">print</span>(values)</div><div class="line">    </div><div class="line">    observer.sendNext(<span class="number">4</span>)</div><div class="line">    </div><div class="line">    <span class="built_in">print</span>(values)</div><div class="line">    </div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="keyword">let</span> subscriber = <span class="type">Observer</span>&lt;<span class="type">Int</span>,<span class="type">NoError</span>&gt;(next:&#123; bufferdValue <span class="keyword">in</span></div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(bufferdValue)</span>"</span>)</div><div class="line">    &#125;)</div><div class="line">    producer.start(subscriber)</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `buffer` ---</div><div class="line"></div><div class="line">[<span class="number">2</span>, <span class="number">3</span>]</div><div class="line">[<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</div><div class="line"><span class="number">3</span></div><div class="line"><span class="number">4</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>Buffer更像RACReplaySubject，所以Buffer应该也算一个热信号</p>
+</blockquote>
+<h2 id="startwithsignal"><a href="#startWithSignal" class="headerlink" title="startWithSignal"></a>startWithSignal</h2><p>通过Producer返回一个Signal，当闭包调用时返会signal开始发送事件。<br>闭包返回一个Disposable 可以用来中断Signal或者完成。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`startWithSignal`"</span>) &#123;</div><div class="line">    <span class="keyword">var</span> started = <span class="literal">false</span></div><div class="line">    <span class="keyword">var</span> value: <span class="type">Int</span>?</div><div class="line">    </div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(value: <span class="number">42</span>)</div><div class="line">        .on(next: &#123;</div><div class="line">            value = $<span class="number">0</span></div><div class="line">        &#125;)</div><div class="line">        .startWithSignal &#123; signal, disposable <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(signal)</div><div class="line">            </div><div class="line">            <span class="built_in">print</span>(value) <span class="comment">// nil </span></div><div class="line">        &#125;</div><div class="line">    </div><div class="line">    <span class="built_in">print</span>(value)</div><div class="line">&#125;</div><div class="line">--- `startWithSignal` ---</div><div class="line"></div><div class="line"><span class="type">ReactiveCocoa</span>.<span class="type">Signal</span>&lt;<span class="type">Swift</span>.<span class="type">Int</span>, <span class="type">Result</span>.<span class="type">NoError</span>&gt;</div><div class="line"><span class="literal">nil</span></div><div class="line"><span class="type">Optional</span>(<span class="number">42</span>)</div></pre></td></tr></table></figure>
+<h2 id="startwithnext"><a href="#startWithNext" class="headerlink" title="startWithNext"></a>startWithNext</h2><p>通过信号生成器创建一个信号，并且给这个信号内部直接构建一个观察者，在指定的闭包中会直接订阅next事件。</p>
+<p>返回一个Disposable，可以中断这个信号。中断之后这个闭包不会再被调用</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`startWithNext`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(value: <span class="number">42</span>)</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line">--- `startWithNext` ---</div><div class="line"></div><div class="line"><span class="number">42</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>其实类似与OC部分的[subscribeNext: ^(id value){}],观察者不用自己构建了</p>
+<p>注意： 这个订阅只能接受next事件</p>
+</blockquote>
+<h2 id="startwithcompleted"><a href="#startWithCompleted" class="headerlink" title="startWithCompleted"></a>startWithCompleted</h2><p>同startWithNext， 只不过只能接受complete事件</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`startWithCompleted`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(value: <span class="number">42</span>)</div><div class="line">        .startWithCompleted &#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"completed called"</span>)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `startWithCompleted` ---</div><div class="line"></div><div class="line">completed called</div></pre></td></tr></table></figure>
+<h2 id="startwithfailed"><a href="#startWithFailed" class="headerlink" title="startWithFailed"></a>startWithFailed</h2><p>同startWithNext， 只不过只能接受Failer事件事件</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`startWithFailed`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NSError</span>&gt;(error: <span class="type">NSError</span>(domain: <span class="string">"example"</span>, code: <span class="number">42</span>, userInfo: <span class="literal">nil</span>))</div><div class="line">        .startWithFailed &#123; error <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(error)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `startWithFailed` ---</div><div class="line"></div><div class="line"><span class="type">Error</span> <span class="type">Domain</span>=example <span class="type">Code</span>=<span class="number">42</span> <span class="string">"(null)"</span></div></pre></td></tr></table></figure>
+<h2 id="startwithinterrupted"><a href="#startWithInterrupted" class="headerlink" title="startWithInterrupted"></a>startWithInterrupted</h2><p>同startWithNext， 只不过只能接受interrupted事件事件</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`startWithInterrupted`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> disposable = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;.never</div><div class="line">        .startWithInterrupted &#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"interrupted called"</span>)</div><div class="line">        &#125;</div><div class="line">    </div><div class="line">    disposable.dispose()</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `startWithInterrupted` ---</div><div class="line"></div><div class="line">interrupted called</div></pre></td></tr></table></figure>
+<h1 id="operators"><a href="#operators" class="headerlink" title="operators"></a>operators</h1><h2 id="lift"><a href="#lift" class="headerlink" title="lift"></a>lift</h2><blockquote>
+<p>这个相对难理解点。大致类似与RAC-OC部分中的bind函数，monad中的bind函数</p>
+<p>可以理解为所有的原函数都是通过lift去实现的，接用中间信号来实现一系列的信号变换</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`lift`"</span>) &#123;</div><div class="line">    <span class="keyword">var</span> counter = <span class="number">0</span></div><div class="line">    <span class="keyword">let</span> transform: <span class="type">Signal</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt; -&gt; <span class="type">Signal</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt; = &#123; signal <span class="keyword">in</span></div><div class="line">        counter = <span class="number">42</span></div><div class="line">        <span class="keyword">return</span> signal</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(value: <span class="number">0</span>)</div><div class="line">        .lift(transform)</div><div class="line">        .startWithNext &#123; <span class="number">_</span> <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(counter)</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `lift` ---</div><div class="line"></div><div class="line"><span class="number">42</span></div></pre></td></tr></table></figure>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><p>把每个值都转换为新的值</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`map`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(value: <span class="number">1</span>)</div><div class="line">        .<span class="built_in">map</span> &#123; $<span class="number">0</span> + <span class="number">41</span> &#125;</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `<span class="built_in">map</span>` ---</div><div class="line"></div><div class="line"><span class="number">42</span></div></pre></td></tr></table></figure>
+<h2 id="maperror"><a href="#mapError" class="headerlink" title="mapError"></a>mapError</h2><p>把收到的error转换为新的error</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`mapError`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NSError</span>&gt;(error: <span class="type">NSError</span>(domain: <span class="string">"mapError"</span>, code: <span class="number">42</span>, userInfo: <span class="literal">nil</span>))</div><div class="line">        .mapError &#123; <span class="type">Error</span>.<span class="type">Example</span>($<span class="number">0</span>.description) &#125;</div><div class="line">        .startWithFailed &#123; error <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(error)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">--- `mapError` ---</div><div class="line"></div><div class="line"><span class="type">Example</span>(<span class="string">"Error Domain=mapError Code=42 \"(null)\""</span>)</div></pre></td></tr></table></figure>
+<h2 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h2><p>过滤不符合条件的值</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`filter`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">        .<span class="built_in">filter</span> &#123; $<span class="number">0</span> &gt; <span class="number">3</span>&#125;</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">--- `<span class="built_in">filter</span>` ---</div><div class="line"></div><div class="line"><span class="number">4</span></div></pre></td></tr></table></figure>
+<h2 id="take"><a href="#take" class="headerlink" title="take"></a>take</h2><p>take(num)  只取前几次的值</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`take`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">        .take(<span class="number">2</span>)</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `take` ---</div><div class="line"></div><div class="line"><span class="number">1</span></div><div class="line"><span class="number">2</span></div></pre></td></tr></table></figure>
+<h2 id="observeon"><a href="#observeOn" class="headerlink" title="observeOn"></a>observeOn</h2><p>在指定的调度器上分发事件</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/*:</span></div><div class="line"> ### `observeOn`</div><div class="line"> Forwards all events onto the given scheduler, instead of whichever</div><div class="line"> scheduler they originally arrived upon.</div><div class="line"> */</div><div class="line">scopedExample(<span class="string">"`observeOn`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> baseProducer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">    <span class="keyword">let</span> completion = &#123; <span class="built_in">print</span>(<span class="string">"is main thread? <span class="subst">\(NSThread.currentThread()</span>.isMainThread)"</span>) &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> #available(<span class="type">OSX</span> <span class="number">10.10</span>, *) &#123;</div><div class="line">    baseProducer</div><div class="line">        .observeOn(<span class="type">QueueScheduler</span>(qos: <span class="type">QOS_CLASS_DEFAULT</span>, name: <span class="string">"test"</span>))</div><div class="line">        .startWithCompleted(completion)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    baseProducer</div><div class="line">        .startWithCompleted(completion)</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">--- `observeOn` ---</div><div class="line"></div><div class="line"><span class="keyword">is</span> main thread? <span class="literal">true</span></div></pre></td></tr></table></figure>
+<h2 id="collect"><a href="#collect" class="headerlink" title="collect"></a>collect</h2><p>在发送完成的时候将一系列的值聚合为一个数组</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`collect()`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt; &#123; observer, disposable <span class="keyword">in</span></div><div class="line">            observer.sendNext(<span class="number">1</span>)</div><div class="line">            observer.sendNext(<span class="number">2</span>)</div><div class="line">            observer.sendNext(<span class="number">3</span>)</div><div class="line">            observer.sendNext(<span class="number">4</span>)</div><div class="line">            observer.sendCompleted()</div><div class="line">        &#125;</div><div class="line">        .collect()</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `collect()` ---</div><div class="line"></div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</div></pre></td></tr></table></figure>
+<h2 id="collectcount"><a href="#collect-count" class="headerlink" title="collect(count:)"></a>collect(count:)</h2><p>在发送数据的时候(不需要发送complete)的时候将一系列的值聚合为数组，数组的长度为count，如果又很多数据，将会返回多个数组</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`collect(count:)`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt; &#123; observer, disposable <span class="keyword">in</span></div><div class="line">            observer.sendNext(<span class="number">1</span>)</div><div class="line">            observer.sendNext(<span class="number">2</span>)</div><div class="line">            observer.sendNext(<span class="number">3</span>)</div><div class="line">            observer.sendNext(<span class="number">4</span>)</div><div class="line">        observer.sendNext(<span class="number">5</span>)</div><div class="line">        </div><div class="line"><span class="comment">//            observer.sendCompleted()</span></div><div class="line">        &#125;</div><div class="line">        .collect(<span class="built_in">count</span>: <span class="number">2</span>)</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">--- `collect(<span class="built_in">count</span>:)` ---</div><div class="line"></div><div class="line">[<span class="number">1</span>, <span class="number">2</span>]</div><div class="line">[<span class="number">3</span>, <span class="number">4</span>]</div></pre></td></tr></table></figure>
+<h2 id="collectpredicate-matching-values-inclusively"><a href="#collect-predicate-matching-values-inclusively" class="headerlink" title="collect(predicate:) matching values inclusively"></a>collect(predicate:) matching values inclusively</h2><p>通过谓词将一系列的值聚合为一个数组，注意在发送complete时候，如果前面只剩下一个值，就不需要聚合，(因为没有其他元素和最后一个元素聚合)，直接返回一个只有一个元素的数组。 如果没有数据则返回一个空数组。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`collect(predicate:)` matching values inclusively"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt; &#123; observer, disposable <span class="keyword">in</span></div><div class="line"><span class="comment">//            observer.sendNext(1)</span></div><div class="line"><span class="comment">//            observer.sendNext(2)</span></div><div class="line"><span class="comment">//            observer.sendNext(3)</span></div><div class="line"><span class="comment">//            observer.sendNext(4)</span></div><div class="line">            observer.sendCompleted()</div><div class="line">        &#125;</div><div class="line">        .collect &#123; values <span class="keyword">in</span> values.<span class="built_in">reduce</span>(<span class="number">0</span>, combine: +) == <span class="number">3</span> &#125;</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `collect(predicate:)` matching values inclusively ---</div><div class="line"></div><div class="line">[]</div></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>尝试把所有数据打开，看看什么结果，</li>
+<li>尝试只注释4看什么结果</li>
+</ol>
+</blockquote>
+<h2 id="collectpredicate-matching-values-exclusively"><a href="#collect-predicate-matching-values-exclusively" class="headerlink" title="collect(predicate:) matching values exclusively"></a>collect(predicate:) matching values exclusively</h2><p>和上一个不同的是，如果谓词成功就把之前的聚合在一起。 可以理解为把成功的界限当作分隔符</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`collect(predicate:)` matching values exclusively"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt; &#123; observer, disposable <span class="keyword">in</span></div><div class="line">            observer.sendNext(<span class="number">1</span>)</div><div class="line">            observer.sendNext(<span class="number">2</span>)</div><div class="line">            observer.sendNext(<span class="number">3</span>)</div><div class="line">            observer.sendNext(<span class="number">4</span>)</div><div class="line">            observer.sendNext(<span class="number">5</span>)</div><div class="line">            observer.sendCompleted()</div><div class="line">        &#125;</div><div class="line">        .collect &#123; values, next <span class="keyword">in</span> next == <span class="number">3</span> || next == <span class="number">5</span>  &#125;</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `collect(predicate:)` matching values exclusively ---</div><div class="line"></div><div class="line">[<span class="number">1</span>, <span class="number">2</span>]</div><div class="line">[<span class="number">3</span>, <span class="number">4</span>] <span class="comment">// 3满足了条件所以被分开</span></div><div class="line">[<span class="number">5</span>] <span class="comment">// 5也是</span></div></pre></td></tr></table></figure>
+<h2 id="combinelatestwith"><a href="#combineLatestWith" class="headerlink" title="combineLatestWith"></a>combineLatestWith</h2><p>将第一个信号生成器的values 和被聚合信号生成器的最后一个值聚合为一个<code>元组</code> 。</p>
+<p>新产生的信号生成器不会发送任何值，只是转发，任何一个原来的信号被中断，这个新的信号生成器也会中断</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`combineLatestWith`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> producer1 = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">    <span class="keyword">let</span> producer2 = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span> ])</div><div class="line">    </div><div class="line">    producer1</div><div class="line">        .combineLatestWith(producer2)</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(<span class="string">"<span class="subst">\(value)</span>"</span>)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line">--- `combineLatestWith` ---</div><div class="line"></div><div class="line">(<span class="number">1</span>, <span class="number">2</span>)</div><div class="line">(<span class="number">2</span>, <span class="number">2</span>)</div><div class="line">(<span class="number">3</span>, <span class="number">2</span>)</div><div class="line">(<span class="number">4</span>, <span class="number">2</span>)</div></pre></td></tr></table></figure>
+<h2 id="skip"><a href="#skip" class="headerlink" title="skip"></a>skip</h2><p>skip(num), 跳过num此发送的事件</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`skip`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> producer1 = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">    </div><div class="line">    producer1</div><div class="line">        .skip(<span class="number">2</span>)</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `skip` ---</div><div class="line"></div><div class="line"><span class="number">3</span></div><div class="line"><span class="number">4</span></div></pre></td></tr></table></figure>
+<h2 id="materialize"><a href="#materialize" class="headerlink" title="materialize"></a>materialize</h2><blockquote>
+<p>将被发送的值(value)变成Event<value>, 允许他们被修改。换句话说把一个值变成一个Monad (在前文中写到Event就是一个monad) </value></p>
+<p>当收到一个compelet或者Failure事件，这个新的信号生成器，会发送事件并且结束。当收到一个interruped事件，这个新的信号生成器也会中断</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`materialize`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">        .materialize()</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `materialize` ---</div><div class="line"></div><div class="line"><span class="type">NEXT</span> <span class="number">1</span></div><div class="line"><span class="type">NEXT</span> <span class="number">2</span></div><div class="line"><span class="type">NEXT</span> <span class="number">3</span></div><div class="line"><span class="type">NEXT</span> <span class="number">4</span></div><div class="line"><span class="type">COMPLETED</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// 注意 value  如果不做materialize就是Int类型</span></div><div class="line"><span class="comment">// 现在是Event&lt;Int,NoError&gt;类型，也就是一个monad</span></div></pre></td></tr></table></figure>
+<h2 id="sampleon"><a href="#sampleOn" class="headerlink" title="sampleOn"></a>sampleOn</h2><blockquote>
+<ol>
+<li><p>当Sampler(被操作的信号生成器)发送任何事件的时候，都转发原来信号生成器的最后一个值</p>
+</li>
+<li><p>如果当一个sampler (被操作的信号生成器)启动是，当前的值没有被观察者，没有任何事情发生</p>
+</li>
+<li><p>新产生的信号生成器从源信号生成器哪里发送数据，如果两个信号生成器任何一个complete或者interrupt 新产生的都会中断</p>
+</li>
+</ol>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*:</span></div><div class="line"> ### `sampleOn`</div><div class="line"> Forwards the latest value from `self` whenever `sampler` sends a Next</div><div class="line"> event.</div><div class="line"> </div><div class="line"> If `sampler` fires before a value has been observed on `self`, nothing</div><div class="line"> happens.</div><div class="line"> </div><div class="line"> Returns a producer that will send values from `self`, sampled (possibly</div><div class="line"> multiple times) by `sampler`, then complete once both input producers have</div><div class="line"> completed, or interrupt if either input producer is interrupted.</div><div class="line"> */</div><div class="line">scopedExample(<span class="string">"`sampleOn`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> baseProducer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">    <span class="keyword">let</span> sampledOnProducer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span> ])</div><div class="line">        .<span class="built_in">map</span> &#123; <span class="number">_</span> <span class="keyword">in</span> () &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> newProduce = baseProducer</div><div class="line">        .sampleOn(sampledOnProducer)</div><div class="line">        </div><div class="line">      newProduce  .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line">--- `sampleOn` ---</div><div class="line"></div><div class="line"><span class="number">4</span></div><div class="line"><span class="number">4</span></div><div class="line"></div><div class="line">sampler发送的<span class="number">2</span>次值都被变换成baseProduce 的comlete前的最后一个值</div></pre></td></tr></table></figure>
+<h2 id="combineprevious"><a href="#combinePrevious" class="headerlink" title="combinePrevious"></a>combinePrevious</h2><p>向前合并，每发送一个值就结合历史发送数据的最后一个构造成一个新的元组返回。在第一个发送时由于没有历史数据，所以combinePrevioud传递了一个默认值。当作第一次的合并</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(&quot;`combinePrevious`&quot;) &#123;</div><div class="line">    SignalProducer&lt;Int, NoError&gt;(values: [ 1, 2, 3, 4 ])</div><div class="line">        .combinePrevious(42)</div><div class="line">        .startWithNext &#123; value in</div><div class="line">            print(&quot;\(value)&quot;)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line">--- `combinePrevious` ---</div><div class="line"></div><div class="line">(42, 1) // 第一次没有历史记录默认值是42</div><div class="line">(1, 2) // 第二次默认记录是1 </div><div class="line">(2, 3)</div><div class="line">(3, 4)</div></pre></td></tr></table></figure>
+<h2 id="scan"><a href="#scan" class="headerlink" title="scan"></a>scan</h2><blockquote>
+<p>类似reduce，将值聚合为一个新的值，每次聚合都保留结果作为下次的默认值。首次需给出默认值。</p>
+<p>每次聚合都会发送这个值</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`scan`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">        .scan(<span class="number">0</span>, +)</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line">--- `scan` ---</div><div class="line"></div><div class="line"><span class="number">1</span></div><div class="line"><span class="number">3</span></div><div class="line"><span class="number">6</span></div><div class="line"><span class="number">10</span></div></pre></td></tr></table></figure>
+<h2 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h2><blockquote>
+<p>和scan类似 ，区别为reduce只发送聚合后的值并且立即结束</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`reduce`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">        .<span class="built_in">reduce</span>(<span class="number">0</span>, +)</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `<span class="built_in">reduce</span>` ---</div><div class="line"></div><div class="line"><span class="number">10</span></div></pre></td></tr></table></figure>
+<h2 id="skiprepeats"><a href="#skipRepeats" class="headerlink" title="skipRepeats"></a>skipRepeats</h2><p>跳过表达式里返回true的值，第一个值不会被跳过</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`skipWhile`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">        .skipWhile &#123; $<span class="number">0</span> &gt; <span class="number">2</span> &#125;</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `skipRepeats` ---</div><div class="line"></div><div class="line"><span class="number">1</span></div><div class="line"><span class="number">2</span></div><div class="line"><span class="number">3</span></div><div class="line"><span class="number">1</span></div><div class="line"><span class="number">2</span></div><div class="line"><span class="number">4</span></div><div class="line"><span class="number">1</span></div><div class="line"></div><div class="line"><span class="comment">// 注意并不是去重，只是两两比较，true的值被忽略</span></div></pre></td></tr></table></figure>
+<h2 id="skipwhile"><a href="#skipWhile" class="headerlink" title="skipWhile"></a>skipWhile</h2><p>对每个值都去做判断，直到返回faslse，之前的值会被跳过</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`skipWhile`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">        .skipWhile &#123; $<span class="number">0</span> &gt; <span class="number">2</span> &#125;</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `skipWhile` ---</div><div class="line"></div><div class="line"><span class="number">1</span>  <span class="comment">// 到1 返回false  之前的值被忽略掉</span></div><div class="line"><span class="number">2</span></div><div class="line"><span class="number">3</span></div><div class="line"><span class="number">4</span></div></pre></td></tr></table></figure>
+<h2 id="takeuntilreplacement"><a href="#takeUntilReplacement" class="headerlink" title="takeUntilReplacement"></a>takeUntilReplacement</h2><p>在被替换的信号发生器发送信号之后，发送被替换的信号。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`takeUntilReplacement`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> (replacementSignal, incomingReplacementObserver) = <span class="type">Signal</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;.pipe()</div><div class="line"></div><div class="line">    <span class="keyword">let</span> baseProducer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt; &#123; incomingObserver, <span class="number">_</span> <span class="keyword">in</span></div><div class="line">        incomingObserver.sendNext(<span class="number">1</span>)</div><div class="line">        incomingObserver.sendNext(<span class="number">2</span>)</div><div class="line">        incomingObserver.sendNext(<span class="number">3</span>)</div><div class="line"><span class="comment">// 下面被替换的信号生成器发送了事件，之后就不再发送baseProducer的事件了</span></div><div class="line"><span class="comment">// 相当于被替换了</span></div><div class="line">        incomingReplacementObserver.sendNext(<span class="number">42</span>)</div><div class="line"></div><div class="line">        incomingObserver.sendNext(<span class="number">4</span>)</div><div class="line"></div><div class="line">        incomingReplacementObserver.sendNext(<span class="number">42</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">let</span> producer = baseProducer.takeUntilReplacement(replacementSignal)</div><div class="line">    </div><div class="line">    producer.startWithNext &#123; value <span class="keyword">in</span></div><div class="line">        <span class="built_in">print</span>(value)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">--- `takeUntilReplacement` ---</div><div class="line"></div><div class="line"><span class="number">1</span></div><div class="line"><span class="number">2</span></div><div class="line"><span class="number">3</span>  </div><div class="line"><span class="number">42</span></div><div class="line"><span class="number">42</span></div></pre></td></tr></table></figure>
+<h2 id="takelast"><a href="#takeLast" class="headerlink" title="takeLast"></a>takeLast</h2><p>在发送complete事件后支取count此数据</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`takeLast`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">        .takeLast(<span class="number">2</span>)</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">只取了<span class="number">2</span>次数据</div><div class="line">--- `takeLast` ---</div><div class="line"></div><div class="line"><span class="number">3</span></div><div class="line"><span class="number">4</span></div></pre></td></tr></table></figure>
+<h2 id="ignorenil"><a href="#ignoreNil" class="headerlink" title="ignoreNil"></a>ignoreNil</h2><p>如果发送的事件是可选类型，解包这些可选类型，并且丢弃nil值</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`ignoreNil`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>?, <span class="type">NoError</span>&gt;(values: [ <span class="literal">nil</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="literal">nil</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="literal">nil</span> ])</div><div class="line">        .ignoreNil()</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line">--- `ignoreNil` ---</div><div class="line"></div><div class="line"><span class="number">1</span></div><div class="line"><span class="number">2</span></div><div class="line"><span class="number">3</span></div><div class="line"><span class="number">4</span></div></pre></td></tr></table></figure>
+<h2 id="zipwith"><a href="#zipWith" class="headerlink" title="zipWith"></a>zipWith</h2><p>压缩信号生成器，只有在两个信号都有数据发送之后，新的信号生成器才会发送数据。<br>新的数据被组合为元组。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`zipWith`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> baseProducer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">    <span class="keyword">let</span> zippedProducer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">42</span>, <span class="number">43</span> ])</div><div class="line">    </div><div class="line">    baseProducer</div><div class="line">        .zipWith(zippedProducer)</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(<span class="string">"<span class="subst">\(value)</span>"</span>)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `zipWith` ---</div><div class="line"></div><div class="line">(<span class="number">1</span>, <span class="number">42</span>)</div><div class="line">(<span class="number">2</span>, <span class="number">43</span>)</div><div class="line"></div><div class="line">后面因为第二个没有数据了所以不会在聚合了</div></pre></td></tr></table></figure>
+<h2 id="times"><a href="#times" class="headerlink" title="times"></a>times</h2><p>time(count) 重复发送count数据，每次重复必须上次发送完成事件</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`times`"</span>) &#123;</div><div class="line">    <span class="keyword">var</span> counter = <span class="number">0</span></div><div class="line">    </div><div class="line">    <span class="type">SignalProducer</span>&lt;(), <span class="type">NoError</span>&gt; &#123; observer, disposable <span class="keyword">in</span></div><div class="line">            counter += <span class="number">1</span></div><div class="line">            observer.sendCompleted()</div><div class="line">        &#125;</div><div class="line">        .times(<span class="number">42</span>)</div><div class="line">        .start()</div><div class="line">    </div><div class="line">    <span class="built_in">print</span>(counter)</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `times` ---</div><div class="line"></div><div class="line"><span class="number">42</span></div></pre></td></tr></table></figure>
+<h2 id="retry"><a href="#retry" class="headerlink" title="retry"></a>retry</h2><p>如果收到失败事件重试retry(count)次</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`retry`"</span>) &#123;</div><div class="line">    <span class="keyword">var</span> tries = <span class="number">0</span></div><div class="line">    </div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NSError</span>&gt; &#123; observer, disposable <span class="keyword">in</span></div><div class="line">            <span class="keyword">if</span> tries == <span class="number">0</span> &#123;</div><div class="line">                tries += <span class="number">1</span></div><div class="line">                observer.sendFailed(<span class="type">NSError</span>(domain: <span class="string">"retry"</span>, code: <span class="number">0</span>, userInfo: <span class="literal">nil</span>))</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                observer.sendNext(<span class="number">42</span>)</div><div class="line">                observer.sendCompleted()</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        .retry(<span class="number">1</span>)</div><div class="line">        .startWithResult &#123; result <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(result)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `retry` ---</div><div class="line"></div><div class="line">.<span class="type">Success</span>(<span class="number">42</span>)</div></pre></td></tr></table></figure>
+<h2 id="then"><a href="#then" class="headerlink" title="then"></a>then</h2><blockquote>
+<p>当第一个信号发送complete时，第二个信号被替换到信号发送线路上，如果有任何失败事件，后面的就替换失败。 </p>
+<p> 第一个信号发送的所有事件都会被忽略<br>这个没有使用场景比较难理解。看图<br><img src="/2016/07/20/ReactiveCocoa-Swift部分入门指南-SignalProducer/" alt="then"></p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`then`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> baseProducer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">    <span class="keyword">let</span> thenProducer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(value: <span class="number">42</span>)</div><div class="line">    </div><div class="line">    baseProducer</div><div class="line">        .then(thenProducer)</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `then` ---</div><div class="line"></div><div class="line"><span class="number">42</span></div></pre></td></tr></table></figure>
+<h2 id="replaylazily"><a href="#replayLazily" class="headerlink" title="replayLazily"></a>replayLazily</h2><blockquote>
+<p>创建一个新的SignaProduce，内部包含了一个生产者去组播的发送事件。直到capacity(可以保留的数量)。这意味者所有的观者者看到是相同版本的值或者错误。</p>
+<p>类似RAC-OC部分中的replayLazily ，底层生产者是懒加载的。第一次被观察的时候才会启动。在启动时所有的被缓存的值将会被直接发送。<br>如果你发现你需要实时的值，建议你使用Signal(热信号)代替，这个信号默认会缓存一些值，在某些时候这些缓存值无用。<br>使用方法类似SignalProducer.buffer(count)<br>这时候冷信号变成了热信号</p>
+</blockquote>
+<p>补充： OC部分中的replay是直接启动的，replayLazily是懒加载的，Swift部分没有直接启动的</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`replayLazily`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> baseProducer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">42</span> ])</div><div class="line">        .replayLazily(<span class="number">2</span>)</div><div class="line">    </div><div class="line">    baseProducer.startWithNext &#123; value <span class="keyword">in</span></div><div class="line">        <span class="built_in">print</span>(value)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    baseProducer.startWithNext &#123; value <span class="keyword">in</span></div><div class="line">        <span class="built_in">print</span>(value)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    baseProducer.startWithNext &#123; value <span class="keyword">in</span></div><div class="line">        <span class="built_in">print</span>(value)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `replayLazily` ---</div><div class="line"></div><div class="line"><span class="number">1</span></div><div class="line"><span class="number">2</span></div><div class="line"><span class="number">3</span></div><div class="line"><span class="number">4</span></div><div class="line"><span class="number">42</span></div><div class="line"><span class="number">4</span></div><div class="line"><span class="number">42</span></div><div class="line"><span class="number">4</span></div><div class="line"><span class="number">42</span></div></pre></td></tr></table></figure>
+<h2 id="flatmaplatest"><a href="#flatMap-Latest" class="headerlink" title="flatMap(.Latest)"></a>flatMap(.Latest)</h2><p>将收到的每个事件 都映射为新的Producer，然后<code>摊平</code>，如果原来的producer发送失败，新产生也的立即失败。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`flatMap(.Latest)`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">        .flatMap(.<span class="type">Latest</span>) &#123; <span class="type">SignalProducer</span>(value: $<span class="number">0</span> + <span class="number">3</span>) &#125;</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line">--- `flatMap(.<span class="type">Latest</span>)` ---</div><div class="line"></div><div class="line"><span class="number">4</span></div><div class="line"><span class="number">5</span></div><div class="line"><span class="number">6</span></div><div class="line"><span class="number">7</span></div></pre></td></tr></table></figure>
+<h2 id="flatmaperror"><a href="#flatMapError" class="headerlink" title="flatMapError"></a>flatMapError</h2><p>把收到的failure事件映射为新的Producer，并且摊平它 </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`flatMapError`"</span>) &#123;</div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NSError</span>&gt;(error: <span class="type">NSError</span>(domain: <span class="string">"flatMapError"</span>, code: <span class="number">42</span>, userInfo: <span class="literal">nil</span>))</div><div class="line">        .flatMapError &#123; <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(value: $<span class="number">0</span>.code) &#125;</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line">--- `flatMapError` ---</div><div class="line"></div><div class="line"><span class="number">42</span></div></pre></td></tr></table></figure>
+<h2 id="samplewith"><a href="#sampleWith" class="headerlink" title="sampleWith"></a>sampleWith</h2><p>在sampler发送nextEvents对源Producer的最后一次值组合形成一个新的元组，如果sample发送的时候，源Producer没有任何事件，则什么都不发生。</p>
+<p>一旦源Producer和Sampler都任何一个发送了complete或者interruperd事件，则新产生的Producer理解结束。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/*:</span></div><div class="line"> ### `sampleWith`</div><div class="line"> Forwards the latest value from `self` with the value from `sampler` as a tuple,</div><div class="line"> only when `sampler` sends a Next event.</div><div class="line"> </div><div class="line"> If `sampler` fires before a value has been observed on `self`, nothing happens.</div><div class="line"> Returns a producer that will send values from `self` and `sampler`,</div><div class="line"> sampled (possibly multiple times) by `sampler`, then complete once both</div><div class="line"> input producers have completed, or interrupt if either input producer is interrupted.</div><div class="line"> */</div><div class="line">scopedExample(<span class="string">"`sampleWith`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> producer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">    <span class="keyword">let</span> sampler = <span class="type">SignalProducer</span>&lt;<span class="type">String</span>, <span class="type">NoError</span>&gt;(values: [ <span class="string">"a"</span>, <span class="string">"b"</span> ])</div><div class="line">				</div><div class="line">    <span class="keyword">let</span> result = producer.sampleWith(sampler)</div><div class="line">    </div><div class="line">    result.startWithNext &#123; <span class="keyword">left</span>, <span class="keyword">right</span> <span class="keyword">in</span></div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(<span class="keyword">left</span>)</span> <span class="subst">\(<span class="keyword">right</span>)</span>"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">--- `sampleWith` ---</div><div class="line"></div><div class="line"><span class="number">4</span> a</div><div class="line"><span class="number">4</span> b</div></pre></td></tr></table></figure>
+<h2 id="logevents"><a href="#logEvents" class="headerlink" title="logEvents"></a>logEvents</h2><p>把所有收到的事件都输出一份日志。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">scopedExample(<span class="string">"`log events`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> baseProducer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">42</span> ])</div><div class="line">    </div><div class="line">    baseProducer</div><div class="line">        .logEvents(identifier: <span class="string">"Playground is fun!"</span>)</div><div class="line">        .start()</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">[<span class="type">Playground</span> <span class="keyword">is</span> fun!] <span class="type">Started</span> fileName: /<span class="keyword">var</span>/folders/d_/9kczd9ld7c3ckq_prb99wnn00000gn/<span class="type">T</span>/lldb/<span class="number">31540</span>/playground103.swift, functionName: __lldb_expr_103, lineNumber: <span class="number">811</span></div><div class="line">[<span class="type">Playground</span> <span class="keyword">is</span> fun!] <span class="type">Next</span> <span class="number">1</span> fileName: /<span class="keyword">var</span>/folders/d_/9kczd9ld7c3ckq_prb99wnn00000gn/<span class="type">T</span>/lldb/<span class="number">31540</span>/playground103.swift, functionName: __lldb_expr_103, lineNumber: <span class="number">811</span></div><div class="line">[<span class="type">Playground</span> <span class="keyword">is</span> fun!] <span class="type">Next</span> <span class="number">2</span> fileName: /<span class="keyword">var</span>/folders/d_/9kczd9ld7c3ckq_prb99wnn00000gn/<span class="type">T</span>/lldb/<span class="number">31540</span>/playground103.swift, functionName: __lldb_expr_103, lineNumber: <span class="number">811</span></div><div class="line">[<span class="type">Playground</span> <span class="keyword">is</span> fun!] <span class="type">Next</span> <span class="number">3</span> fileName: /<span class="keyword">var</span>/folders/d_/9kczd9ld7c3ckq_prb99wnn00000gn/<span class="type">T</span>/lldb/<span class="number">31540</span>/playground103.swift, functionName: __lldb_expr_103, lineNumber: <span class="number">811</span></div><div class="line">[<span class="type">Playground</span> <span class="keyword">is</span> fun!] <span class="type">Next</span> <span class="number">4</span> fileName: /<span class="keyword">var</span>/folders/d_/9kczd9ld7c3ckq_prb99wnn00000gn/<span class="type">T</span>/lldb/<span class="number">31540</span>/playground103.swift, functionName: __lldb_expr_103, lineNumber: <span class="number">811</span></div><div class="line">[<span class="type">Playground</span> <span class="keyword">is</span> fun!] <span class="type">Next</span> <span class="number">42</span> fileName: /<span class="keyword">var</span>/folders/d_/9kczd9ld7c3ckq_prb99wnn00000gn/<span class="type">T</span>/lldb/<span class="number">31540</span>/playground103.swift, functionName: __lldb_expr_103, lineNumber: <span class="number">811</span></div><div class="line">[<span class="type">Playground</span> <span class="keyword">is</span> fun!] <span class="type">Completed</span> fileName: /<span class="keyword">var</span>/folders/d_/9kczd9ld7c3ckq_prb99wnn00000gn/<span class="type">T</span>/lldb/<span class="number">31540</span>/playground103.swift, functionName: __lldb_expr_103, lineNumber: <span class="number">811</span></div><div class="line">[<span class="type">Playground</span> <span class="keyword">is</span> fun!] <span class="type">Terminated</span> fileName: /<span class="keyword">var</span>/folders/d_/9kczd9ld7c3ckq_prb99wnn00000gn/<span class="type">T</span>/lldb/<span class="number">31540</span>/playground103.swift, functionName: __lldb_expr_103, lineNumber: <span class="number">811</span></div><div class="line">[<span class="type">Playground</span> <span class="keyword">is</span> fun!] <span class="type">Disposed</span> fileName: /<span class="keyword">var</span>/folders/d_/9kczd9ld7c3ckq_prb99wnn00000gn/<span class="type">T</span>/lldb/<span class="number">31540</span>/playground103.swift, functionName: __lldb_expr_103, lineNumber: <span class="number">811</span></div></pre></td></tr></table></figure>
+<p>　</p>
+<hr>
+<h1 id="reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ol>
+<li><a href="http://www.jianshu.com/p/617063a81136" target="_blank" rel="external">ReactiveCocoa 4 图解之六——信号发生器（SignalProducer）</a></li>
+<li><a href="valiantcat.com/2016/07/21/ReactiveCocoa-Swift部分入门指南-Signal/">ReactiveCocoa-Swift部分入门指南-Signal</a></li>
+</ol>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/07/21/ReactiveCocoa-Swift部分入门指南-Signal/" style="float: left;">
+        ← ReactiveCocoa-Swift部分入门指南-Signal
+    </a>
+    
+    
+    <a class="pull-right" href="/2016/07/14/Swift-Code-Style/">
+        Swift-Code-Style →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/07/20/ReactiveCocoa-Swift部分入门指南-SignalProducer/" data-title="ReactiveCocoa-Swift部分入门指南-SignalProducer" data-url="http://valiantcat.com/2016/07/20/ReactiveCocoa-Swift部分入门指南-SignalProducer/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"chachaHouse"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By 寒哥. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

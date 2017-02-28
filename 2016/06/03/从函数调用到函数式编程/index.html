@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Archives: 2015 | 茶茶的小屋</title>
+  <title>从函数调用到函数式编程 | 茶茶的小屋</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -86,7 +86,7 @@
 </head>
 
 <!--
-<body class="home-template">
+<body class="post-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -214,55 +214,108 @@
 
         <!-- ============================ END Hero Image =========================== -->
       
-
-
-<section id="services">
+<section id="intro">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="row boxes">
-                    
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/09/22/SwiftValueType/">寒哥带你深入了解下Swift中的Value Type</a></h4>
-                            
-                            <p><time datetime="2015-09-22T08:11:00.000Z"><a href="/2015/09/22/SwiftValueType/">2015-09-22</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/09/05/ContainerView/">友好的ContainerView&amp;AutoLayout资料推荐</a></h4>
-                            
-                            <p><time datetime="2015-09-05T06:43:53.000Z"><a href="/2015/09/05/ContainerView/">2015-09-05</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/08/03/SwiftVariables/">关于Swift  你可能连变量都不会定义</a></h4>
-                            
-                            <p><time datetime="2015-08-03T11:47:10.000Z"><a href="/2015/08/03/SwiftVariables/">2015-08-03</a></time></p>
-                        </div>
-                    
-                </div>
-            </div>    
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-06-03T09:09:21.000Z" itemprop="datePublished">
+          2016-06-03
+      </time>
+    
+    
+    | 
+    <a href='/tags/FunctionalProgramming/'>FunctionalProgramming</a>
+    
+    
+</span>
+                <h1>从函数调用到函数式编程</h1>
+            </div>
         </div>
-    </div>
-</section> 
+        <div class="col-md-8 col-md-offset-2">
+      		<h1 id="objective-c版本"><a href="#Objective-C版本" class="headerlink" title="Objective-C版本"></a>Objective-C版本</h1><ol>
+<li><p>简单的block调用<br><img src="http://ww4.sinaimg.cn/large/006tNbRwjw1f4i5jsbdm7j30jq0al3zo" alt="2016-06-03_17:14:04.jpg"></p>
+</li>
+<li><p>链式调用<br>循序渐进的理解</p>
+<blockquote>
+<p> 把函数当做返回值给别人调用 ，函数的参数被调用者传递进来<br><img src="http://ww4.sinaimg.cn/large/006tNbRwjw1f4i5ofzm6ij30io07qmxx" alt="2016-06-03_17:18:33.jpg"></p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li>返回值是函数，并且函数的返回值是调用者本身，可以构成链式调用<br><img src="http://ww4.sinaimg.cn/large/006tNbRwjw1f4i5pqe4xmj30ia08ddgr" alt="2016-06-03_17:19:47.jpg"></li>
+</ol>
+<blockquote>
+<p>加个typedef，可能会更清晰点</p>
+</blockquote>
+<p><img src="http://ww2.sinaimg.cn/large/006tNbRwjw1f4i5svocgoj30ia08iab4" alt="2016-06-03_17:22:49.jpg"></p>
+<ol>
+<li>已数据流为导向的函数式编程</li>
+</ol>
+<p><img src="http://ww4.sinaimg.cn/large/006tNbRwjw1f4i5zkyoy2j30j70i9abq" alt="2016-06-03_17:29:15.jpg"></p>
+<blockquote>
+<p>画个数据流</p>
+</blockquote>
+<p><img src="http://ww4.sinaimg.cn/large/006tNbRwjw1f4i63hh27hj30ns0lvgo3" alt="2016-06-03_17:33:00.jpg"></p>
+<h1 id="swift版本版本"><a href="#Swift版本版本" class="headerlink" title="Swift版本版本"></a>Swift版本版本</h1><ol>
+<li><p>简单的函数调用<br><img src="http://ww1.sinaimg.cn/large/006tNbRwjw1f4i6bj1e6vj30ib065aaj" alt="2016-06-03_17:40:44.jpg"></p>
+</li>
+<li><p>链式调用<br>循序渐进的理解</p>
+<blockquote>
+<p> 把函数当做返回值给别人调用 ，函数的参数被调用者传递进来<br><img src="http://ww1.sinaimg.cn/large/006tNbRwjw1f4i6erefvuj30hf075q3d" alt="2016-06-03_17:43:51.jpg"></p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li>返回值是函数，并且函数的返回值是调用者本身，可以构成链式调用<br><img src="http://ww3.sinaimg.cn/large/006tNbRwjw1f4i6ffyidnj30i007u0t9" alt="2016-06-03_17:44:30.jpg"></li>
+</ol>
+<blockquote>
+<p>加个typealias，可能会更清晰点</p>
+</blockquote>
+<p><img src="http://ww3.sinaimg.cn/large/006tNbRwjw1f4i6g69ju5j30i4096dge" alt="2016-06-03_17:45:12.jpg"></p>
+<ol>
+<li>以数据流为导向的函数式编程</li>
+</ol>
+<p><img src="http://ww2.sinaimg.cn/large/006tNbRwjw1f4i6n9cb7oj30im0fn0ty" alt="2016-06-03_17:52:01.jpg"></p>
+<blockquote>
+<p>画个数据流</p>
+</blockquote>
+<p><img src="http://ww4.sinaimg.cn/large/006tNbRwjw1f4i6npae22j30n90gqwfw" alt="2016-06-03_17:52:26.jpg"></p>
 
-<section id="statement">
-    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
-        <div class="row">
-            <p>不管生活有多不容易，都要守住自己的那一份优雅。</p>
+            <div class="clearfix"></div>
+            <hr class="nogutter">
         </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/07/14/Swift-Code-Style/" style="float: left;">
+        ← Swift-Code-Style
+    </a>
+    
+    
+    <a class="pull-right" href="/2016/04/27/HowToUseRunloop/">
+        How To Use Runloop， →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/06/03/从函数调用到函数式编程/" data-title="从函数调用到函数式编程" data-url="http://valiantcat.com/2016/06/03/从函数调用到函数式编程/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"chachaHouse"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
     </div>
 </section>
+
+
       
 <!-- ============================ Footer =========================== -->
 

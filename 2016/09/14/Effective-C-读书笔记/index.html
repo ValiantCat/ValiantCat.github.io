@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>Effective_C++读书笔记 | 茶茶的小屋</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="茶茶的小屋">
+    <meta name="author" content="寒哥">
+    <meta name="description" content="iOS 开发， Swift，Objective-C,OC" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="茶茶的小屋" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/github.css" type="text/css">
+    
+
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <!-- <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://www.jianshu.com/users/cc1e4faec5f7" class="animsition-link">寒哥的简书</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/xinxinqiu" class="animsition-link">寒哥的CSDN</a></li>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" class="animsition-link">寒哥的Github</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">茶茶的小屋</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-09-14T03:01:57.000Z" itemprop="datePublished">
+          2016-09-14
+      </time>
+    
+    
+    | 
+    <a href='/tags/C/'>C++</a>
+    
+    
+</span>
+                <h1>Effective_C++读书笔记</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<!-- toc -->
+<!-- tocstop -->
+<blockquote>
+<p>学习知识只写在本子上也不方便记忆，这里做份记录方便后续查看</p>
+</blockquote>
+<ol>
+<li><p>视C++为一个语言联邦</p>
+<p>C++  支持多语言范式:</p>
+<pre><code>+  procedural，过程式
++ object-oriented 面向对象式
++ functional 函数式 
++ generic 范形式
++ metaprogramming  元编程
+</code></pre></li>
+<li><p>使用const ，enum，inline 代替#define</p>
+<p><code>#</code>define是一个容易检查的预处理指令，将更多的工作交给编译器而不是预处理骑<br>对于单纯的常量使用是const 和 enum更合适<br>对于内联函数使用inline更合适，在其他 情况才使用MACROS</p>
+</li>
+<li><p>更多的使用const</p>
+<ul>
+<li>对于参数仅仅const不同其实也是重载的，  </li>
+<li>const能接受 non-const 和const 如果成员方法是logical contenes，可以使用mutable  也去掉 const对编译器加上的  bitwess contess </li>
+<li>当const 和non const方法内容一样时 可以使用 non-const调用const方法 ，内部使用 static_caste&lt;&gt;  转换加上const，然后使用  const_caste&lt;&gt;去掉const</li>
+</ul>
+</li>
+<li><p>确定对象先出初始化再使用</p>
+<ul>
+<li>为内置数据类型手动初始化</li>
+<li>使用成员初始化列表初始化 ，而不是赋值，提升效率</li>
+<li>如果有不同的static有初始化顺序依赖关系。使用local-static代替 全局 static对象</li>
+</ul>
+</li>
+<li><p>了解C++默默编写并调用了那些函数</p>
+<ul>
+<li>默认构造函数</li>
+<li>拷贝构造函数</li>
+<li>析构函数(系统默认生成的是非virtual 除非有base声明为virtual)</li>
+<li>拷贝赋值运算符</li>
+<li>移动构造函数 (c11新增)</li>
+<li>移动赋值运算符 (c11新增)</li>
+</ul>
+<blockquote>
+<p> 如果类里面有引用或者const成员 系统是不会生成 copy = 和 移动=函数的<br> 有动态内存管理的类需要自己实现方法 避免内存泄漏或者重复释放内存导致问题</p>
+</blockquote>
+</li>
+<li><p>如果不想使用编译器自动生成的函数，就拒绝它</p>
+<ul>
+<li>在类的private声明一个 拷贝构造函数和赋值运算符(只有声明) ，其他调用就会编译出错，但是友元和其他成员调用没事 ，但是会产生链接错误， 引入第二种方法。</li>
+<li>建立一个base类 将 拷贝构造函数和赋值运算符(只有声明)声明为私有，然后当前类私有继承自 base即可</li>
+</ul>
+</li>
+<li><p>为多态基类声明virtual析构函数</p>
+<ul>
+<li>当作基类的 如果有一个virtual成员函数 一般就有一个Virtual析构函数</li>
+<li>动态内存管理的也适合有个virtual析构函数(系统的std::string 的析构函数不是 virtual 所以集成的话如果有多态体现就会有内存泄漏的风险 STL很多这样，)</li>
+<li>不适合做基类的不要实现virtual 析构函数，因为有了虚函数表 效率会降低</li>
+<li>需要抽象类的时候 一般声明析构函数为纯虚函数是最好的 ，你还必须给析构函数提供<code>定义</code> 不定义在有子类的时候链接会出错</li>
+</ul>
+</li>
+<li><p>别让异常逃离析构函数(析构函数不要<code>抛出</code>异常)</p>
+<blockquote>
+<p> 假设 vector<type> ts (10,0)   10个元素有一个有异常 后续了能造成内存泄漏</type></p>
+<ul>
+<li>析构函数绝对不能抛出异常 如果有这样的需求 比如数据库链接对象 在析构时要关闭链接 可能抛出异常 可以使用两种方案 </li>
+</ul>
+<ol>
+<li>使用try{} catch   (…){  std::abort(); }</li>
+<li>使用try{} catch   (…){  someLog()); }</li>
+</ol>
+<ul>
+<li>如果用户需要对异常作出反应，可以重新设计一个对外可以暴露的方法让用户去操作  如 public clos() </li>
+</ul>
+</blockquote>
+</li>
+<li><p>绝对不要在构造函数和析构函数中调用virtual函数</p>
+</li>
+</ol>
+<blockquote>
+<p>java系列不同，请注意<br>因为在继承构造顺序中，假设你在构造函数中调用virtual函数，其实这时候子类还没有实例化，virtual调用的还是非virtual 的，这时候即使使用了dynamic_cast 拿到的也是父类，  在析构函数调用virtual，子类已经被释放。</p>
+<p> 还有的时候非常难意识到你调用virtual函数，如多个构造函数调用了某个抽取出来的方法，但是这个方法里面调用了virtual函数，这也是有问题的，而且难以debug<br>如何解决，建议一种方案  ，比如  在构造函数调用的virtual函数 更改为non-virtual，并指定参数，用子类在构造函数初始化时传递。</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">class Transcation &#123;</div><div class="line"> public :</div><div class="line">     explicit Transcation(const std::string &amp; info) &#123;</div><div class="line">   //      .....</div><div class="line">   log(info);</div><div class="line">     &#125;   </div><div class="line">     void logT(const std::string &amp; info) &#123; // non-virtual </div><div class="line">    // do something          </div><div class="line">         </div><div class="line">     &#125; </div><div class="line">    </div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">class SubT : public Trancastion &#123;</div><div class="line">public :</div><div class="line">    explicit SubT(XX,const std::string &amp;info) : someInstanceVar(XX), Transcation(info) &#123;&#125;    </div><div class="line">    </div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<ol>
+<li><p>在赋值运算符中返回一个 refresence to  *this</p>
+<blockquote>
+<p> 如何实现 连锁赋值，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> T &#123;</div><div class="line">   T &amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> T &amp; t) &#123;</div><div class="line">       ...</div><div class="line">   <span class="keyword">return</span> *<span class="keyword">this</span>;        </div><div class="line"></div><div class="line">   &#125;     </div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+<hr>
+<ol>
+<li>在operator= 处理 “自我赋值”<blockquote>
+<p>假设在赋值运算符中 *this 和 传递进来的对象执行的是同一个对象时，可能会出现问题，比如 delete old， new Type(param) , param 可能是old  这时候会出问题。<br>通常做法是</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">T&amp; <span class="keyword">operator</span>= (<span class="keyword">const</span> T &amp; t ) &#123;</div><div class="line">   <span class="keyword">if</span> t == *<span class="keyword">this</span> &#123; <span class="keyword">return</span> *<span class="keyword">this</span>&#125; </div><div class="line">    <span class="keyword">delete</span> <span class="keyword">this</span>-&gt;xxval </div><div class="line">    <span class="keyword">this</span>-&gt; xxxval = <span class="keyword">new</span> XXXVal(xxval)</div><div class="line">    <span class="keyword">return</span> *<span class="keyword">this</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个代码在有异常的时候也算有问题的 因为在new的时候发生异常可能导致后续的return 失败 *this执行了一个被释放的内存<br>新的实现</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">T &amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> T &amp;t) &#123;</div><div class="line">XXXval * xxxvalOriginal = <span class="keyword">this</span>-&gt; xxxVal    <span class="comment">// 保留原本的xxxval     </span></div><div class="line"><span class="keyword">this</span>-&gt;xxxVal =  <span class="keyword">new</span> XXXVal(t.xxxval); <span class="comment">// new copy  如果失败了 也不影响</span></div><div class="line"><span class="keyword">delete</span> xxxValOriginal; <span class="comment">// delete old </span></div><div class="line"><span class="keyword">return</span> *<span class="keyword">this</span>;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>或者使用新的 copy  swap技术</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Widget &#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(widget &amp;rhs)</span></span>; &#123;交换*<span class="keyword">this</span>  和rhs 详情参见条款<span class="number">29</span>   &#125;</div><div class="line">    Widget &amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Widget rhs)&#123; <span class="comment">// by Reference </span></div><div class="line">        Widget temp(rhs) <span class="comment">// copy cons        </span></div><div class="line">        swap(temp);</div><div class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>)</div><div class="line">    &#125;    </div><div class="line">    或者可以重写 接受参数为值传递的赋值运算符</div><div class="line">     Widget &amp; <span class="keyword">operator</span>=(Widget rhs)&#123; <span class="comment">// by value</span></div><div class="line"> <span class="comment">// 已经copy过了</span></div><div class="line">        swap(rhs</div><div class="line">        </div><div class="line">        );</div><div class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>)</div><div class="line">    &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>总结: 要注意异常性安全 ，通常会解决自我赋值安全。</p>
+</blockquote>
+<hr>
+<ol>
+<li>复制对象时不要忘记每一个成员<blockquote>
+<p>copy constructor 和  copy assignmaent成为copying函数， </p>
+</blockquote>
+</li>
+<li>新增了成员变量，要修改所有的构造函数，拷贝构造函数，赋值运算符，赋值运算符变种+= </li>
+<li><p>如果是继承的有基类，需要在拷贝构造函数的成员初始化列表调用父类的拷贝构造函数()，如果不写调用默认的构造函数，(不是没有调用)， 在赋值运算符 手动调用一次 基类的赋值运算符 <code>BASECLASS::operator=(rhs)</code></p>
+</li>
+<li><p>以对象管理资源</p>
+<blockquote>
+<p>在使用工厂方法创建对象时一般会返回一个指针， 这就依赖调用者再使用完毕后delete这个指针， 但是使用的函数如果出现 early return 或者 异常等会导致delete语句无法调用， 所以我们可以使用只能指针来管理  auto_ptr<class> 这个指针在自己释放后会调用包含数据的析构函数<br>auto_ptr指针是单一只能指针，在出现copy 赋值或者copy构造函数时旧的指针会清空为null 避免重复释放内存，但是这个指针在使用时会有其他复制多次出现的问题，而且无法支持stl容易，  更好的办法是使用引用计数指针 ，share_ptr,而且能用在stl容器中<br>但是但是 这些智能指针都不使用 delete []，使用的是delete版本</class></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Investement &#123;&#125;</div><div class="line"><span class="function">Investement *<span class="title">factory</span><span class="params">()</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">caller</span><span class="params">()</span> </span>&#123;</div><div class="line">    Investement *ptr = factor()</div><div class="line"><span class="comment">//    xxxxx  假设这里出现return  throw 可能就会有问题 </span></div><div class="line"><span class="keyword">delete</span> ptr;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">caller1</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="built_in">std</span>::<span class="built_in">auto_ptr</span>&lt;Investement&gt; ptr = factor()</div><div class="line"></div><div class="line">&#125;    </div><div class="line"><span class="keyword">void</span> caller2() &#123;</div><div class="line">    <span class="comment">// 1 较好的办法</span></div><div class="line">  <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Investement&gt; ptr = factor()</div><div class="line"></div><div class="line">&#125;    </div><div class="line"><span class="built_in">std</span>::shared_prt&lt;Investement &gt; factory();</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>在资源管理时小心copying行为</p>
+<blockquote>
+<p> 1 禁止复制<br> 使用引用技术式的只能指针，注意可以使用 std::tr1::share_ptr，因为在某些时刻我们可能是在引用计数为0时做个额外操作，而不是析构这个对象、</p>
+</blockquote>
+</li>
+<li><p>在资源管理类中提供对原始资源的访问</p>
+<blockquote>
+<p>有时候我们使用了智能指针，但是在某些API的调用他们需要的是原始指针，那么我们可以通过shard_ptr.get()返回原始指针。<br>这就引出了一个问题<br>1 提供get方法转换<br>2 实现一个隐式转换 operartor TOClass() const;但是这种可能带来隐藏问题的方式需要提供斟酌考虑是否采用</p>
+</blockquote>
+</li>
+<li><p>成对使用new和delete时要采取匹配的形式</p>
+<blockquote>
+<p>new 和 delete  ，new []和delete[] 配合</p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li><p>用独立的语句来将指针放进智能指针中</p>
+<blockquote>
+<p>举个例子<br>void  process(std::tr1::shared_prt<widget>,int priority)<br>在调用时你可能这样</widget></p>
+<p>process(std::tr1::shared_prt<widget>(new Widget),XXXprority())<br>系统给你出现的顺序可能是</widget></p>
+<ol>
+<li>new Widget</li>
+<li>call XXXprority()</li>
+<li>std::tr1::shared_ptr的构造函数<br>but  这时候 2 的函数调用出现了异常，  就会出现内存泄漏 ，因此更合适的办法应该是这样<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span>  <span class="title">process</span><span class="params">(<span class="built_in">std</span>::tr1::shared_prt&lt;Widget&gt;,<span class="keyword">int</span> priority)</span></span>&#123;&#125;</div><div class="line"><span class="comment">// 不实用匿名指针</span></div><div class="line"><span class="built_in">std</span>::tr1::<span class="built_in">shared_ptr</span>&lt;Widget&gt; w1(<span class="keyword">new</span> Widget);</div><div class="line">process(w1,XXpriority());</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+</li>
+<li><p>让接口容易被正确使用</p>
+</li>
+</ol>
+<ul>
+<li>促进正确使用的办法包括接口的一致性，以及与内置类型的行为兼容</li>
+<li>组织误用的方法包括简历新的类型，限制类型上的操作。束缚对象值，以及消除客户的资源管理在责任</li>
+<li>shared_ptr支持定制删除器(custom deleter),这可防范DLL问题，可被用来自动解除互斥锁。                  </li>
+</ul>
+<ol>
+<li>设计class犹如设计type<ul>
+<li>新的对象如何被创建和销毁 (构造函数和析构函数，自定义new运算符)</li>
+<li>对象的初始化和对象的赋值的差别(赋值和拷贝构造函数)</li>
+<li>新的对象如果被passwd By Value传递如何书写</li>
+<li>新的对象的合法值(需要约束数据是否合理)</li>
+<li>新的type的继承体系 比如析构函数</li>
+<li>新的Type和其他类型的转换</li>
+<li>什么杨的函数和操作符是合理的</li>
+<li>访问控制符</li>
+<li>是否应该抽象与类型  类型模板</li>
+</ul>
+</li>
+<li>宁以pass-By-ference-to-const 替换pass-by-Value<blockquote>
+<p>copy value的代价非常昂贵 一般可以使用reference代替 ，为了避免别人修改 可以指定const<br>还可以避免对象分割，  假设一个函数接受的是父类对象  那么传递一个子类的话经过 copy，子类信息会丢失 。没有多态性体现</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Window&#123;&#125;</div><div class="line"><span class="keyword">class</span> DebugWidow: <span class="keyword">public</span> Widow&#123;&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dosomething</span><span class="params">(Window w)</span> </span>&#123;&#125; <span class="comment">// pass By Value</span></div><div class="line"><span class="comment">// doSomethng(DebugWindow())</span></div><div class="line">改写为<span class="function"><span class="keyword">const</span> reference</span></div><div class="line"><span class="keyword">void</span> <span class="title">dosomething</span><span class="params">(<span class="keyword">const</span> Window &amp; w)</span></div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p>系统内置类型和stl一般建议使用 pass by value</p>
+</blockquote>
+<ol>
+<li><p>必须返回对象时，别妄想返回去reference</p>
+<blockquote>
+<p>绝不要返回一个指向localStack对象的指针引用，也不要返回heap-Allocated的指针或者引用，这种时候 直接返回对象就好了 copy by value 也无所谓</p>
+</blockquote>
+</li>
+<li><p>将成员变量声明为private</p>
+<blockquote>
+<p>封装的思想不再赘述</p>
+</blockquote>
+</li>
+<li><p>宁以non-member。non-friend替换member函数</p>
+<blockquote>
+<p>封装指的是封装数据。越多的函数可以访问数据，封装性就越低。<br>外部的函数做的事情够用就好，没必要声明为成员函数，因为成员函数可以访问所有数据<br>在组织代码结构时可以将class和 对class操作的函数放在同一个命名空间，但是不放在同一个文件中，这样在需要的时候才需导入头文件。</p>
+</blockquote>
+</li>
+<li><p>若所有参数皆需类型转换，请为此采用non-member函数</p>
+<blockquote>
+<p>如果你需要为某个函数的所有参数(包括 被this指针所值的那个隐喻参数)进行类型转换，那么这个函数必须是个non-member函数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Rational &#123;</div><div class="line">    <span class="comment">// 如果是成员运算符</span></div><div class="line">    Rational(<span class="keyword">int</span> numerator = <span class="number">0</span>, <span class="keyword">int</span> denominator = <span class="number">1</span>); <span class="comment">//这里没有explicit</span></div><div class="line">    <span class="keyword">const</span> Rational <span class="keyword">operator</span>*(<span class="keyword">const</span> Ration &amp;rhs) <span class="keyword">const</span>;</div><div class="line">    调用<span class="function">Rational <span class="title">oneEight</span><span class="params">(<span class="number">1</span>,<span class="number">8</span>)</span></span></div><div class="line">    Rational <span class="title">OneHalf</span><span class="params">(<span class="number">1</span>,<span class="number">2</span>)</span></div><div class="line">Ration     result  =  oneEight * <span class="number">2</span><span class="comment">//成功 ， 因为当前相当于 oneEight.operator*(Ration(2))  2位于已有对象的参数列表里</span></div><div class="line">Ration     result  = <span class="number">2</span> * oneEight<span class="comment">// 这里失败  因为2没有成员函数调用，也没有全局函数可供调用，隐式转换必须位于已有对象 这里没有已有对象 所以不能转换将2转换为Rational对象</span></div><div class="line">    </div><div class="line">&#125;</div><div class="line">改写为non-member函数</div><div class="line"><span class="keyword">const</span> ration <span class="keyword">operator</span>*(<span class="keyword">const</span> Rational &amp;lhs, <span class="keyword">const</span> Rational &amp;rhs)&#123;&#125;</div><div class="line">这时候调用皆能通过</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>考虑写出一个不抛出异常的swap函数<br>如果std::swap效率不够或者是不满足使用条件可以考虑以下几种事情。</p>
+<ol>
+<li>提供一个public swap成员函数，让它搞笑的置换你的类型的2个对象值，(必须不能抛出异常)</li>
+<li>在你的class 或者 class template所在的命名空间内提供一个non-member swap并令他调用上述swap成员函数。</li>
+<li>如果你编写的是一个class 而不是class Template 为你的class具体化一个std::swap并令它调用你的swap函数。</li>
+<li>客户如果调用swap函数 请使用using::std::swap  然后直接调用swap函数 ，系统会为你寻找最合适的swap函数</li>
+</ol>
+</li>
+</ol>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2016/07/25/干货集中营-ReactiveCocoa+RXSwift+MVVM/">
+        干货集中营-ReactiveCocoa+RXSwift+MVVM →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/09/14/Effective-C-读书笔记/" data-title="Effective_C++读书笔记" data-url="http://valiantcat.com/2016/09/14/Effective-C-读书笔记/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"chachaHouse"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By 寒哥. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
