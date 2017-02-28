@@ -249,7 +249,7 @@
 </li>
 </ul>
 <hr>
-<p><strong>引用类型嵌套引用类型</strong><br>代码如下<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inner</span> </span>&#123;</div><div class="line">     <span class="keyword">var</span> value = <span class="number">99</span></div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Outter</span> </span>&#123;</div><div class="line">     <span class="keyword">var</span> value = <span class="number">99</span></div><div class="line">     <span class="keyword">var</span> inner = <span class="type">Inner</span>()</div><div class="line"></div><div class="line"> &#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> out1 = <span class="type">Outter</span>()</div><div class="line"><span class="keyword">var</span> out2 = out1</div><div class="line">out1.value = <span class="number">100</span></div><div class="line">out1.inner.value = <span class="number">100</span></div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="string">"outer2.value=<span class="subst">\(out2.value)</span> outer2.inner.value=<span class="subst">\(out2.inner.value)</span>"</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>引用类型嵌套引用类型</strong><br>代码如下<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inner</span> </span>&#123;</div><div class="line">     <span class="keyword">var</span> value = <span class="number">99</span></div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Outter</span> </span>&#123;</div><div class="line">     <span class="keyword">var</span> value = <span class="number">99</span></div><div class="line">     <span class="keyword">var</span> inner = <span class="type">Inner</span>()</div><div class="line"></div><div class="line"> &#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> out1 = <span class="type">Outter</span>()</div><div class="line"><span class="keyword">var</span> out2 = out1</div><div class="line">out1.value = <span class="number">100</span></div><div class="line">out1.inner.value = <span class="number">100</span></div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="string">"outer2.value=\(out2.value) outer2.inner.value=\(out2.inner.value)"</span>)</div></pre></td></tr></table></figure></p>
 <p>结果为 </p>
 <blockquote>
 <p>“outer2.value=100 outer2.inner.value=100\n”</p>
@@ -278,7 +278,7 @@
         out1.value = <span class="number">100</span>
         out1.inner.value = <span class="number">100</span>
 
-        <span class="built_in">print</span>(<span class="string">"outer2.value=<span class="subst">\(out2.value)</span> outer2.inner.value=<span class="subst">\(out2.inner.value)</span>"</span>)
+        <span class="built_in">print</span>(<span class="string">"outer2.value=\(out2.value) outer2.inner.value=\(out2.inner.value)"</span>)
 结果：
 &gt;<span class="string">"outer2.value=99 outer2.inner.value=99\n"</span>
 </code></pre>
@@ -314,7 +314,7 @@ out3.inner.value <span class="comment">//99</span>
     out1.value = <span class="number">100</span>
     out1.inner.value = <span class="number">100</span>
 
-    <span class="built_in">print</span>(<span class="string">"outer2.value=<span class="subst">\(out2.value)</span> outer2.inner.value=<span class="subst">\(out2.inner.value)</span>"</span>)
+    <span class="built_in">print</span>(<span class="string">"outer2.value=\(out2.value) outer2.inner.value=\(out2.inner.value)"</span>)
 
 结果 
 &gt;<span class="string">"outer2.value=100 outer2.inner.value=100\n"</span>
@@ -344,7 +344,7 @@ out3.inner.value <span class="comment">//99</span>
     out1.value = <span class="number">100</span>
     out1.inner.value = <span class="number">100</span>
 
-    <span class="built_in">print</span>(<span class="string">"outer2.value=<span class="subst">\(out2.value)</span> outer2.inner.value=<span class="subst">\(out2.inner.value)</span>"</span>)
+    <span class="built_in">print</span>(<span class="string">"outer2.value=\(out2.value) outer2.inner.value=\(out2.inner.value)"</span>)
 结果 
 &gt;<span class="string">"outer2.value=99 outer2.inner.value=100\n"</span>
 </code></pre>
