@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>利用VPS搭建科学上网工具 | 茶茶的小屋</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="茶茶的小屋">
+    <meta name="author" content="寒哥">
+    <meta name="description" content="iOS 开发， Swift，Objective-C,OC" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="茶茶的小屋" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/github.css" type="text/css">
+    
+
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <!-- <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://www.jianshu.com/users/cc1e4faec5f7" class="animsition-link">寒哥的简书</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/xinxinqiu" class="animsition-link">寒哥的CSDN</a></li>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" class="animsition-link">寒哥的Github</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">茶茶的小屋</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-10-30T04:46:06.000Z" itemprop="datePublished">
+          2016-10-30
+      </time>
+    
+    
+    | 
+    <a href='/tags/VPS/'>VPS</a>
+    
+    
+</span>
+                <h1>利用VPS搭建科学上网工具</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<!-- toc -->
+<!-- tocstop -->
+<ul>
+<li><p>VPN和VPS是什么</p>
+<ol>
+<li>VPN: 虚拟专用网络的功能是：在公用网络上建立专用网络，进行加密通讯。在企业网络中有广泛应用。VPN网关通过对数据包的加密和数据包目标地址的转换实现远程访问。VPN有多种分类方式，主要是按协议进行分类。VPN可通过服务器、硬件、软件等多种方式实现。</li>
+<li>VPS:（Virtual Private Server 虚拟专用服务器）技术，将一台服务器分割成多个虚拟专享服务器的优质服务</li>
+</ol>
+</li>
+<li><p>痛点: 之前由于一直需要科学上网工具，随购买VPN使用，速度倒是可以，但是由于在公司内部一旦连接上VPN，公司内网相关资源就无法访问，诸如git，mail，wiki等。需要再断开，VPN每次拨号时间虽然不长，但是也需要5s左右，由于经常需要频繁切换网络环境，较为繁琐，所以专用VPS内搭建SS给自己专线使用，而且ss支持动态代理，不需要代理的网络链接自动切换。而且速度对自己非常满意，并且月流量带宽远大于之前购买的VPN。鉴于搭建环境较为繁琐，特意记录一下，以便朋友们有需要可以参考。</p>
+</li>
+<li><p>SS是什么?</p>
+</li>
+</ul>
+<blockquote>
+<p>[Shadowsocks（中文名称：影梭）是使用Python、C++、C#等语言开发的、基于Apache许可证的开放源代码软件，用于保护网络流量、加密数据传输。Shadowsocks使用Socks5代理方式。 Shadowsocks分为服务器端和客户端。在使用之前，需要先将服务器端部署到服务器上面，然后通过客户端连接并创建本地代理。 在中国大陆，本工具也被广泛用于突破防火长城（GFW），以浏览被封锁、屏蔽或干扰的内容。在2015年8月22日，Shadowsocks原作者Clowwindy称受到了中国政府的压力，宣布停止维护此项目并移除其用户页面所载的源代码。<a href="https://zh.wikipedia.org/wiki/Shadowsocks" target="_blank" rel="external">wiki</a></p>
+<p>ss相当于在本机和服务器之间建立一条隧道，可以定义哪些流量走隧道。ss不能保证身份的可匿。 <em>注: ss被屏蔽，以下称呼用$代替</em></p>
+</blockquote>
+<ul>
+<li><p>准备资源</p>
+<ol>
+<li>vultr帐号</li>
+<li>paypal或者vista信用卡</li>
+<li>mac(terminal) /windows putty</li>
+</ol>
+</li>
+</ul>
+<p>vultr 的有点，价格低，带宽大，优惠活动多，文档丰富， <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="price"> 最近vultr有优惠活动。新注册的用户将会或者20$的优惠活动，建议通过我的邀请链接<a href="http://www.vultr.com/?ref=7021753-3B" target="_blank" rel="external">http://www.vultr.com/?ref=7021753-3B</a>去注册， 然后一定要支付金额才能使用。赠送的金额必须先充值才能使用vultr， 强烈建议充值10$,强烈建议充值10$,强烈建议充值10$,只有充值10$以上我才能收到邀请奖励，当作辛苦记录的稿费。</p>
+<blockquote>
+<p>注: 不要试图试用之后去再申请帐号，vultr会检测支付帐号，如果重复申请帐号，使用了一个paypal去支付，会被vultr封号。</p>
+</blockquote>
+<p>强烈建议使用paypal(类似中国的支付宝)去支付，优点是</p>
+<ol>
+<li>有的使用者并没有双币信用卡，paypal支持银联的卡片。</li>
+<li>vultr目前无法解绑信用卡。</li>
+</ol>
+<p>充值过程: <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="pay"></p>
+<ul>
+<li>购买一个服务器 <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="server"></li>
+</ul>
+<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="debian7"></p>
+<p>这里本人选择的是debin7 64位的操作系统，可能有些人偏爱，CentOS，Ubuntu，这些操作系统对我们搭建SS大同小异。价格选择5$即可，个人觉得满足5个人使用足够了，可以和小伙伴一起购买使用。</p>
+<blockquote>
+<p>注： vultr的服务器只要添加就会开始收费，暂停是没用的，如果不需要使用了 一定要删除服务器。</p>
+</blockquote>
+<p>之后等待install，进入running状态之后点击操作系统 <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="debian"> <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="debian"></p>
+<p>这时候可以ping一下ip地址，如果可以ping的通就可以进行下一步了。 打开终端输入 ssh root@ip 询问回答YES，密码在server面板 点击复制，直接粘贴进终端，注意终端是不会显示密码的，并不是没有输入，。链接成功，如下图所示： <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="ssh"></p>
+<ul>
+<li>安装$R就是ss的服务端。 简单的三个命令 分开输入。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1\. wget --no-check-certificate https://raw.githubusercontent.com/teddysun/$_install/master/$R.sh</div><div class="line"></div><div class="line">2\. chmod +x $R.sh</div><div class="line"></div><div class="line">3\. ./$R.sh 2&gt;&amp;1 | tee $sR.log</div></pre></td></tr></table></figure>
+<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="download"> <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="chmod"> <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="install"> 这里我密码输入的是123456， 端口号默认就好。 接下来自动完成后输出信息 <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="install"></p>
+<p>现在我们的ss理论就好了，下面附上ssR相关的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/shadowsocks status //检测状态</div><div class="line">/etc/init.d/shadowsocks stop   // 关闭服务</div><div class="line">/etc/init.d/shadowsocks start  //启动服务</div></pre></td></tr></table></figure>
+<p>如果有想修改密码 去编辑配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/shadowsocks.json</div></pre></td></tr></table></figure>
+<p>编辑完之后重启服务即可 有些朋友和小伙伴分享的时候习惯一人一个帐号，可以配置多帐号，下面是配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&#123;</div><div class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</div><div class="line">    &quot;server_ipv6&quot;: &quot;[::]&quot;,</div><div class="line">    &quot;local_address&quot;:&quot;127.0.0.1&quot;,</div><div class="line">    &quot;local_port&quot;:1080,</div><div class="line">    &quot;port_password&quot;:&#123;</div><div class="line">        &quot;8989&quot;:&quot;12345611&quot;,</div><div class="line">        &quot;8888&quot;:&quot;123432311&quot;,</div><div class="line">        &quot;7777&quot;:&quot;123ddsff45611&quot;,</div><div class="line">        &quot;8900&quot;:&quot;478xcvx456456&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;timeout&quot;:300,</div><div class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</div><div class="line">    &quot;protocol&quot;:&quot;origin&quot;,</div><div class="line">    &quot;protocol_param&quot;: &quot;&quot;,</div><div class="line">    &quot;obfs&quot;:&quot;plain&quot;,</div><div class="line">    &quot;obfs_param&quot;: &quot;&quot;,</div><div class="line">    &quot;redirect&quot;: &quot;&quot;,</div><div class="line">    &quot;dns_ipv6&quot;: false,</div><div class="line">    &quot;fast_open&quot;: false,</div><div class="line">    &quot;workers&quot;: 1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但是本人亲测，有问题，不过一个帐号可以同时多人多设备在线，所以这里以后先挖坑，以后再填。</p>
+<p>下面分享一个锐速的一键脚本，什么是锐速，总之是提升连接速度的好东西。安装即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh &amp;&amp; bash serverspeeder-all.sh</div></pre></td></tr></table></figure>
+<p>装完之后自动会运行， 下面是检测锐速的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/serverspeeder/bin/serverSpeeder.sh status // 状态</div><div class="line">/serverspeeder/bin/serverSpeeder.sh restart// 重启</div></pre></td></tr></table></figure>
+<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="install"></p>
+<p>如果想让锐速开机自启动 可以 vi /etc/rc.local 在最后输入 /serverspeeder/bin/serverSpeeder.sh start 保存即可</p>
+<ul>
+<li>使用ss 先去下载ss对应的客户端软件 <a href="https://shadowsocks.com/client.html" target="_blank" rel="external">ss下载</a></li>
+</ul>
+<p>我这里下载mac端 ，iOS 由于被下架，只能去寻找替代品，在app store 输入 $ 搜索，里面有很多替代品，我下载的是netkit 1元， 也可以使用surge，之类替代的。</p>
+<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="配置"> 打开即可科学上网。</p>
+<p>注意 如果你是mac10.11之后，手动关闭了Rootless，貌似会导致无法上网，需要关闭。重启电脑即可。</p>
+<ul>
+<li>VPN补充</li>
+</ul>
+<p>vps里面也是可以搭建VPN的，这里给一个简单搭建IPSpecVPN的教程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1\.  wget --no-check-certificate https://raw.githubusercontent.com/quericy/one-key-ikev2-vpn/dev-debian/one-key-ikev2.sh</div><div class="line"></div><div class="line">2\.  chmod +x one-key-ikev2.sh</div><div class="line"></div><div class="line">3\.  bash one-key-ikev2.sh</div></pre></td></tr></table></figure>
+<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="配置"> 这里输入1 其他默认即可</p>
+<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="result"> 开机自启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">vi /etc/rc.local</div><div class="line">/usr/local/sbin/ipsec start</div></pre></td></tr></table></figure>
+<p>mac配置如下 <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="result"> iPhone系统原生支持。</p>
+<p>有时候系统vpn会挂掉，会导致ss也无法使用，解决办法就是重新安装vpn，。</p>
+<ul>
+<li>免密码登录，ssh登录远程电脑需要输入密码， 这里可以配置免密登录，需要你的ssh配置，生成过程通github配置，没有配置可自行搜索</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1   scp ~/.ssh/id_rsa.pub root@xx.xx.xx.xx:/root/id_rsa.pub // 第一句需要在本机执行。</div><div class="line">2   cat id_rsa.pub &gt;&gt; .ssh/authorized_keys</div><div class="line">3   chmod 600 .ssh/authorized_keys</div></pre></td></tr></table></figure>
+<p>执行即可。</p>
+<hr>
+<p>有时候我们利用ss下载大文件还是比较慢，怎么办，我们可以远程在VPS上下载大文件，然后通过搭建一个web服务器，再通过专线下载回来即可。 写累了 先挖个坑，灾后续上。<br><br>给我发个红包催更新吧</p>
+<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="weChat"></p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" style="float: left;">
+        ← 制作Swift和Objective-C Mixed的Pod
+    </a>
+    
+    
+    <a class="pull-right" href="/2016/09/14/Effective-C-读书笔记/">
+        Effective_C++读书笔记 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/10/30/利用VPS搭建科学上网工具/" data-title="利用VPS搭建科学上网工具" data-url="http://valiantcat.com/2016/10/30/利用VPS搭建科学上网工具/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"chachaHouse"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By 寒哥. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://valiantcat.com/"/>
-  <updated>2016-10-12T09:16:18.000Z</updated>
+  <updated>2017-01-04T07:20:03.000Z</updated>
   <id>http://valiantcat.com/</id>
   
   <author>
@@ -14,6 +14,220 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>制作Swift和Objective-C Mixed的Pod</title>
+    <link href="http://valiantcat.com/2016/12/27/%E5%88%B6%E4%BD%9CSwift%E5%92%8CObjective-C-Mixed%E7%9A%84Pod/"/>
+    <id>http://valiantcat.com/2016/12/27/制作Swift和Objective-C-Mixed的Pod/</id>
+    <published>2016-12-27T06:29:11.000Z</published>
+    <updated>2017-01-04T07:20:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- toc -->
+<!-- tocstop -->
+<ul>
+<li><p>知识背景</p>
+<ol>
+<li><a href="https://guides.cocoapods.org/using/getting-started.html" target="_blank" rel="external">What is CocoaPods</a></li>
+<li><p><a href="https://guides.cocoapods.org/using/using-cocoapods.html" target="_blank" rel="external">What did CocoaPods do?</a></p>
+<blockquote>
+<p>In Xcode, with references directly from the ruby source, it:</p>
+<ol>
+<li>Creates or updates a workspace.</li>
+<li>Adds your project to the workspace if needed.</li>
+<li>Adds the CocoaPods static library project to the workspace if needed.</li>
+<li>Adds libPods.a to: targets =&gt; build phases =&gt; link with libraries.</li>
+<li>Adds the CocoaPods Xcode configuration file to your app’s project.</li>
+<li>Changes your app’s target configurations to be based on CocoaPods’s.</li>
+<li><p>Adds a build phase to copy resources from any pods you installed to your app bundle. i.e. a ‘Script build phase’ after all other build phases with the following:</p>
+<ul>
+<li>Shell: /bin/sh</li>
+<li>Script: ${SRCROOT}/Pods/PodsResources.sh</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>大意是，CocoaPods是一个依赖管理工具，使用CocoaPods可以自动的去分析依赖，然后通过脚本去将第三方依赖复制编译为静态库然后链接进项目。~~~等。</p>
+</blockquote>
+<ul>
+<li>制作Pod</li>
+</ul>
+<blockquote>
+<p>有时候我们有把代码做成一个轮子给别人用情况，我们需要按照官方的教程<a href="https://guides.cocoapods.org/making/index.html" target="_blank" rel="external">Making CocoaPods</a>去制作。</p>
+<p>教程分为2类 : </p>
+<ol>
+<li>发布公共Pod给所有开发者使用。</li>
+<li>制作私有Pod。 方法较为简单。自行查阅资料即可。这里不再赘述。</li>
+</ol>
+</blockquote>
+<hr>
+<ul>
+<li>Swift和Objective-C Mixed</li>
+</ul>
+<blockquote>
+<p>参考官方的文档(文末指出)，混编里面包含有2种调用情况:</p>
+<p>Question1.  Swift调用Objective-C<br>   Question2. Objective-C调用Swift</p>
+</blockquote>
+<p>这里我新建一个项目 命名为Mixed(Single View Application)， 创建一个文件夹Classes用于存放源代码<br>  创建一个Objective-C Class O 继承自NSObject 创建一个Swift Class S 继承自NSObject</p>
+<ul>
+<li>Answer1: 为Swift源代码添加一个 XXX.h头文件这里为Mixed-Bridging-Header 在这个文件中导入需要访问的Objective-C 源代码的头文件。</li>
+</ul>
+<p><img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="headerConfig"></p>
+<p>有时候Xcode反应会稍微延迟一点。手动编译一下即可。做完这个配置，Swift即可访问Objective-C 源代码。<br> 代码如图:<br> <img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="swiftAccessObjc"></p>
+<ul>
+<li>Answer2: Objective-C 访问Swift源代码 需要导入系统为项目生成的头文件，默认为Module+Swift.h 当然自己也是可以修改的， 导入之后，编译一下(Xcode有时候有缓存，没事就应该编译一下😒)<br>具体代码配置如图<br><img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="ObjcAccessSwift"></li>
+</ul>
+<p>至此混编项目测试完成。</p>
+<ul>
+<li>制作Pod 创建Mixed.podspec文件 键入如下内容</li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Pod::Spec.new <span class="keyword">do</span> <span class="params">|s|</span></div><div class="line">    s.name             = <span class="string">"Mixed"</span></div><div class="line">    s.version          = <span class="string">"0.0.1"</span></div><div class="line">    s.summary          = <span class="string">"链家网混编组件"</span></div><div class="line">    s.description      = <span class="string">"链家网混编组件混编测试"</span></div><div class="line">    s.license          = &#123;<span class="symbol">:type</span> =&gt; <span class="string">'MIT'</span>, <span class="symbol">:file</span> =&gt; <span class="string">'LICENSE'</span>&#125;</div><div class="line">    s.homepage         = <span class="string">'http://XXXDomain/XXX.privateGit/Mixed.html'</span></div><div class="line">    s.author           = &#123; <span class="string">"男神寒"</span> =&gt; <span class="string">"519224747@qq.com"</span> &#125;</div><div class="line">    s.source           = &#123; <span class="symbol">:git</span> =&gt; <span class="string">"http://http://XXXDomain/XXX.privateGit/Mixed.git"</span>, <span class="symbol">:commit</span> =&gt; <span class="string">"bb1e3eb2d55468252f68fb4c1881ecc68517757a"</span> &#125;</div><div class="line">    s.platform              = <span class="symbol">:ios</span>, <span class="string">'8.0'</span></div><div class="line">    s.ios.deployment_target = <span class="string">'8.0'</span></div><div class="line">    s.public_header_files = <span class="string">'Mixed/Classes/*.h'</span></div><div class="line">    s.source_files = <span class="string">'Mixed/Classes/*.&#123;h,m,swift&#125;'</span></div><div class="line"></div><div class="line">    s.requires_arc = <span class="literal">true</span></div><div class="line">    s.pod_target_xcconfig = &#123; <span class="string">'SWIFT_VERSION'</span> =&gt; <span class="string">'2.3'</span> &#125;</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>接下来可使用Cocoapods提高的命令行工具 pod spec lint Mixed.podspec 去校验，但是这个方法需要完整的去编译所有项目去检测，在我的电脑需要编译很久，我一般都习惯直接安装测试。</p>
+<p>按照如下文件夹格式存放 并提交到私有仓库<br> <img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="podSpecSource"><br>接下来新建一个测试工程MixedTest 在Podfile里面输入</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">source <span class="string">'http://http://http://XXXDomain/XXX.privateGit/privatePodPodSpec.git'</span>  <span class="comment">#我们自己的私有spec仓库的地址</span></div><div class="line">source <span class="string">'https://github.com/CocoaPods/Specs.git'</span>  <span class="comment">#官方仓库的地址</span></div><div class="line">use_frameworks! <span class="comment">#一定要加上 Swift只支持动态库的形式</span></div><div class="line"></div><div class="line">platform <span class="symbol">:ios</span>, <span class="string">'8.0'</span></div><div class="line"></div><div class="line">inhibit_all_warnings!</div><div class="line"></div><div class="line">target <span class="string">'MixedTest'</span> <span class="keyword">do</span></div><div class="line">    pod <span class="string">'Mixed'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>然后进行pod install，完成之后编译然后不出意外的编译出错(😄😄😄😄) <img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="compile Error"> 接下来进行分析错误，由于Swift只支持动态库(并非完全意义的动态库)，所以我们的代码在Pod之后实际上是一个动态的Framework，在这个名为Mixed的FrameWork里面，Objectice-C源代码是存放在Mixed的命名空间，所以不需要Mixed-Bridging-Header.h也是可以的。而且也能正常的访问。所以问题出现在Objective-C调用Swift的部分。 由于Swift是有命名空间的概念的。制作之后的Mixed-Bridging-Header位于Mixed的命名空间内。由于CocoaPods对源代码做的操作只是简单的复制。并不能修改源代码。我们就需要在源头做手脚。 修改源工程的设置<img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="newSetting"> 编译通过，然后更新Mixed.podspec文件然后重新提交 重新安装 这时候编译MixedTest项目，发现虽然文件找到了但是还报错。<img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="undefineIdtntify"> 进入Mixed-Swift.h文件后发现除了一些系统的定义，并没有找到我们定义的Swift代码。 经查询资料得知，Swift的默认访问权限是internal，这个访问权限是无法被外部访问的，所以需要修改被Objective-C访问到的Swift源代码相关的访问权限为Public(Swift2.3) 或者open/public(Swift3.x)。 至此提交，安装，编译通过。</p>
+<ul>
+<li>References</li>
+</ul>
+<ol>
+<li><a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/index.html#//apple_ref/doc/uid/TP40014216" target="_blank" rel="external">sing Swift with Cocoa and Objective-C (Swift 3.0.1)</a></li>
+<li><a href="https://cocoapods.org" target="_blank" rel="external">CocoaPods</a></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;!-- toc --&gt;
+&lt;!-- tocstop --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;知识背景&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://guides.cocoapods.org/using/getting-started.html&quot; target=&quot;_blank
+    
+    </summary>
+    
+    
+      <category term="cocoapods" scheme="http://valiantcat.com/tags/cocoapods/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>利用VPS搭建科学上网工具</title>
+    <link href="http://valiantcat.com/2016/10/30/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B7/"/>
+    <id>http://valiantcat.com/2016/10/30/利用VPS搭建科学上网工具/</id>
+    <published>2016-10-30T04:46:06.000Z</published>
+    <updated>2016-10-30T10:35:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- toc -->
+<!-- tocstop -->
+<ul>
+<li><p>VPN和VPS是什么</p>
+<ol>
+<li>VPN: 虚拟专用网络的功能是：在公用网络上建立专用网络，进行加密通讯。在企业网络中有广泛应用。VPN网关通过对数据包的加密和数据包目标地址的转换实现远程访问。VPN有多种分类方式，主要是按协议进行分类。VPN可通过服务器、硬件、软件等多种方式实现。</li>
+<li>VPS:（Virtual Private Server 虚拟专用服务器）技术，将一台服务器分割成多个虚拟专享服务器的优质服务</li>
+</ol>
+</li>
+<li><p>痛点: 之前由于一直需要科学上网工具，随购买VPN使用，速度倒是可以，但是由于在公司内部一旦连接上VPN，公司内网相关资源就无法访问，诸如git，mail，wiki等。需要再断开，VPN每次拨号时间虽然不长，但是也需要5s左右，由于经常需要频繁切换网络环境，较为繁琐，所以专用VPS内搭建SS给自己专线使用，而且ss支持动态代理，不需要代理的网络链接自动切换。而且速度对自己非常满意，并且月流量带宽远大于之前购买的VPN。鉴于搭建环境较为繁琐，特意记录一下，以便朋友们有需要可以参考。</p>
+</li>
+<li><p>SS是什么?</p>
+</li>
+</ul>
+<blockquote>
+<p>[Shadowsocks（中文名称：影梭）是使用Python、C++、C#等语言开发的、基于Apache许可证的开放源代码软件，用于保护网络流量、加密数据传输。Shadowsocks使用Socks5代理方式。 Shadowsocks分为服务器端和客户端。在使用之前，需要先将服务器端部署到服务器上面，然后通过客户端连接并创建本地代理。 在中国大陆，本工具也被广泛用于突破防火长城（GFW），以浏览被封锁、屏蔽或干扰的内容。在2015年8月22日，Shadowsocks原作者Clowwindy称受到了中国政府的压力，宣布停止维护此项目并移除其用户页面所载的源代码。<a href="https://zh.wikipedia.org/wiki/Shadowsocks" target="_blank" rel="external">wiki</a></p>
+<p>ss相当于在本机和服务器之间建立一条隧道，可以定义哪些流量走隧道。ss不能保证身份的可匿。 <em>注: ss被屏蔽，以下称呼用$代替</em></p>
+</blockquote>
+<ul>
+<li><p>准备资源</p>
+<ol>
+<li>vultr帐号</li>
+<li>paypal或者vista信用卡</li>
+<li>mac(terminal) /windows putty</li>
+</ol>
+</li>
+</ul>
+<p>vultr 的有点，价格低，带宽大，优惠活动多，文档丰富， <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="price"> 最近vultr有优惠活动。新注册的用户将会或者20$的优惠活动，建议通过我的邀请链接<a href="http://www.vultr.com/?ref=7021753-3B" target="_blank" rel="external">http://www.vultr.com/?ref=7021753-3B</a>去注册， 然后一定要支付金额才能使用。赠送的金额必须先充值才能使用vultr， 强烈建议充值10$,强烈建议充值10$,强烈建议充值10$,只有充值10$以上我才能收到邀请奖励，当作辛苦记录的稿费。</p>
+<blockquote>
+<p>注: 不要试图试用之后去再申请帐号，vultr会检测支付帐号，如果重复申请帐号，使用了一个paypal去支付，会被vultr封号。</p>
+</blockquote>
+<p>强烈建议使用paypal(类似中国的支付宝)去支付，优点是</p>
+<ol>
+<li>有的使用者并没有双币信用卡，paypal支持银联的卡片。</li>
+<li>vultr目前无法解绑信用卡。</li>
+</ol>
+<p>充值过程: <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="pay"></p>
+<ul>
+<li>购买一个服务器 <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="server"></li>
+</ul>
+<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="debian7"></p>
+<p>这里本人选择的是debin7 64位的操作系统，可能有些人偏爱，CentOS，Ubuntu，这些操作系统对我们搭建SS大同小异。价格选择5$即可，个人觉得满足5个人使用足够了，可以和小伙伴一起购买使用。</p>
+<blockquote>
+<p>注： vultr的服务器只要添加就会开始收费，暂停是没用的，如果不需要使用了 一定要删除服务器。</p>
+</blockquote>
+<p>之后等待install，进入running状态之后点击操作系统 <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="debian"> <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="debian"></p>
+<p>这时候可以ping一下ip地址，如果可以ping的通就可以进行下一步了。 打开终端输入 ssh root@ip 询问回答YES，密码在server面板 点击复制，直接粘贴进终端，注意终端是不会显示密码的，并不是没有输入，。链接成功，如下图所示： <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="ssh"></p>
+<ul>
+<li>安装$R就是ss的服务端。 简单的三个命令 分开输入。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1\. wget --no-check-certificate https://raw.githubusercontent.com/teddysun/$_install/master/$R.sh</div><div class="line"></div><div class="line">2\. chmod +x $R.sh</div><div class="line"></div><div class="line">3\. ./$R.sh 2&gt;&amp;1 | tee $sR.log</div></pre></td></tr></table></figure>
+<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="download"> <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="chmod"> <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="install"> 这里我密码输入的是123456， 端口号默认就好。 接下来自动完成后输出信息 <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="install"></p>
+<p>现在我们的ss理论就好了，下面附上ssR相关的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/shadowsocks status //检测状态</div><div class="line">/etc/init.d/shadowsocks stop   // 关闭服务</div><div class="line">/etc/init.d/shadowsocks start  //启动服务</div></pre></td></tr></table></figure>
+<p>如果有想修改密码 去编辑配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/shadowsocks.json</div></pre></td></tr></table></figure>
+<p>编辑完之后重启服务即可 有些朋友和小伙伴分享的时候习惯一人一个帐号，可以配置多帐号，下面是配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&#123;</div><div class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</div><div class="line">    &quot;server_ipv6&quot;: &quot;[::]&quot;,</div><div class="line">    &quot;local_address&quot;:&quot;127.0.0.1&quot;,</div><div class="line">    &quot;local_port&quot;:1080,</div><div class="line">    &quot;port_password&quot;:&#123;</div><div class="line">        &quot;8989&quot;:&quot;12345611&quot;,</div><div class="line">        &quot;8888&quot;:&quot;123432311&quot;,</div><div class="line">        &quot;7777&quot;:&quot;123ddsff45611&quot;,</div><div class="line">        &quot;8900&quot;:&quot;478xcvx456456&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;timeout&quot;:300,</div><div class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</div><div class="line">    &quot;protocol&quot;:&quot;origin&quot;,</div><div class="line">    &quot;protocol_param&quot;: &quot;&quot;,</div><div class="line">    &quot;obfs&quot;:&quot;plain&quot;,</div><div class="line">    &quot;obfs_param&quot;: &quot;&quot;,</div><div class="line">    &quot;redirect&quot;: &quot;&quot;,</div><div class="line">    &quot;dns_ipv6&quot;: false,</div><div class="line">    &quot;fast_open&quot;: false,</div><div class="line">    &quot;workers&quot;: 1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但是本人亲测，有问题，不过一个帐号可以同时多人多设备在线，所以这里以后先挖坑，以后再填。</p>
+<p>下面分享一个锐速的一键脚本，什么是锐速，总之是提升连接速度的好东西。安装即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh &amp;&amp; bash serverspeeder-all.sh</div></pre></td></tr></table></figure>
+<p>装完之后自动会运行， 下面是检测锐速的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/serverspeeder/bin/serverSpeeder.sh status // 状态</div><div class="line">/serverspeeder/bin/serverSpeeder.sh restart// 重启</div></pre></td></tr></table></figure>
+<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="install"></p>
+<p>如果想让锐速开机自启动 可以 vi /etc/rc.local 在最后输入 /serverspeeder/bin/serverSpeeder.sh start 保存即可</p>
+<ul>
+<li>使用ss 先去下载ss对应的客户端软件 <a href="https://shadowsocks.com/client.html" target="_blank" rel="external">ss下载</a></li>
+</ul>
+<p>我这里下载mac端 ，iOS 由于被下架，只能去寻找替代品，在app store 输入 $ 搜索，里面有很多替代品，我下载的是netkit 1元， 也可以使用surge，之类替代的。</p>
+<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="配置"> 打开即可科学上网。</p>
+<p>注意 如果你是mac10.11之后，手动关闭了Rootless，貌似会导致无法上网，需要关闭。重启电脑即可。</p>
+<ul>
+<li>VPN补充</li>
+</ul>
+<p>vps里面也是可以搭建VPN的，这里给一个简单搭建IPSpecVPN的教程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1\.  wget --no-check-certificate https://raw.githubusercontent.com/quericy/one-key-ikev2-vpn/dev-debian/one-key-ikev2.sh</div><div class="line"></div><div class="line">2\.  chmod +x one-key-ikev2.sh</div><div class="line"></div><div class="line">3\.  bash one-key-ikev2.sh</div></pre></td></tr></table></figure>
+<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="配置"> 这里输入1 其他默认即可</p>
+<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="result"> 开机自启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">vi /etc/rc.local</div><div class="line">/usr/local/sbin/ipsec start</div></pre></td></tr></table></figure>
+<p>mac配置如下 <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="result"> iPhone系统原生支持。</p>
+<p>有时候系统vpn会挂掉，会导致ss也无法使用，解决办法就是重新安装vpn，。</p>
+<ul>
+<li>免密码登录，ssh登录远程电脑需要输入密码， 这里可以配置免密登录，需要你的ssh配置，生成过程通github配置，没有配置可自行搜索</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1   scp ~/.ssh/id_rsa.pub root@xx.xx.xx.xx:/root/id_rsa.pub // 第一句需要在本机执行。</div><div class="line">2   cat id_rsa.pub &gt;&gt; .ssh/authorized_keys</div><div class="line">3   chmod 600 .ssh/authorized_keys</div></pre></td></tr></table></figure>
+<p>执行即可。</p>
+<hr>
+<p>有时候我们利用ss下载大文件还是比较慢，怎么办，我们可以远程在VPS上下载大文件，然后通过搭建一个web服务器，再通过专线下载回来即可。 写累了 先挖个坑，灾后续上。<br><br>给我发个红包催更新吧</p>
+<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="weChat"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;!-- toc --&gt;
+&lt;!-- tocstop --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;VPN和VPS是什么&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;VPN: 虚拟专用网络的功能是：在公用网络上建立专用网络，进行加密通讯。在企业网络中有广泛应用。VPN网关通过对数据包的加密和数据包目标地址的转换实
+    
+    </summary>
+    
+    
+      <category term="VPS" scheme="http://valiantcat.com/tags/VPS/"/>
+    
+  </entry>
   
   <entry>
     <title>Effective_C++读书笔记</title>
@@ -1100,6 +1314,41 @@
   </entry>
   
   <entry>
+    <title>大学毕业</title>
+    <link href="http://valiantcat.com/2016/05/10/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A/"/>
+    <id>http://valiantcat.com/2016/05/10/大学毕业/</id>
+    <published>2016-05-10T03:36:11.000Z</published>
+    <updated>2016-05-10T06:49:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>上周回到了学校，参加了答辩，照了毕业证，和班里的同学吃了大学的最后一顿饭，和宿舍的兄弟们喝了2次酒(不过我没怎么喝，确实是因为之前住院心里害怕)<br> 不过说实话，我确实不怎么有感觉，毕竟大三刚开始我就只身来到北京，而且宿舍的6个兄弟，五个(PM一枚，iOS,Android程序员各一枚)都在北京(至少2-3年都在)，只剩下一个留在了郑州，不过还好我们都是河南的，过年回家都能见面。</p>
+</blockquote>
+<p>先来几张大一的照片<br><img src="/2016/05/10/大学毕业/" alt="军训"><br><img src="/2016/05/10/大学毕业/" alt="基友装"></p>
+<p>男神宿舍合照，遗憾的是另外一个兄弟不是计算机学院的，不和我们一起<br><img src="/2016/05/10/大学毕业/" alt="合照1"><br><img src="/2016/05/10/大学毕业/" alt="合照2"><br><img src="/2016/05/10/大学毕业/" alt="合照5"></p>
+<p>还有一群大屌丝<br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""></p>
+<p>期间和老婆傻傻来一张（我傻）<br><img src="/2016/05/10/大学毕业/" alt="么么哒"></p>
+<hr>
+<p>班级之间</p>
+<p>和班长来个<br><img src="/2016/05/10/大学毕业/" alt="班长合照"><br>剩下的是班级同学了 就不写名字了<br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""></p>
+<p>全系的大合照<br><img src="/2016/05/10/大学毕业/" alt=""></p>
+<p>班级的合照<br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""></p>
+<hr>
+<p>回到自己的工作室看看，拍个全景照片<br><img src="/2016/05/10/大学毕业/" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;上周回到了学校，参加了答辩，照了毕业证，和班里的同学吃了大学的最后一顿饭，和宿舍的兄弟们喝了2次酒(不过我没怎么喝，确实是因为之前住院心里害怕)&lt;br&gt; 不过说实话，我确实不怎么有感觉，毕竟大三刚开始我就只身来到北京，而且宿舍的6个兄弟，五个(PM
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="http://valiantcat.com/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
+  
+  <entry>
     <title>How To Use Runloop，</title>
     <link href="http://valiantcat.com/2016/04/27/HowToUseRunloop/"/>
     <id>http://valiantcat.com/2016/04/27/HowToUseRunloop/</id>
@@ -1462,6 +1711,137 @@ array2.first!.value = <span class="number">100</span>
     
     
       <category term="AutoLayout" scheme="http://valiantcat.com/tags/AutoLayout/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>寒哥教你学iOS - 经验漫谈</title>
+    <link href="http://valiantcat.com/2015/08/22/learniOS/"/>
+    <id>http://valiantcat.com/2015/08/22/learniOS/</id>
+    <published>2015-08-22T06:23:13.000Z</published>
+    <updated>2016-07-22T07:07:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<ul>
+<li>本篇文章主要讲解 4个问题</li>
+</ul>
+<ol>
+<li>load妙用</li>
+<li>aop面向切面编程</li>
+<li>NSNumber Or  Int </li>
+<li>@()适配64位</li>
+</ol>
+<hr>
+<p>##1  让appDelegate 减少负担 </p>
+<blockquote>
+<p>经过漫长时间的学习 你终于掌握了iOS大法 你找到了份iOS开发的工作   信誓旦旦的要开始你的coding生涯   老板对你非常器重  然后告诉你  我觉得你的技术 是非常刁的  那这个项目就你自己来搞吧   啊哦这就意味着这个项目你就从头到尾处理  从软件的架构 到页面的展示 都交给你喽 😨</p>
+</blockquote>
+<p> 用着自己的半吊子水平 papapa的  coding    决心一定要把代码封装好 写的漂亮 （其实是听大神说 封装  其实自己不太懂）<br>  项目到了尾声   老板告诉你我们的app  我们的app 将来得来个分享到朋友圈的功能吧  不然怎么体现我产品的牛逼<br>然后你听说友盟比较好使（有广告的嫌疑）  你去友盟看了他们的文档 他告诉你你要在  appdelegate  didFinishLaunch方法里面写了这个东西<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">[UMSocialData setAppKey:@<span class="string">"XX"</span>];</div><div class="line">   <span class="comment">//     注册微信</span></div><div class="line"></div><div class="line">[UMSocialWechatHandler setWXAppId:@<span class="string">"XXX"</span>  appSecret:@<span class="string">"XX"</span> url:@<span class="string">""</span>];</div><div class="line">   <span class="comment">//    注册QQ</span></div><div class="line"> </div><div class="line">[UMSocialQQHandler setQQWithAppId:@<span class="string">"XXX"</span> appKey:@<span class="string">"XXX"</span> url:@<span class="string">""</span>];</div></pre></td></tr></table></figure></p>
+<p>过了几天 老板又说 我们需要统计下我页面的信息  你接入了友盟的统计  在appdelegate didFinishLaunch又 多了行代码</p>
+<p>需求是无穷无尽   我需要bug统计（fir hud） 提醒用户评分系统（iRate） 推送（jPush  信鸽 个推。。）<br>当初你决心一定要把代码封装的完美 写的漂亮的心早就被老板的需求彻底打败了<br>别担心 寒哥教你小技巧 </p>
+<p>不知道你们用过 <a href="https://github.com/hackiftekhar/IQKeyboardManager" target="_blank" rel="external">IQKeyBoardManage</a>和<a href="https://github.com/nicklockwood/iRate" target="_blank" rel="external">iRate</a>这种智能库没</p>
+<p>大牛的readme 写了这段话</p>
+<blockquote>
+<p>Key Features<br>1) <strong>CODELESS</strong>, Zero Line Of Code  不需要写任何代码</p>
+<p>2) Works Automatically  //自动工作</p>
+<p>3) No More UIScrollView //不需要scrollview</p>
+<p>4) No More Subclasses  //不需要继承父类</p>
+<p>5) No More Manual Work //不需要配置</p>
+<p>6) No More #imports   //不需要导入</p>
+</blockquote>
+<p>其实不神奇 只是大牛用了 + load这个方法<br>学习OC都知道这个代码会在一个类被加载到运行库中就会被自动调用 这不就实现了  自动调用 </p>
+<p>写一个类继承自NSObject </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line">@interface ThirdPartService : NSObject</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"> <span class="meta">#import <span class="meta-string">"ThirdPartService.h"</span></span></div><div class="line"> <span class="meta">#import <span class="meta-string">"UMSocial.h"</span></span></div><div class="line"> <span class="meta">#import <span class="meta-string">"UMSocialWechatHandler.h"</span></span></div><div class="line"> <span class="meta">#import <span class="meta-string">"UMSocialQQHandler.h"</span></span></div><div class="line"> <span class="meta">#import <span class="meta-string">&lt;MobClick.h&gt;</span></span></div><div class="line"> <span class="meta">#import <span class="meta-string">&lt;FIR/FIR.h&gt;</span></span></div><div class="line"></div><div class="line">@implementation ThirdPartService</div><div class="line"> + (<span class="keyword">void</span>)load &#123;</div><div class="line"><span class="keyword">static</span> <span class="keyword">dispatch_once_t</span> onceToken;</div><div class="line">dispatch_once(&amp;onceToken, ^&#123;</div><div class="line">    <span class="comment">//    TODO  这里是我自己测试的  fir hud</span></div><div class="line">    [FIR handleCrashWithKey:@<span class="string">"XX"</span>];</div><div class="line">    <span class="comment">//    友盟</span></div><div class="line">    [UMSocialData setAppKey:@<span class="string">"XX"</span>];</div><div class="line">    <span class="comment">//     隐藏未安装的平台</span></div><div class="line">    [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ,UMShareToQzone,UMShareToWechatSession,UMShareToWechatTimeline]];</div><div class="line">    <span class="comment">//     注册微信</span></div><div class="line">    [UMSocialWechatHandler setWXAppId:@<span class="string">"XX"</span> appSecret:@<span class="string">"XX"</span> url:@<span class="string">""</span>];</div><div class="line">    <span class="comment">//    注册QQ</span></div><div class="line">    <span class="comment">//    TODO   QQ的不是真的</span></div><div class="line">    [UMSocialQQHandler setQQWithAppId:@<span class="string">"XX"</span> appKey:@<span class="string">"XX"</span> url:@<span class="string">""</span>];</div><div class="line">    </div><div class="line">    <span class="comment">//    TODO    UM统计</span></div><div class="line">    [MobClick startWithAppkey:@<span class="string">""</span>];</div><div class="line">    [MobClick setCrashReportEnabled:NO];</div><div class="line">    NSLog(@<span class="string">"第三方服务注册完毕"</span>);</div><div class="line">&#125;);</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>类似于定位也可以这样写</p>
+<p><img src="/2015/08/22/learniOS/" alt="1"></p>
+<p>模块和服务完全拆开   </p>
+<p>但是有的服务 如APNS需要LaunchOption 那就只能写在appdDelegate 不过这样的话已经摘除很多代码了  只剩下几个固定的 到时候再修改appDelegate就会感觉非常清晰 了 </p>
+<hr>
+<p>##2   ViewController继承？</p>
+<p>接着上面讲  我们接入了友盟统计  友盟统计最基本的东西就是 统计页面的pv </p>
+<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"></p>
+<p>友盟的这样写  对于新手的我们就觉得这不就so easy吗<br>我打开了某个vc（HomeViewController）<br>在代码里面写上了这句<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)viewWillAppear:(BOOL)animated &#123;</div><div class="line">   [super viewWillAppear:animated];</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> DEBUG</span></div><div class="line">   [MobClick beginLogPageView:NSStringFromClass([self <span class="keyword">class</span>])];</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125;</div><div class="line">-(<span class="keyword">void</span>)viewWillDisappear:(BOOL)animated &#123;</div><div class="line">    [super viewWillDisappear:animated];</div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> DEBUG</span></div><div class="line"></div><div class="line">  [MobClick endLogPageView:NSStringFromClass([self <span class="keyword">class</span>])];</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后我一个项目中可能有几十个 甚至上百个页面需要统计pv 我总不能每个节目都这样写吧  </p>
+<p>聪明的我们想到了继承</p>
+<p>如<code>MyBaseViewController:UIViewController</code><br>这样就要做一件事  把我们项目中所有继承自UIViewController的类全部改为继承自<code>MyBaseViewController</code>   然而你真的觉得这样好吗   我们一个项目中有几十个控制器  我就要把每个控制器改一遍  </p>
+<p>这种重复性的工作一是无聊  而是容易出错   你复制着复制者就会遗漏掉某个类   重要的是 我们项目中很多类并不是直接继承自<code>UIViewController</code>  有的可能是<code>UITableViewController</code> <code>UICollectionViewContr0ller</code> <code>UINavigationController</code> 甚至不常用的<code>UISearchDisPlayController</code> <code>UIPopoverController</code>  <code>UIPresentController</code>  是不是突然觉得这么多啊啊  😨</p>
+<p>这也不是坑的 坑的是将来你混成了大牛 招了个小弟  你告诉他你所有的类都要继承自我写的各种父类   新手总是会不经意见犯错误  有些类忘记继承了 后期查起来难度非常大 浪费时间 所以这种设计是不合理的  </p>
+<ul>
+<li><p>寒哥再次教你黑魔法 Method  swizzling</p>
+<p><strong>关于这个是干嘛的 自行百度</strong></p>
+</li>
+</ul>
+<blockquote>
+<p>这里有一篇来自NSHipster博主的文章 <a href="http://nshipster.com/method-swizzling/" target="_blank" rel="external">英文</a><br><a href="http://www.jianshu.com/p/b87fa689055f" target="_blank" rel="external">中文翻译</a><br>还有一篇解释runtime的文章<a href="http://www.jianshu.com/p/6b905584f536" target="_blank" rel="external">传送门</a><br><a href="http://tech.glowing.com/cn/method-swizzling-aop/" target="_blank" rel="external">实践</a></p>
+</blockquote>
+<p>用方法交叉 我们就可以拦截吸引的方法了 上代码了<br>这样就做到了面向切面编程（AOP）的思想</p>
+<p>上代码<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line"></div><div class="line">@interface UIViewController (AOP)</div><div class="line">#warning  运行时 改变一下方法 做一些切面编程比如 统计 等等</div><div class="line"> @end</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"> #import "UIViewController+AOP.h"</div><div class="line"> #import &lt;objc/runtime.h&gt;</div><div class="line">#import &lt;MobClick.h&gt;</div><div class="line"> @implementation UIViewController (AOP)</div><div class="line"></div><div class="line"> + (void)load &#123;</div><div class="line">   static dispatch_once_t onceToken;</div><div class="line">  dispatch_once(&amp;onceToken, ^&#123;</div><div class="line">    Class class = [self class];</div><div class="line">    // When swizzling a class method, use the following:</div><div class="line">    // Class class = object_getClass((id)self);</div><div class="line">    swizzleMethod(class, @selector(viewDidLoad), @selector(aop_viewDidLoad));</div><div class="line">    swizzleMethod(class, @selector(viewDidAppear:), @selector(aop_viewDidAppear:));</div><div class="line">    swizzleMethod(class, @selector(viewWillAppear:), @selector(aop_viewWillAppear:));</div><div class="line">    swizzleMethod(class, @selector(viewWillDisappear:), @selector(aop_viewWillDisappear:));</div><div class="line">&#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"> void swizzleMethod(Class class, SEL originalSelector, SEL swizzledSelector)   &#123;</div><div class="line">Method originalMethod = class_getInstanceMethod(class, originalSelector);</div><div class="line">Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);</div><div class="line">BOOL didAddMethod =</div><div class="line">class_addMethod(class,</div><div class="line">                originalSelector,</div><div class="line">                method_getImplementation(swizzledMethod),</div><div class="line">                method_getTypeEncoding(swizzledMethod));</div><div class="line"></div><div class="line">if (didAddMethod) &#123;</div><div class="line">    class_replaceMethod(class,</div><div class="line">                        swizzledSelector,</div><div class="line">                        method_getImplementation(originalMethod),</div><div class="line">                        method_getTypeEncoding(originalMethod));</div><div class="line">&#125; else &#123;</div><div class="line">    method_exchangeImplementations(originalMethod, swizzledMethod);</div><div class="line">&#125;</div><div class="line"> &#125;</div><div class="line"> - (void)aop_viewDidAppear:(BOOL)animated &#123;</div><div class="line">[self aop_viewDidAppear:animated];</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"> -(void)aop_viewWillAppear:(BOOL)animated &#123;</div><div class="line">[self aop_viewWillAppear:animated];</div><div class="line"></div><div class="line">#ifndef DEBUG</div><div class="line">   [MobClick beginLogPageView:NSStringFromClass([self class])];</div><div class="line">#endif</div><div class="line">&#125;</div><div class="line"> -(void)aop_viewWillDisappear:(BOOL)animated &#123;</div><div class="line">    [self aop_viewWillDisappear:animated];</div><div class="line">#ifndef DEBUG</div><div class="line"></div><div class="line">    [MobClick endLogPageView:NSStringFromClass([self class])];</div><div class="line">#endif</div><div class="line">&#125;</div><div class="line"> - (void)aop_viewDidLoad &#123;</div><div class="line">[self aop_viewDidLoad];</div><div class="line"></div><div class="line">if ([self isKindOfClass:[UINavigationController class]]) &#123;</div><div class="line">    UINavigationController *nav = (UINavigationController *)self;</div><div class="line">    nav.navigationBar.translucent = NO;</div><div class="line">    nav.navigationBar.barTintColor = GLOBAL_NAVIGATION_BAR_TIN_COLOR;</div><div class="line">    nav.navigationBar.tintColor = [UIColor whiteColor];</div><div class="line">    NSDictionary *titleAtt = @&#123;NSForegroundColorAttributeName:[UIColor whiteColor]&#125;;</div><div class="line">    [[UINavigationBar appearance] setTitleTextAttributes:titleAtt];</div><div class="line">    [[UIBarButtonItem appearance]</div><div class="line">     setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)</div><div class="line">     forBarMetrics:UIBarMetricsDefault];</div><div class="line">&#125;</div><div class="line"></div><div class="line">//    self.view.backgroundColor = [UIColor whiteColor];</div><div class="line">self.navigationController.interactivePopGestureRecognizer.delegate = (id&lt;UIGestureRecognizerDelegate&gt;)self;</div><div class="line"> &#125;</div><div class="line"> @end</div></pre></td></tr></table></figure></p>
+<p>图片代码一份 方便观看</p>
+<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"><br><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"></p>
+<p>我们充分利用了黑魔法达到了面向切面编程的好处 </p>
+<p>思想来源这里<a href="">http://casatwy.com/iosying-yong-jia-gou-tan-viewceng-de-zu-zhi-he-diao-yong-fang-an.html</a></p>
+<p><code>黑魔法非毒药 遵守一个规范写出来的代码是不会Crash的 只要能帮我们解决问题就是好东西</code><br> <code>黑魔法性能 有瓶颈？ 都到runtime的底层了 你还担心有瓶颈  少年安心使用就好了   不服 可以用Time Profiel测试</code><br><code>黑魔法也非万能  像 我们在导航控制器要封装手势 统一管理左侧返回按钮  这些东西 还是继承来得好</code></p>
+<blockquote>
+<p>技术就是工具  黑猫，白猫，抓住老鼠就是好猫</p>
+</blockquote>
+<hr>
+<pre><code>华丽的分割线
+</code></pre><hr>
+<p>##3  网络访问参数到底用基本数据类型还是对象</p>
+<p>下面看两个方法</p>
+<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"> + (<span class="keyword">void</span>)getDataAtPageNo:(NSNumber *)pageNo PageSize:(NSNumber *)pageSize </div><div class="line">complete:(CompleteBlock)complete &#123;</div><div class="line">NSMutableDictionary *param = [NSMutableDictionary dictionary];</div><div class="line">    <span class="keyword">if</span> (pageSize) &#123;</div><div class="line">        [param setObject:pageSize forKey:@<span class="string">"pageSize"</span>];</div><div class="line">   &#125;</div><div class="line"> [param setObject:pageNo forKey:@<span class="string">"pageNo"</span>];</div><div class="line"><span class="comment">// SendRequest</span></div><div class="line">&#125;</div><div class="line"> + (<span class="keyword">void</span>)getData2AtPageNo:(<span class="keyword">long</span> )pageNo PageSize:(<span class="keyword">long</span> )pageSize </div><div class="line"> complete:(CompleteBlock)complete &#123;</div><div class="line">     NSMutableDictionary *param = [NSMutableDictionary dictionary];</div><div class="line"></div><div class="line">        [param setObject:@(pageSize) forKey:@<span class="string">"pageSize"</span>];</div><div class="line">        [param setObject:@(pageNo) forKey:@<span class="string">"pageNo"</span>];</div><div class="line"><span class="comment">// SendRequest</span></div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>在访问网络请求时 对于有参数的请求 设计一个方法 主流为以上两种 </p>
+<ol>
+<li>使用对象当做参数</li>
+<li>使用基本数据类型做参数</li>
+</ol>
+<p>一般情况下 这并没有什么大的区别   但是寒哥给出的意见是<code>Never</code>出现基本数据类型</p>
+<p>一般情况下  开发者可能觉得并没有什么区别   下面我给大家举个例子</p>
+<blockquote>
+<p>在设计一个分页展示数据的时候：  在页面上的逻辑就是 默认加载第一页  每页长度为10 (Server端的同学一般都很友好 默认情况下 不传每页的长度就是10个) 但是传了就会覆盖掉后台写的默认参数 如传了20 Server就吐20条数据</p>
+</blockquote>
+<ol>
+<li>在第一中设计方案中： 可能在某个控制器中保留一个PageNo PageSize 的<code>对象</code>的成员变量 ，在下拉刷新或者上拉加载的时候 会传递对应的参数给请求方法 ，  如果没有特殊需求的话pageSize 对象可有可无 也就是有可能为nil  ，那在对应的param可能就没有这个参数传递给Server  。<br>Server 就会交还给我们某页的20条数据 </li>
+<li>在 第二种设计方案中 ： 可能也在某个控制器中保留一个PageNo pageSize的<code>基本数据类型</code>的成员变量，  在访问网络请求时交给对应的方法 ，     一般没有特殊需求我们也不会对PageSize专门设值  但是  基本数据类型在OC 和C语言这种传统的编程语言中是有默认值的 为<code>0</code>，虽然我们没有给pageSize 赋值 但是默认系统默认给了0这个初始值  那么传递到Server的时候 就会覆盖掉Server 写的默认pageSize=10   这样的请求既不会报错 也不会返回数据<br>超级难调试 </li>
+</ol>
+<p>所以在网络访问中 寒哥给出的意见就是<code>Never</code>出现基本数据类型</p>
+<hr>
+<p>##4 用NSNumber比基本数据类型的好处 ？ 64位适配问题<br> 我们一般都用来当做网络请求的参数  缓存或者展示到页面 </p>
+<ol>
+<li>对于网络请求的参数 因为NSDictionary只能放对象 所以NSNumber最好的方式</li>
+<li>缓存  无论缓存到plist 还是KeyArchive 都是需要对象的所以NSNumber也非常合适<br>3 展示到页面<br>我见过这样给页面上赋值的朋友  </li>
+</ol>
+<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"></p>
+<p>我们看到这样貌似并没有什么不妥<br>但是我们把设备切换到iPhone5S以下  也就是32位的设备</p>
+<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"><br>注意这里有Warning<br>为什么呢 我们来看下NSInteger的头文件 </p>
+<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"><br>在32下设备是Int  在64位是long<br>我们都知道苹果不允许不支持64位的app上架  但是貌似我们从来没有为32位和64位做适配</p>
+<p>其实不然 在printf 和NSLog 时 对应%d %zd %f 占位符是非常严格的 如果不对项目就会造成意外的结果</p>
+<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"></p>
+<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"></p>
+<p>其实拿到一个NSNumber我们并不知道他到底是int long  unsigned int  Bool  直接针对某个类型转换是有风险的  但是其实Clang 给我们提供了个非常好用的Macro <code>@()</code></p>
+<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"></p>
+<p>NSNumber并不是一个简单的类 它是cocoa 中  类簇的实现参考资料<br><a href="http://www.cocoachina.com/ios/20140109/7681.html" target="_blank" rel="external">http://www.cocoachina.com/ios/20140109/7681.html</a><br><a href="http://www.cocoachina.com/ios/20150106/10848.html" target="_blank" rel="external">http://www.cocoachina.com/ios/20150106/10848.html</a><br><a href="http://www.cocoachina.com/ios/20141218/10688.html" target="_blank" rel="external">http://www.cocoachina.com/ios/20141218/10688.html</a></p>
+<hr>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;本篇文章主要讲解 4个问题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;load妙用&lt;/li&gt;
+&lt;li&gt;aop面向切面编程&lt;/li&gt;
+&lt;li&gt;NSNumber Or  Int &lt;/li&gt;
+&lt;li&gt;@()适配64位&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;p&gt;##1  让a
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://valiantcat.com/tags/iOS/"/>
     
   </entry>
   

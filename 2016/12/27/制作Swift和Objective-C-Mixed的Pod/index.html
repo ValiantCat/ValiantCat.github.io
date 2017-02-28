@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>制作Swift和Objective-C Mixed的Pod | 茶茶的小屋</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="茶茶的小屋">
+    <meta name="author" content="寒哥">
+    <meta name="description" content="iOS 开发， Swift，Objective-C,OC" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="茶茶的小屋" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/github.css" type="text/css">
+    
+
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <!-- <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://www.jianshu.com/users/cc1e4faec5f7" class="animsition-link">寒哥的简书</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/xinxinqiu" class="animsition-link">寒哥的CSDN</a></li>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" class="animsition-link">寒哥的Github</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">茶茶的小屋</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-12-27T06:29:11.000Z" itemprop="datePublished">
+          2016-12-27
+      </time>
+    
+    
+    | 
+    <a href='/tags/cocoapods/'>cocoapods</a>
+    
+    
+</span>
+                <h1>制作Swift和Objective-C Mixed的Pod</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<!-- toc -->
+<!-- tocstop -->
+<ul>
+<li><p>知识背景</p>
+<ol>
+<li><a href="https://guides.cocoapods.org/using/getting-started.html" target="_blank" rel="external">What is CocoaPods</a></li>
+<li><p><a href="https://guides.cocoapods.org/using/using-cocoapods.html" target="_blank" rel="external">What did CocoaPods do?</a></p>
+<blockquote>
+<p>In Xcode, with references directly from the ruby source, it:</p>
+<ol>
+<li>Creates or updates a workspace.</li>
+<li>Adds your project to the workspace if needed.</li>
+<li>Adds the CocoaPods static library project to the workspace if needed.</li>
+<li>Adds libPods.a to: targets =&gt; build phases =&gt; link with libraries.</li>
+<li>Adds the CocoaPods Xcode configuration file to your app’s project.</li>
+<li>Changes your app’s target configurations to be based on CocoaPods’s.</li>
+<li><p>Adds a build phase to copy resources from any pods you installed to your app bundle. i.e. a ‘Script build phase’ after all other build phases with the following:</p>
+<ul>
+<li>Shell: /bin/sh</li>
+<li>Script: ${SRCROOT}/Pods/PodsResources.sh</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>大意是，CocoaPods是一个依赖管理工具，使用CocoaPods可以自动的去分析依赖，然后通过脚本去将第三方依赖复制编译为静态库然后链接进项目。~~~等。</p>
+</blockquote>
+<ul>
+<li>制作Pod</li>
+</ul>
+<blockquote>
+<p>有时候我们有把代码做成一个轮子给别人用情况，我们需要按照官方的教程<a href="https://guides.cocoapods.org/making/index.html" target="_blank" rel="external">Making CocoaPods</a>去制作。</p>
+<p>教程分为2类 : </p>
+<ol>
+<li>发布公共Pod给所有开发者使用。</li>
+<li>制作私有Pod。 方法较为简单。自行查阅资料即可。这里不再赘述。</li>
+</ol>
+</blockquote>
+<hr>
+<ul>
+<li>Swift和Objective-C Mixed</li>
+</ul>
+<blockquote>
+<p>参考官方的文档(文末指出)，混编里面包含有2种调用情况:</p>
+<p>Question1.  Swift调用Objective-C<br>   Question2. Objective-C调用Swift</p>
+</blockquote>
+<p>这里我新建一个项目 命名为Mixed(Single View Application)， 创建一个文件夹Classes用于存放源代码<br>  创建一个Objective-C Class O 继承自NSObject 创建一个Swift Class S 继承自NSObject</p>
+<ul>
+<li>Answer1: 为Swift源代码添加一个 XXX.h头文件这里为Mixed-Bridging-Header 在这个文件中导入需要访问的Objective-C 源代码的头文件。</li>
+</ul>
+<p><img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="headerConfig"></p>
+<p>有时候Xcode反应会稍微延迟一点。手动编译一下即可。做完这个配置，Swift即可访问Objective-C 源代码。<br> 代码如图:<br> <img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="swiftAccessObjc"></p>
+<ul>
+<li>Answer2: Objective-C 访问Swift源代码 需要导入系统为项目生成的头文件，默认为Module+Swift.h 当然自己也是可以修改的， 导入之后，编译一下(Xcode有时候有缓存，没事就应该编译一下😒)<br>具体代码配置如图<br><img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="ObjcAccessSwift"></li>
+</ul>
+<p>至此混编项目测试完成。</p>
+<ul>
+<li>制作Pod 创建Mixed.podspec文件 键入如下内容</li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Pod::Spec.new <span class="keyword">do</span> <span class="params">|s|</span></div><div class="line">    s.name             = <span class="string">"Mixed"</span></div><div class="line">    s.version          = <span class="string">"0.0.1"</span></div><div class="line">    s.summary          = <span class="string">"链家网混编组件"</span></div><div class="line">    s.description      = <span class="string">"链家网混编组件混编测试"</span></div><div class="line">    s.license          = &#123;<span class="symbol">:type</span> =&gt; <span class="string">'MIT'</span>, <span class="symbol">:file</span> =&gt; <span class="string">'LICENSE'</span>&#125;</div><div class="line">    s.homepage         = <span class="string">'http://XXXDomain/XXX.privateGit/Mixed.html'</span></div><div class="line">    s.author           = &#123; <span class="string">"男神寒"</span> =&gt; <span class="string">"519224747@qq.com"</span> &#125;</div><div class="line">    s.source           = &#123; <span class="symbol">:git</span> =&gt; <span class="string">"http://http://XXXDomain/XXX.privateGit/Mixed.git"</span>, <span class="symbol">:commit</span> =&gt; <span class="string">"bb1e3eb2d55468252f68fb4c1881ecc68517757a"</span> &#125;</div><div class="line">    s.platform              = <span class="symbol">:ios</span>, <span class="string">'8.0'</span></div><div class="line">    s.ios.deployment_target = <span class="string">'8.0'</span></div><div class="line">    s.public_header_files = <span class="string">'Mixed/Classes/*.h'</span></div><div class="line">    s.source_files = <span class="string">'Mixed/Classes/*.&#123;h,m,swift&#125;'</span></div><div class="line"></div><div class="line">    s.requires_arc = <span class="literal">true</span></div><div class="line">    s.pod_target_xcconfig = &#123; <span class="string">'SWIFT_VERSION'</span> =&gt; <span class="string">'2.3'</span> &#125;</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>接下来可使用Cocoapods提高的命令行工具 pod spec lint Mixed.podspec 去校验，但是这个方法需要完整的去编译所有项目去检测，在我的电脑需要编译很久，我一般都习惯直接安装测试。</p>
+<p>按照如下文件夹格式存放 并提交到私有仓库<br> <img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="podSpecSource"><br>接下来新建一个测试工程MixedTest 在Podfile里面输入</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">source <span class="string">'http://http://http://XXXDomain/XXX.privateGit/privatePodPodSpec.git'</span>  <span class="comment">#我们自己的私有spec仓库的地址</span></div><div class="line">source <span class="string">'https://github.com/CocoaPods/Specs.git'</span>  <span class="comment">#官方仓库的地址</span></div><div class="line">use_frameworks! <span class="comment">#一定要加上 Swift只支持动态库的形式</span></div><div class="line"></div><div class="line">platform <span class="symbol">:ios</span>, <span class="string">'8.0'</span></div><div class="line"></div><div class="line">inhibit_all_warnings!</div><div class="line"></div><div class="line">target <span class="string">'MixedTest'</span> <span class="keyword">do</span></div><div class="line">    pod <span class="string">'Mixed'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>然后进行pod install，完成之后编译然后不出意外的编译出错(😄😄😄😄) <img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="compile Error"> 接下来进行分析错误，由于Swift只支持动态库(并非完全意义的动态库)，所以我们的代码在Pod之后实际上是一个动态的Framework，在这个名为Mixed的FrameWork里面，Objectice-C源代码是存放在Mixed的命名空间，所以不需要Mixed-Bridging-Header.h也是可以的。而且也能正常的访问。所以问题出现在Objective-C调用Swift的部分。 由于Swift是有命名空间的概念的。制作之后的Mixed-Bridging-Header位于Mixed的命名空间内。由于CocoaPods对源代码做的操作只是简单的复制。并不能修改源代码。我们就需要在源头做手脚。 修改源工程的设置<img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="newSetting"> 编译通过，然后更新Mixed.podspec文件然后重新提交 重新安装 这时候编译MixedTest项目，发现虽然文件找到了但是还报错。<img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="undefineIdtntify"> 进入Mixed-Swift.h文件后发现除了一些系统的定义，并没有找到我们定义的Swift代码。 经查询资料得知，Swift的默认访问权限是internal，这个访问权限是无法被外部访问的，所以需要修改被Objective-C访问到的Swift源代码相关的访问权限为Public(Swift2.3) 或者open/public(Swift3.x)。 至此提交，安装，编译通过。</p>
+<ul>
+<li>References</li>
+</ul>
+<ol>
+<li><a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/index.html#//apple_ref/doc/uid/TP40014216" target="_blank" rel="external">sing Swift with Cocoa and Objective-C (Swift 3.0.1)</a></li>
+<li><a href="https://cocoapods.org" target="_blank" rel="external">CocoaPods</a></li>
+</ol>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2016/10/30/利用VPS搭建科学上网工具/">
+        利用VPS搭建科学上网工具 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/12/27/制作Swift和Objective-C-Mixed的Pod/" data-title="制作Swift和Objective-C Mixed的Pod" data-url="http://valiantcat.com/2016/12/27/制作Swift和Objective-C-Mixed的Pod/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"chachaHouse"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By 寒哥. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
