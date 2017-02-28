@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://valiantcat.com/"/>
-  <updated>2017-01-04T07:20:03.000Z</updated>
+  <updated>2017-01-16T08:01:07.000Z</updated>
   <id>http://valiantcat.com/</id>
   
   <author>
@@ -14,6 +14,49 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>情报局(1)</title>
+    <link href="http://valiantcat.com/2017/01/13/%EF%A3%BF%E6%83%85%E6%8A%A5%E5%B1%80-1/"/>
+    <id>http://valiantcat.com/2017/01/13/情报局-1/</id>
+    <published>2017-01-13T02:54:36.000Z</published>
+    <updated>2017-01-16T08:01:07.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="2017-01-13"><a href="#2017-01-13" class="headerlink" title="2017-01-13"></a>2017-01-13</h1><ol>
+<li><p>NSArray 用 copy 和 Strong修饰的区别 </p>
+<p>例如 self.a = b;<br>对于不可变对象来说使用copy，和Strong都可以。<br>copy的话对于setter方法，如果对方传进来的是b 不可变对象，那么copy之后a还是不可变对象，别的地方修改了b对a不会影响。<br>如果传进来的b是可变对象，那么copy之后a是不可变对象，修改b还是不会对a造成影响。</p>
+<p>strong对于setter方法， 如果对方传进来的是b 不可变对象，那么copy之后a还是不可变对象，别的地方修改了b对a不会影响。<br>如果传进来的b是可变对象，那么copy之后a是不可变对象，修改b就会对a造成影响。</p>
+<p>综上： 对于不可变对象应当使用copy修饰符</p>
+</li>
+<li><p>NSMutable 用 copy 和 Strong修饰的区别<br>例如 self.a = b;<br>假设使用的是copy,无论传递进来的是什么，copy之后都会将a变成不可变对象。但是我们明明声名的是可变对象。这时候我们如果使用了 add， remove等方法时，就会抛出<br>unregonrized selector method for xx 经典错误。 因为我们声名的Mutable对象经过赋值之后就变成了imMutable对象。</p>
+<p>综上： 对于可变对象应当使用 strong操作符</p>
+</li>
+<li><p>对NSArray及其子类做MutableCopy是深拷贝还是浅拷贝</p>
+<p>首先补充 对于copy方法，无论源对象是可变还是不可变， 使用了copy生成的都是不可变对象，</p>
+<pre><code>对于MutableCopy方法，无论源对象是可变还是不可变， 使用了copy生成的都是不可变对象。
+</code></pre><p>由于容器里面存的只是目标对象的指针，在做mutablecopy或者copy只是让容器变成是否可修改的，并不会修改容器内部指针所指向的内存地址。所以都是浅拷贝</p>
+</li>
+</ol>
+<h1 id="2017-01-16"><a href="#2017-01-16" class="headerlink" title="2017-01-16"></a>2017-01-16</h1><p>给出以下代码, 问 在block嵌套的时候是否需要 嵌套 weak strong dance？</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">A</span> : <span class="title">NSObject</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) dispatch_block_t block;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">A</span></span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)dealloc &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@ dealloc "</span>,[<span class="keyword">self</span> <span class="keyword">class</span>]);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">B</span> : <span class="title">NSObject</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) dispatch_block_t block;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">B</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)dealloc &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@ dealloc "</span>,[<span class="keyword">self</span> <span class="keyword">class</span>]);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="meta">#define  weakify(A) __weak typeof((A)) A##__w = A;</span></div><div class="line"><span class="meta">#define  strongify(A)  __strong typeof((A)) A = A##__w ;</span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line"><span class="comment">//    [self test1];</span></div><div class="line">    [<span class="keyword">self</span> test2];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)test1 &#123;</div><div class="line">    A *a = [A new];</div><div class="line">    weakify(a)</div><div class="line">    a.block = ^&#123;</div><div class="line">        strongify(a)</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[a <span class="keyword">class</span>]);</div><div class="line">        B *b = [B new];</div><div class="line">        b.block = ^&#123;</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[a <span class="keyword">class</span>]);</div><div class="line">        &#125;;</div><div class="line">    &#125;;</div><div class="line">    a.block();</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)test2 &#123;</div><div class="line">    A *a = [A new];</div><div class="line">    B *b = [B new];</div><div class="line">    </div><div class="line">    weakify(b) weakify(a)</div><div class="line">    a.block = ^&#123;</div><div class="line">        strongify(a) strongify(b)</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[b <span class="keyword">class</span>]);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[a <span class="keyword">class</span>]);</div><div class="line">        </div><div class="line">        b.block = ^&#123;</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[b <span class="keyword">class</span>]);</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[a <span class="keyword">class</span>]);</div><div class="line">        &#125;;</div><div class="line">    &#125;;</div><div class="line">    a.block();</div><div class="line">    b.block();</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>补充：  #define  weakify(A) <strong>weak typeof((A)) A##</strong>w = A;</p>
+<p>这行宏语法是说明我声明一个weak的变量  名字为A__w   ##在宏指令的作用是拼接</p>
+<p>答： 具体需要看情况而定：很多人使用block的时候不去追究原理而是一味的死记硬背的记住要循环使用weak strong。<br>    这里首先说明的是block只会捕获以下变量。 <code>除了全局变量，block参数， block的内部变量 外的所有变量</code>。<br>    并且，block持有这些变量的时机是在编译时期决定的，而不是运行时期。 所以只要block内只要出现了上述类型的变量就会去持有。</p>
+<p>test1: a.block在内部出现了a这个外部变量，需要捕获a，为了避免出现循环引用我们是需要对a 使用weak strong 的，<br>      在a.block()执行期间内部初始化了变量b  并且变量b.block捕获了a。a并没有捕获b，所以这时候出现的情况是 b.-&gt; block -&gt; a<br>      a.block在执行完毕只会会释放变量b。随之释放.</p>
+<p>test2: a.block内部出现了a，b的变量，但是此刻b并没有持有a，所以在外层block的时候只存在a-&gt;block-&gt; (a,b) 并不存在 b-&gt;a,<br>      所以为了避免循环引用，只需要对a使用weak strong。<br>      在执行a.block的时候，在这个时刻，a-&gt;block-&gt;(a,b) (这是前提条件)。b.block持有了 a，b ,由于b-&gt;block-&gt;b,所以需要对b使用<br>      weak strong，并且在此时刻 a-&gt;block-&gt;b 并且 b-&gt;block-&gt;a，出现了循环引用环，所以需要内部再出现一次 weak strong。<br>      代码改写后为：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">A *a = [A new];</div><div class="line">B *b = [B new];</div><div class="line"></div><div class="line">weakify(a)</div><div class="line">a.block = ^&#123;</div><div class="line">    strongify(a)</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[b <span class="keyword">class</span>]);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[a <span class="keyword">class</span>]);</div><div class="line">    </div><div class="line">    weakify(a) weakify(b)</div><div class="line">    b.block = ^&#123;</div><div class="line">        strongify(a) strongify(b)</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[b <span class="keyword">class</span>]);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[a <span class="keyword">class</span>]);</div><div class="line">    &#125;;</div><div class="line">&#125;;</div><div class="line">a.block();</div><div class="line">b.block();</div></pre></td></tr></table></figure>
+<p>之前有人也提出问题说，我有时候也会用<strong>block关键字，这里我想说的是 </strong>block是说在捕获基本数据类型的时候捕获的是readonly(其实是一份副本)的值<br>如果我想修改这个值的话，使用__block关键字，这样在编译的时候传递进去的就是指针，和外部是一个值，<br>这里的问题是如何避免block捕获变量带来的内存泄漏的问题的分析。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;2017-01-13&quot;&gt;&lt;a href=&quot;#2017-01-13&quot; class=&quot;headerlink&quot; title=&quot;2017-01-13&quot;&gt;&lt;/a&gt;2017-01-13&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;NSArray 用 copy 和 Strong修饰的区别 
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>制作Swift和Objective-C Mixed的Pod</title>
