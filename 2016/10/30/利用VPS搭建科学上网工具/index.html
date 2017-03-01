@@ -321,6 +321,12 @@
 <p>执行即可。</p>
 <hr>
 <p>有时候我们利用ss下载大文件还是比较慢，怎么办，我们可以远程在VPS上下载大文件，然后通过搭建一个web服务器，再通过专线下载回来即可。 写累了 先挖个坑，灾后续上。<br><br>给我发个红包催更新吧</p>
+<hr>
+<p>ss默认在终端下是无法翻墙的可以使用命令<br>  开启翻墙<br>  <code>export ALL_PROXY=socks5://127.0.0.1:1080</code></p>
+<p>  关闭翻墙<br>  <code>unset ALL_PROXY</code></p>
+<p>这些都是一次性的<br>可以设置终端别名用来翻墙 </p>
+<p>编辑 ~/.bash_profile<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">proxy_off</span></span>()&#123;</div><div class="line">    <span class="built_in">unset</span> ALL_PROXY</div><div class="line"></div><div class="line">    <span class="built_in">echo</span> <span class="_">-e</span> <span class="string">"已关闭代理"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">proxy_on</span></span>() &#123;</div><div class="line">    <span class="built_in">export</span> ALL_PROXY=socks5://127.0.0.1:1080</div><div class="line">    <span class="built_in">echo</span> <span class="_">-e</span> <span class="string">"已开启代理"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行<code>source  ~/.bash_profile</code><br>下次使用<code>proxy_on</code> 和<code>proxy_off</code> 即可</p>
 <p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="weChat"></p>
 
             <div class="clearfix"></div>
