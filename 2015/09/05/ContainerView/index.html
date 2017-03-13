@@ -241,17 +241,17 @@
 </ul>
 <h1 id="storyboard开发"><a href="#StoryBoard开发" class="headerlink" title="StoryBoard开发"></a>StoryBoard开发</h1><p>很多iOS开发者喜欢用StoryBoard开发   实在是非常省心省事<br>但是涉及到一个也没也相对有很多复杂的状态 拖出来的约束也会多到让人恶心</p>
 <p>其实Xcode 帮我们提供了一些方便的容器来辅助开发<br>如图</p>
-<p><img src="/2015/09/05/ContainerView/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/ContainerView/1.png" alt="Paste_Image.png"></p>
 <p>我们假设绿色的和橙色的view 里面设计到非常多乱七八糟的子View<br>按照一般的写法 我们就是指定一个绿色和橙色的view 然后在里面做事件操作  但是我们还是离不开在storyBoard 里面出现一坨约束（请原谅我用这个词汇）</p>
 <p>这样在构造IBOutLet时候就会出现一个ViewController有很多OutLet   多到让你起名字都很难起 而且控制器就代码就会非常多<br>在iOS 5之后出现了ChildViewController 类似于View 可以addSubview  之后viewController 可以addChildViewController</p>
 <p>#解决办法</p>
-<p><code>1</code><br><img src="/2015/09/05/ContainerView/" alt="Paste_Image.png"></p>
+<p><code>1</code><br><img src="http://ompeszjl2.bkt.clouddn.com/ContainerView/2.png" alt="Paste_Image.png"></p>
 <p>  <code>2</code> 这时候你会发现右边多了两个小的控制器</p>
-<p><img src="/2015/09/05/ContainerView/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/ContainerView/3.png" alt="Paste_Image.png"></p>
 <p><code>3</code>这时候新建两个控制器<br>FirstContainerViewController<br>SecondContainerViewController</p>
-<p><img src="/2015/09/05/ContainerView/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/ContainerView/4.png" alt="Paste_Image.png"></p>
 <p><code>4</code>运行项目</p>
-<p><img src="/2015/09/05/ContainerView/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/ContainerView/5.png" alt="Paste_Image.png"></p>
 <blockquote>
 <p>很多人都会说我并不喜欢用StoryBoard  但是一个东西存在总归是有原因的  我以前也不喜欢用StoryBoard 觉得好难控制 AutoLayout<br>原因来自与对Autolayout不熟悉  很多公司的app 很多节目都是完全无法重用的 而且难度也不大  这样的界面要是一直用代码要累死  事实上 你也会写烦  apple 一直在推崇AutoLayout  这是大趋势  迂腐的程序员并不好   像iOS 9出的布局神奇<code>UIStackView</code> 和 <code>Storyboard refrence</code>都是为了简便开发</p>
 </blockquote>

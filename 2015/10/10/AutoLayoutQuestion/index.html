@@ -249,13 +249,13 @@
 <p>看完这个你以后布局更方便了  </p>
 <p>举个例子 AutoLayout分分钟搞定等比例布局 之前我的帖子这样做</p>
 <p>现在有了更简单的</p>
-<p><img src="/2015/10/10/AutoLayoutQuestion/" alt="1"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/AutoLayoutQuestion/1.gif" alt="1"></p>
 <ol>
 <li>AutoLayout与Frame的关系<br>曾经有次我被面试官问了一个面试题     如果你用了AutoLayout 再修改Frame 会有什么效果 有没有什么不好的</li>
 </ol>
 <p>看这问题 所有人都能猜到肯定有不好的  但是具体也不知道是啥  </p>
 <p>看demo  一个view</p>
-<p><img src="/2015/10/10/AutoLayoutQuestion/" alt="1"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/AutoLayoutQuestion/2.gif" alt="1"></p>
 <p>3.AutoLayout动画</p>
 <p>如果你用了AutoLayout  那么做动画的时候  你就不要再操作 Frame  bounds center  等position属性</p>
 <p>因为这些动画都是临时的  下次的View 被 setNeedsUpdateConstraint  这些全都失效   </p>
@@ -266,7 +266,7 @@
 <p>针对 Constraint 一掉要调用LayoutIfNeed()  不然会造成不可预料的结果。  有可能下一刻动画剩下  也有可能然并卵       在NSLayoutConstraint中  唯一可变的 也就是 可set 可 get的属性就    constant </p>
 <p>像其他FirstItem等是不可修改的      所以如果要修改参考物参看 下面的方法 </p>
 <p>2 .  替换约束的动画 </p>
-<p><img src="/2015/10/10/AutoLayoutQuestion/" alt="1"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/AutoLayoutQuestion/3.png" alt="1"></p>
 <p>添加约束可以通过<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">self</span>.view.addConstraint(&lt;<span class="meta">#T##constraint: NSLayoutConstraint##NSLayoutConstraint#&gt;)</span></div><div class="line"></div><div class="line"><span class="keyword">self</span>.view.addConstraints(&lt;<span class="meta">#T##constraints: [NSLayoutConstraint]##[NSLayoutConstraint]#&gt;)</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">在iOS <span class="number">8</span>中有更好的方法  newConstraint.active=<span class="literal">true</span> 就可以</div></pre></td></tr></table></figure></p>
 
             <div class="clearfix"></div>

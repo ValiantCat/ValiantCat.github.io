@@ -233,7 +233,16 @@
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p><code>觉得我的文章写的好 请关注我的简书</code><a href="http://www.jianshu.com/users/cc1e4faec5f7" target="_blank" rel="external">南栀倾寒</a></p>
+      		<!-- toc -->
+<ul>
+<li><a href="#autolayoutib中操作的属性介绍">AutoLayout+IB中操作的属性介绍</a><ul>
+<li><a href="#属性说明leading-edges左对齐">属性说明：Leading Edges：左对齐</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<!-- index-menu -->
+<p><code>觉得我的文章写的好 请关注我的简书</code><a href="http://www.jianshu.com/users/cc1e4faec5f7" target="_blank" rel="external">南栀倾寒</a></p>
 <hr>
 <blockquote>
 <p>看到群中好多朋友还停留在Frame布局的痛苦时代  ,以及有些开发者接手别人的就项目发现布局一团乱 。<br> 而且没有启动图的时候并不是真正真正适配iPhone 6(S)  iPhone6(S) Plus等设备 。<br>   寒哥准备尽可能详细的讲一讲我所掌握的AutoLayout 。</p>
@@ -250,15 +259,15 @@
 <li>在iOS7（Xcode5）开始，Autolayout的开发效率得到很大的提升<br>苹果官方也推荐开发者尽量使用Autolayout来布局UI界面<br>Autolayout能轻松的解决屏幕适配的问题</li>
 </ul>
 <p>##AutoLayout从哪里入手</p>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/1.gif" alt="haha.gif"></p>
 <blockquote>
 <p>自从Xcode6之后 你会看到我们新建一个Single Application 会发现一个ViewController的View非常大    ,跟任何一个iPhone  iPad的尺寸都不一样  ,这些都是 假象 假象  假象 Apple 把尺寸抽象为了一个正方形  到真正的设备上才是真正的布局 </p>
 </blockquote>
-<h2 id="autolayoutib中操作的属性介绍"><a href="#AutoLayout-IB中操作的属性介绍" class="headerlink" title="AutoLayout+IB中操作的属性介绍"></a>AutoLayout+IB中操作的属性介绍</h2><p><img src="/2015/10/14/LearnAutoLayout/" alt="Paste_Image.png"></p>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="Paste_Image.png"></p>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<h2 id="autolayoutib中操作的属性介绍"><a href="#AutoLayout-IB中操作的属性介绍" class="headerlink" title="AutoLayout+IB中操作的属性介绍"></a>AutoLayout+IB中操作的属性介绍</h2><p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/2.png" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/3.png" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/4.png" alt=""></p>
 <p>我们会发现貌似这个玩意好多配置  貌似很麻烦的样子   下面我们挨个讲解  </p>
-<p>###1.相对处理（Pin）：<br><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<p>###1.相对处理（Pin）：<br><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/5.png" alt=""></p>
 <blockquote>
 <p>属性说明：<br>1:距离边缘  最上面的4个虚线表示某个View的距离上边 左边 右边 下边多高<br>2:那个蓝色的Constrain To Margins 是iPhone6出现之后。<br>  Apple 觉得更大的分辨率有点间距好看，   默认为8  ， 如果这个勾上了 这个View距离四周的值就变成了 你输入的值+8。  一般建议勾掉 。</p>
 </blockquote>
@@ -269,19 +278,19 @@
 <ul>
 <li>Demo 1 某个View距离父View上下左右间距全部为20  </li>
 </ul>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/6.gif" alt="haha.gif"></p>
 <blockquote>
 <p>请注意我这里把距离下面的 ， 也就是BottomLayoutGuide的约束改成了距离控制器的View   为什么？<br>  因为BottomLayoutGuide是晚于View加载的 如果参考这个 会造成进入页面 会卡一下  尽量不要直接参考下面  TopLayoutGuide 则没事 </p>
 <p>加完约束你会发现貌似并没有什么效果？<br>不是的，屏幕中出现的黄色的线条   这是IB在提升我们你所添加的约束  和真实的尺寸不一样   怎么修改？ 继续图</p>
 </blockquote>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/7.gif" alt="haha.gif"></p>
 <blockquote>
 <p>属性说明3，4  固定某个View的宽高  </p>
 <ul>
 <li>Demo 2 某个View距离在父View的左侧20 上20 宽高为 100 ， 100 </li>
 </ul>
 </blockquote>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/8.gif" alt="haha.gif"></p>
 <blockquote>
 <p>注意我在添加约束的时候有个选项叫做updateFrame  如果勾选 会直接将Frame调整到真实值  ，而不需要再次update 。<br>这里我们只是讲了最简单定位单个View   你会觉得和Frame 并没有什么区别  。<br>区别在于：AutoLayout的核心是参照  也就是基本上任何一个View都可以参照另一个View   </p>
 <ul>
@@ -291,21 +300,21 @@
 <ul>
 <li>Demo 3 某个View距离在父View的左侧20 demo2中白色View 上20   宽高和Demo2中的宽高一样</li>
 </ul>
-<p>![haha.gif](9.gif</p>
+<p>![haha.gif](<a href="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/9.gif" target="_blank" rel="external">http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/9.gif</a></p>
 <blockquote>
 <p>属性6 AspectRatio  比例<br>假设某个View距离父View右上角20 ，20 宽高比 2：1  宽100</p>
 </blockquote>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/10.gif" alt="haha.gif"></p>
 <blockquote>
 <p>第七个属性Align其实在第一个面板中已经有了 放在下一部分讲解<br><code>是时候给讲解下约束是什么玩意了</code>刚才你看到我对约束修改了 </p>
 </blockquote>
 <p>我们点击下某个约束</p>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/11.png" alt="Paste_Image.png"></p>
 <p>###AutoLayout的公式<br><code>第一个Item的属性= (&lt;= /&gt;= )第二个Item的属性*Multiplier+Constant</code><br><code>第一个Item的属性= (&lt;= /&gt;= )第二个Item的属性*Multiplier+Constant</code><br><code>第一个Item的属性= (&lt;= /&gt;= )第二个Item的属性*Multiplier+Constant</code></p>
 <p>比如图中的View 约束 可以理解为 View的tralling（右侧） 等于（eauql） 1倍（multpiler）的控制的右侧 + 20（constant）</p>
 <p><code>注意比例是支持表达式的  如 2：3</code><br><code>releation是支持great than  lessthan</code> 具体是多少 系统自动算出</p>
 <hr>
-<p>##2. 对齐处理（Align）<br><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<p>##2. 对齐处理（Align）<br><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/12.png" alt=""></p>
 <blockquote>
 <p>介绍</p>
 <h1 id="属性说明leading-edges左对齐"><a href="#属性说明：Leading-Edges：左对齐" class="headerlink" title="属性说明：Leading Edges：左对齐"></a>属性说明：Leading Edges：左对齐</h1><ul>
@@ -322,36 +331,36 @@
 <ul>
 <li>Demo 4 某个View距离在父View的右侧20 demo3中白色View 上20   宽高和Demo3中的宽高一样 并且有对齐</li>
 </ul>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/13.gif" alt="haha.gif"></p>
 <blockquote>
 <p>Demo5 某个View 居中与父View  长宽50</p>
 </blockquote>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/14.gif" alt="haha.gif"></p>
 <blockquote>
 <p>某些控件是有baseLine 的 如UILabel  UITextView  看下不同吧</p>
 </blockquote>
 <ul>
 <li>Demo6 某个label 和另外一个label 基线对齐</li>
 </ul>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/15.gif" alt="haha.gif"></p>
 <hr>
 <p>###3. UILabel内建高度自适应高度</p>
 <p>像label 默认是有宽度的  宽度就是字体自适应的</p>
 <p>这样我们就可以不给UIlabel 高度 把Label的NumberOfline = 0就可以自适应高度了</p>
 <ul>
-<li>Demo7 Label自适应高度<br><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></li>
+<li>Demo7 Label自适应高度<br><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/16.gif" alt="haha.gif"></li>
 </ul>
 <p>###4. 小技巧<br>1.有时候约束太多的时候  我们可以给某个VIew起个假名字 就能很方便的看到是哪个View 了    </p>
 <ol>
 <li>View总是选不中按 ctrl + shift + 单击</li>
 </ol>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/17.gif" alt="haha.gif"></p>
 <p>3.AutoLayout遇见ScrollView<br>参看这个文章 <a href="http://grayluo.github.io/WeiFocusIo/autolayout/2015/01/27/autolayout3/" target="_blank" rel="external">AutoLayout深入浅出三[相遇Scrollview]</a><br>如图</p>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/18.gif" alt=""></p>
 <ul>
 <li>Demo 8 ScrollView过长 无法编辑怎么办 </li>
 </ul>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/19.gif" alt="haha.gif"></p>
 <blockquote>
 <p>将控制器改为Freedom  修改ContentView的高度约束  这样ScrollView 就可以滚动了 也可以往下编辑了</p>
 </blockquote>
@@ -369,7 +378,7 @@
 </blockquote>
 <hr>
 <p>##总结 在StoryBoard里面开发 其实就是拿着ViewController 当做View用 如果你还是觉得复杂 可以吧View抽象出去</p>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/20.gif" alt="haha.gif"></p>
 <blockquote>
 <p>时间仓促  有什么不懂的可以留言 或者加群:<code>532084214</code>细问呦</p>
 </blockquote>

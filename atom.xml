@@ -63,10 +63,11 @@
     <link href="http://valiantcat.com/2016/12/27/%E5%88%B6%E4%BD%9CSwift%E5%92%8CObjective-C-Mixed%E7%9A%84Pod/"/>
     <id>http://valiantcat.com/2016/12/27/制作Swift和Objective-C-Mixed的Pod/</id>
     <published>2016-12-27T06:29:11.000Z</published>
-    <updated>2017-01-04T07:20:03.000Z</updated>
+    <updated>2017-03-13T04:09:00.000Z</updated>
     
     <content type="html"><![CDATA[<!-- toc -->
 <!-- tocstop -->
+<!-- index-menu -->
 <ul>
 <li><p>知识背景</p>
 <ol>
@@ -119,10 +120,10 @@
 <ul>
 <li>Answer1: 为Swift源代码添加一个 XXX.h头文件这里为Mixed-Bridging-Header 在这个文件中导入需要访问的Objective-C 源代码的头文件。</li>
 </ul>
-<p><img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="headerConfig"></p>
-<p>有时候Xcode反应会稍微延迟一点。手动编译一下即可。做完这个配置，Swift即可访问Objective-C 源代码。<br> 代码如图:<br> <img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="swiftAccessObjc"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%B6%E4%BD%9CSwift%E5%92%8CObjective-C-Mixed%E7%9A%84Pod/01.png" alt="headerConfig"></p>
+<p>有时候Xcode反应会稍微延迟一点。手动编译一下即可。做完这个配置，Swift即可访问Objective-C 源代码。<br> 代码如图:<br> <img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%B6%E4%BD%9CSwift%E5%92%8CObjective-C-Mixed%E7%9A%84Pod/02.png" alt="swiftAccessObjc"></p>
 <ul>
-<li>Answer2: Objective-C 访问Swift源代码 需要导入系统为项目生成的头文件，默认为Module+Swift.h 当然自己也是可以修改的， 导入之后，编译一下(Xcode有时候有缓存，没事就应该编译一下😒)<br>具体代码配置如图<br><img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="ObjcAccessSwift"></li>
+<li>Answer2: Objective-C 访问Swift源代码 需要导入系统为项目生成的头文件，默认为Module+Swift.h 当然自己也是可以修改的， 导入之后，编译一下(Xcode有时候有缓存，没事就应该编译一下😒)<br>具体代码配置如图<br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%B6%E4%BD%9CSwift%E5%92%8CObjective-C-Mixed%E7%9A%84Pod/03.png" alt="ObjcAccessSwift"></li>
 </ul>
 <p>至此混编项目测试完成。</p>
 <ul>
@@ -130,9 +131,9 @@
 </ul>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Pod::Spec.new <span class="keyword">do</span> <span class="params">|s|</span></div><div class="line">    s.name             = <span class="string">"Mixed"</span></div><div class="line">    s.version          = <span class="string">"0.0.1"</span></div><div class="line">    s.summary          = <span class="string">"链家网混编组件"</span></div><div class="line">    s.description      = <span class="string">"链家网混编组件混编测试"</span></div><div class="line">    s.license          = &#123;<span class="symbol">:type</span> =&gt; <span class="string">'MIT'</span>, <span class="symbol">:file</span> =&gt; <span class="string">'LICENSE'</span>&#125;</div><div class="line">    s.homepage         = <span class="string">'http://XXXDomain/XXX.privateGit/Mixed.html'</span></div><div class="line">    s.author           = &#123; <span class="string">"男神寒"</span> =&gt; <span class="string">"519224747@qq.com"</span> &#125;</div><div class="line">    s.source           = &#123; <span class="symbol">:git</span> =&gt; <span class="string">"http://http://XXXDomain/XXX.privateGit/Mixed.git"</span>, <span class="symbol">:commit</span> =&gt; <span class="string">"bb1e3eb2d55468252f68fb4c1881ecc68517757a"</span> &#125;</div><div class="line">    s.platform              = <span class="symbol">:ios</span>, <span class="string">'8.0'</span></div><div class="line">    s.ios.deployment_target = <span class="string">'8.0'</span></div><div class="line">    s.public_header_files = <span class="string">'Mixed/Classes/*.h'</span></div><div class="line">    s.source_files = <span class="string">'Mixed/Classes/*.&#123;h,m,swift&#125;'</span></div><div class="line"></div><div class="line">    s.requires_arc = <span class="literal">true</span></div><div class="line">    s.pod_target_xcconfig = &#123; <span class="string">'SWIFT_VERSION'</span> =&gt; <span class="string">'2.3'</span> &#125;</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
 <p>接下来可使用Cocoapods提高的命令行工具 pod spec lint Mixed.podspec 去校验，但是这个方法需要完整的去编译所有项目去检测，在我的电脑需要编译很久，我一般都习惯直接安装测试。</p>
-<p>按照如下文件夹格式存放 并提交到私有仓库<br> <img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="podSpecSource"><br>接下来新建一个测试工程MixedTest 在Podfile里面输入</p>
+<p>按照如下文件夹格式存放 并提交到私有仓库<br> <img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%B6%E4%BD%9CSwift%E5%92%8CObjective-C-Mixed%E7%9A%84Pod/04.png" alt="podSpecSource"><br>接下来新建一个测试工程MixedTest 在Podfile里面输入</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">source <span class="string">'http://http://http://XXXDomain/XXX.privateGit/privatePodPodSpec.git'</span>  <span class="comment">#我们自己的私有spec仓库的地址</span></div><div class="line">source <span class="string">'https://github.com/CocoaPods/Specs.git'</span>  <span class="comment">#官方仓库的地址</span></div><div class="line">use_frameworks! <span class="comment">#一定要加上 Swift只支持动态库的形式</span></div><div class="line"></div><div class="line">platform <span class="symbol">:ios</span>, <span class="string">'8.0'</span></div><div class="line"></div><div class="line">inhibit_all_warnings!</div><div class="line"></div><div class="line">target <span class="string">'MixedTest'</span> <span class="keyword">do</span></div><div class="line">    pod <span class="string">'Mixed'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>然后进行pod install，完成之后编译然后不出意外的编译出错(😄😄😄😄) <img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="compile Error"> 接下来进行分析错误，由于Swift只支持动态库(并非完全意义的动态库)，所以我们的代码在Pod之后实际上是一个动态的Framework，在这个名为Mixed的FrameWork里面，Objectice-C源代码是存放在Mixed的命名空间，所以不需要Mixed-Bridging-Header.h也是可以的。而且也能正常的访问。所以问题出现在Objective-C调用Swift的部分。 由于Swift是有命名空间的概念的。制作之后的Mixed-Bridging-Header位于Mixed的命名空间内。由于CocoaPods对源代码做的操作只是简单的复制。并不能修改源代码。我们就需要在源头做手脚。 修改源工程的设置<img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="newSetting"> 编译通过，然后更新Mixed.podspec文件然后重新提交 重新安装 这时候编译MixedTest项目，发现虽然文件找到了但是还报错。<img src="/2016/12/27/制作Swift和Objective-C-Mixed的Pod/" alt="undefineIdtntify"> 进入Mixed-Swift.h文件后发现除了一些系统的定义，并没有找到我们定义的Swift代码。 经查询资料得知，Swift的默认访问权限是internal，这个访问权限是无法被外部访问的，所以需要修改被Objective-C访问到的Swift源代码相关的访问权限为Public(Swift2.3) 或者open/public(Swift3.x)。 至此提交，安装，编译通过。</p>
+<p>然后进行pod install，完成之后编译然后不出意外的编译出错(😄😄😄😄) <img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%B6%E4%BD%9CSwift%E5%92%8CObjective-C-Mixed%E7%9A%84Pod/05.png" alt="compile Error"> 接下来进行分析错误，由于Swift只支持动态库(并非完全意义的动态库)，所以我们的代码在Pod之后实际上是一个动态的Framework，在这个名为Mixed的FrameWork里面，Objectice-C源代码是存放在Mixed的命名空间，所以不需要Mixed-Bridging-Header.h也是可以的。而且也能正常的访问。所以问题出现在Objective-C调用Swift的部分。 由于Swift是有命名空间的概念的。制作之后的Mixed-Bridging-Header位于Mixed的命名空间内。由于CocoaPods对源代码做的操作只是简单的复制。并不能修改源代码。我们就需要在源头做手脚。 修改源工程的设置<img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%B6%E4%BD%9CSwift%E5%92%8CObjective-C-Mixed%E7%9A%84Pod/06.png" alt="newSetting"> 编译通过，然后更新Mixed.podspec文件然后重新提交 重新安装 这时候编译MixedTest项目，发现虽然文件找到了但是还报错。<img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%B6%E4%BD%9CSwift%E5%92%8CObjective-C-Mixed%E7%9A%84Pod/07.png" alt="undefineIdtntify"> 进入Mixed-Swift.h文件后发现除了一些系统的定义，并没有找到我们定义的Swift代码。 经查询资料得知，Swift的默认访问权限是internal，这个访问权限是无法被外部访问的，所以需要修改被Objective-C访问到的Swift源代码相关的访问权限为Public(Swift2.3) 或者open/public(Swift3.x)。 至此提交，安装，编译通过。</p>
 <ul>
 <li>References</li>
 </ul>
@@ -146,10 +147,11 @@
     
       &lt;!-- toc --&gt;
 &lt;!-- tocstop --&gt;
+&lt;!-- index-menu --&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;知识背景&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&quot;https://guides.cocoapods.org/using/getting-started.html&quot; target=&quot;_blank
+&lt;li&gt;&lt;a href=&quot;https://guides.cocoapods.org/using/getting-started.
     
     </summary>
     
@@ -163,10 +165,11 @@
     <link href="http://valiantcat.com/2016/10/30/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B7/"/>
     <id>http://valiantcat.com/2016/10/30/利用VPS搭建科学上网工具/</id>
     <published>2016-10-30T04:46:06.000Z</published>
-    <updated>2017-03-01T05:40:42.000Z</updated>
+    <updated>2017-03-13T03:58:29.000Z</updated>
     
     <content type="html"><![CDATA[<!-- toc -->
 <!-- tocstop -->
+<!-- index-menu -->
 <ul>
 <li><p>VPN和VPS是什么</p>
 <ol>
@@ -174,6 +177,8 @@
 <li>VPS:（Virtual Private Server 虚拟专用服务器）技术，将一台服务器分割成多个虚拟专享服务器的优质服务</li>
 </ol>
 </li>
+</ul>
+<ul>
 <li><p>痛点: 之前由于一直需要科学上网工具，随购买VPN使用，速度倒是可以，但是由于在公司内部一旦连接上VPN，公司内网相关资源就无法访问，诸如git，mail，wiki等。需要再断开，VPN每次拨号时间虽然不长，但是也需要5s左右，由于经常需要频繁切换网络环境，较为繁琐，所以专用VPS内搭建SS给自己专线使用，而且ss支持动态代理，不需要代理的网络链接自动切换。而且速度对自己非常满意，并且月流量带宽远大于之前购买的VPN。鉴于搭建环境较为繁琐，特意记录一下，以便朋友们有需要可以参考。</p>
 </li>
 <li><p>SS是什么?</p>
@@ -192,7 +197,7 @@
 </ol>
 </li>
 </ul>
-<p>vultr 的有点，价格低，带宽大，优惠活动多，文档丰富， <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="price"> 最近vultr有优惠活动。新注册的用户将会或者20$的优惠活动，建议通过我的邀请链接<a href="http://www.vultr.com/?ref=7021753-3B" target="_blank" rel="external">http://www.vultr.com/?ref=7021753-3B</a>去注册， 然后一定要支付金额才能使用。赠送的金额必须先充值才能使用vultr， 强烈建议充值10$,强烈建议充值10$,强烈建议充值10$,只有充值10$以上我才能收到邀请奖励，当作辛苦记录的稿费。</p>
+<p>vultr 的有点，价格低，带宽大，优惠活动多，文档丰富， <img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B71.png" alt="price"> 最近vultr有优惠活动。新注册的用户将会或者20$的优惠活动，建议通过我的邀请链接<a href="http://www.vultr.com/?ref=7021753-3B" target="_blank" rel="external">http://www.vultr.com/?ref=7021753-3B</a>去注册， 然后一定要支付金额才能使用。赠送的金额必须先充值才能使用vultr， 强烈建议充值10$,强烈建议充值10$,强烈建议充值10$,只有充值10$以上我才能收到邀请奖励，当作辛苦记录的稿费。</p>
 <blockquote>
 <p>注: 不要试图试用之后去再申请帐号，vultr会检测支付帐号，如果重复申请帐号，使用了一个paypal去支付，会被vultr封号。</p>
 </blockquote>
@@ -201,22 +206,22 @@
 <li>有的使用者并没有双币信用卡，paypal支持银联的卡片。</li>
 <li>vultr目前无法解绑信用卡。</li>
 </ol>
-<p>充值过程: <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="pay"></p>
+<p>充值过程: <img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B72.png" alt="pay"></p>
 <ul>
-<li>购买一个服务器 <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="server"></li>
+<li>购买一个服务器 <img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B73.png" alt="server"></li>
 </ul>
-<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="debian7"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B74.png" alt="debian7"></p>
 <p>这里本人选择的是debin7 64位的操作系统，可能有些人偏爱，CentOS，Ubuntu，这些操作系统对我们搭建SS大同小异。价格选择5$即可，个人觉得满足5个人使用足够了，可以和小伙伴一起购买使用。</p>
 <blockquote>
 <p>注： vultr的服务器只要添加就会开始收费，暂停是没用的，如果不需要使用了 一定要删除服务器。</p>
 </blockquote>
-<p>之后等待install，进入running状态之后点击操作系统 <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="debian"> <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="debian"></p>
-<p>这时候可以ping一下ip地址，如果可以ping的通就可以进行下一步了。 打开终端输入 ssh root@ip 询问回答YES，密码在server面板 点击复制，直接粘贴进终端，注意终端是不会显示密码的，并不是没有输入，。链接成功，如下图所示： <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="ssh"></p>
+<p>之后等待install，进入running状态之后点击操作系统 <img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B75.png" alt="debian"> <img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B76.png" alt="debian"></p>
+<p>这时候可以ping一下ip地址，如果可以ping的通就可以进行下一步了。 打开终端输入 ssh root@ip 询问回答YES，密码在server面板 点击复制，直接粘贴进终端，注意终端是不会显示密码的，并不是没有输入，。链接成功，如下图所示： <img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B77.png" alt="ssh"></p>
 <ul>
 <li>安装$R就是ss的服务端。 简单的三个命令 分开输入。</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1\. wget --no-check-certificate https://raw.githubusercontent.com/teddysun/$_install/master/$R.sh</div><div class="line"></div><div class="line">2\. chmod +x $R.sh</div><div class="line"></div><div class="line">3\. ./$R.sh 2&gt;&amp;1 | tee $sR.log</div></pre></td></tr></table></figure>
-<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="download"> <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="chmod"> <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="install"> 这里我密码输入的是123456， 端口号默认就好。 接下来自动完成后输出信息 <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="install"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B78.png" alt="download"> <img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B79.png" alt="chmod"> <img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B710.png" alt="install"> 这里我密码输入的是123456， 端口号默认就好。 接下来自动完成后输出信息 <img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B711.png" alt="install"></p>
 <p>现在我们的ss理论就好了，下面附上ssR相关的命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/shadowsocks status //检测状态</div><div class="line">/etc/init.d/shadowsocks stop   // 关闭服务</div><div class="line">/etc/init.d/shadowsocks start  //启动服务</div></pre></td></tr></table></figure>
 <p>如果有想修改密码 去编辑配置文件</p>
@@ -228,23 +233,23 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh &amp;&amp; bash serverspeeder-all.sh</div></pre></td></tr></table></figure>
 <p>装完之后自动会运行， 下面是检测锐速的命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/serverspeeder/bin/serverSpeeder.sh status // 状态</div><div class="line">/serverspeeder/bin/serverSpeeder.sh restart// 重启</div></pre></td></tr></table></figure>
-<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="install"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B712.png" alt="install"></p>
 <p>如果想让锐速开机自启动 可以 vi /etc/rc.local 在最后输入 /serverspeeder/bin/serverSpeeder.sh start 保存即可</p>
 <ul>
 <li>使用ss 先去下载ss对应的客户端软件 <a href="https://shadowsocks.com/client.html" target="_blank" rel="external">ss下载</a></li>
 </ul>
 <p>我这里下载mac端 ，iOS 由于被下架，只能去寻找替代品，在app store 输入 $ 搜索，里面有很多替代品，我下载的是netkit 1元， 也可以使用surge，之类替代的。</p>
-<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="配置"> 打开即可科学上网。</p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B713.png" alt="配置"> 打开即可科学上网。</p>
 <p>注意 如果你是mac10.11之后，手动关闭了Rootless，貌似会导致无法上网，需要关闭。重启电脑即可。</p>
 <ul>
 <li>VPN补充</li>
 </ul>
 <p>vps里面也是可以搭建VPN的，这里给一个简单搭建IPSpecVPN的教程</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1\.  wget --no-check-certificate https://raw.githubusercontent.com/quericy/one-key-ikev2-vpn/dev-debian/one-key-ikev2.sh</div><div class="line"></div><div class="line">2\.  chmod +x one-key-ikev2.sh</div><div class="line"></div><div class="line">3\.  bash one-key-ikev2.sh</div></pre></td></tr></table></figure>
-<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="配置"> 这里输入1 其他默认即可</p>
-<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="result"> 开机自启动</p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B714.png" alt="配置"> 这里输入1 其他默认即可</p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B715.png" alt="result"> 开机自启动</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">vi /etc/rc.local</div><div class="line">/usr/local/sbin/ipsec start</div></pre></td></tr></table></figure>
-<p>mac配置如下 <img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="result"> iPhone系统原生支持。</p>
+<p>mac配置如下 <img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B716.png" alt="result"> iPhone系统原生支持。</p>
 <p>有时候系统vpn会挂掉，会导致ss也无法使用，解决办法就是重新安装vpn，。</p>
 <ul>
 <li>免密码登录，ssh登录远程电脑需要输入密码， 这里可以配置免密登录，需要你的ssh配置，生成过程通github配置，没有配置可自行搜索</li>
@@ -259,17 +264,18 @@
 <p>这些都是一次性的<br>可以设置终端别名用来翻墙 </p>
 <p>编辑 ~/.bash_profile<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">proxy_off</span></span>()&#123;</div><div class="line">    <span class="built_in">unset</span> ALL_PROXY</div><div class="line"></div><div class="line">    <span class="built_in">echo</span> <span class="_">-e</span> <span class="string">"已关闭代理"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">proxy_on</span></span>() &#123;</div><div class="line">    <span class="built_in">export</span> ALL_PROXY=socks5://127.0.0.1:1080</div><div class="line">    <span class="built_in">echo</span> <span class="_">-e</span> <span class="string">"已开启代理"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>执行<code>source  ~/.bash_profile</code><br>下次使用<code>proxy_on</code> 和<code>proxy_off</code> 即可</p>
-<p><img src="/2016/10/30/利用VPS搭建科学上网工具/" alt="weChat"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E5%88%A9%E7%94%A8VPS%E6%90%AD%E5%BB%BA%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%B7%A5%E5%85%B7weixin.png" alt="weChat"></p>
 ]]></content>
     
     <summary type="html">
     
       &lt;!-- toc --&gt;
 &lt;!-- tocstop --&gt;
+&lt;!-- index-menu --&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;VPN和VPS是什么&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;VPN: 虚拟专用网络的功能是：在公用网络上建立专用网络，进行加密通讯。在企业网络中有广泛应用。VPN网关通过对数据包的加密和数据包目标地址的转换实
+&lt;li&gt;VPN: 虚拟专用网络的功能是：在公用网络上建立专用网络，进行加密通讯。在企业网络中有广泛应用。VPN网关通
     
     </summary>
     
@@ -283,10 +289,11 @@
     <link href="http://valiantcat.com/2016/09/14/Effective-C-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     <id>http://valiantcat.com/2016/09/14/Effective-C-读书笔记/</id>
     <published>2016-09-14T03:01:57.000Z</published>
-    <updated>2016-10-12T09:16:18.000Z</updated>
+    <updated>2017-03-13T04:24:08.000Z</updated>
     
     <content type="html"><![CDATA[<!-- toc -->
 <!-- tocstop -->
+<!-- index-menu -->
 <blockquote>
 <p>学习知识只写在本子上也不方便记忆，这里做份记录方便后续查看</p>
 </blockquote>
@@ -501,12 +508,12 @@
     
       &lt;!-- toc --&gt;
 &lt;!-- tocstop --&gt;
+&lt;!-- index-menu --&gt;
 &lt;blockquote&gt;
 &lt;p&gt;学习知识只写在本子上也不方便记忆，这里做份记录方便后续查看&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;视C++为一个语言联邦&lt;/p&gt;
-&lt;p&gt;C++  支持多语言范式:&lt;/
+&lt;li&gt;&lt;p&gt;视C++为一个语言联邦&lt;/p
     
     </summary>
     
@@ -720,17 +727,17 @@
     <link href="http://valiantcat.com/2016/07/22/ReactiveCocoa%E5%92%8CRXSwift%E9%80%9F%E6%9F%A5%E8%A1%A8/"/>
     <id>http://valiantcat.com/2016/07/22/ReactiveCocoa和RXSwift速查表/</id>
     <published>2016-07-22T06:44:22.000Z</published>
-    <updated>2017-02-28T15:01:34.000Z</updated>
+    <updated>2017-03-13T03:36:34.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h1><p>在经历两个月漫长的学习时间之后，对ReactiveCocoa和RXSwift等函数响应式编程框架的学习已经有了一个非常清晰的概念。不过面对那么多的API和速记方法，脑袋实在记不住太多好用的小技巧。特在此整理了速查表。方便日后学习使用。</p>
 <p>期中RAC-OC语言部分感谢 <a href="http://www.jianshu.com/p/a4fefb434652?utm_campaign=hugo&amp;utm_medium=reader_share&amp;utm_content=note" target="_blank" rel="external">iOS ReactiveCocoa 最全常用API整理（可做为手册查询）</a>作者提供的整理。加上了自己的一些补充。</p>
 <p>下面是速记表</p>
 <hr>
-<h1 id="reactivecocoa-objective-c部分"><a href="#ReactiveCocoa-Objective-C部分" class="headerlink" title="ReactiveCocoa-Objective-C部分"></a>ReactiveCocoa-Objective-C部分</h1><p><img src="/2016/07/22/ReactiveCocoa和RXSwift速查表/" alt="ReactiveCocoa-Objective-C"></p>
+<h1 id="reactivecocoa-objective-c部分"><a href="#ReactiveCocoa-Objective-C部分" class="headerlink" title="ReactiveCocoa-Objective-C部分"></a>ReactiveCocoa-Objective-C部分</h1><p><img src="http://ompeszjl2.bkt.clouddn.com/ReactiveCocoa%E5%92%8CRXSwift%E9%80%9F%E6%9F%A5%E8%A1%A8/ReactiveCocoa-Objective-C.png" alt="ReactiveCocoa-Objective-C"></p>
 <hr>
-<h1 id="reactivecocoa-swift部分"><a href="#ReactiveCocoa-Swift部分" class="headerlink" title="ReactiveCocoa-Swift部分"></a>ReactiveCocoa-Swift部分</h1><p><img src="/2016/07/22/ReactiveCocoa和RXSwift速查表/" alt="ReactiveCocoa-Swift"></p>
+<h1 id="reactivecocoa-swift部分"><a href="#ReactiveCocoa-Swift部分" class="headerlink" title="ReactiveCocoa-Swift部分"></a>ReactiveCocoa-Swift部分</h1><p><img src="http://ompeszjl2.bkt.clouddn.com/ReactiveCocoa%E5%92%8CRXSwift%E9%80%9F%E6%9F%A5%E8%A1%A8/ReactiveCocoaV4.x-Swift.png" alt="ReactiveCocoa-Swift"></p>
 <hr>
-<h1 id="rxswift部分"><a href="#RXSwift部分" class="headerlink" title="RXSwift部分"></a>RXSwift部分</h1><p><img src="/2016/07/22/ReactiveCocoa和RXSwift速查表/" alt="RXSwift"></p>
+<h1 id="rxswift部分"><a href="#RXSwift部分" class="headerlink" title="RXSwift部分"></a>RXSwift部分</h1><p><img src="http://ompeszjl2.bkt.clouddn.com/ReactiveCocoa%E5%92%8CRXSwift%E9%80%9F%E6%9F%A5%E8%A1%A8/RXSwift.png" alt="RXSwift"></p>
 <hr>
 <h1 id="速查表原文地址"><a href="#速查表原文地址" class="headerlink" title="速查表原文地址"></a>速查表原文地址</h1><p>在学习过程中当然会有疏漏，所以把有Xmind制作的脑图放在<a href="https://github.com/ValiantCat/FRPCheatSheeta" target="_blank" rel="external">Github</a>上，有疑问的活理解错误的地方，请回复或指正，以便后续不断更新。</p>
 ]]></content>
@@ -751,7 +758,7 @@
     <link href="http://valiantcat.com/2016/07/21/ReactiveCocoa-Swift%E9%83%A8%E5%88%86%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-Signal/"/>
     <id>http://valiantcat.com/2016/07/21/ReactiveCocoa-Swift部分入门指南-Signal/</id>
     <published>2016-07-21T03:00:44.000Z</published>
-    <updated>2016-07-22T03:40:04.000Z</updated>
+    <updated>2017-03-13T05:26:34.000Z</updated>
     
     <content type="html"><![CDATA[<p>学习过ReactiCocoa(以下简称RAC)的同学一般都会使用Objective-C的部分，不过RAC3之后支持了Swift，目前RAC3.x支持的是Swift1.x系列，RAC4支持的是Swift2.x系列。今天花了一点时间学习了下Swift部分示例代码。这里做些记录。Swift是支持playground，可以使用Markdown编写文档，并且所见即所得的界面方便学习。更可以插入图片。方便阅读。</p>
 <!-- toc -->
@@ -777,6 +784,7 @@
 </li>
 </ul>
 <!-- tocstop -->
+<!-- index-menu -->
 <h1 id="学习知识必备"><a href="#学习知识必备" class="headerlink" title="学习知识必备"></a>学习知识必备</h1><p>默认你已经学过RAC-OC部分， Swift语言，并对Monad，functional Programming有些简单的了解，或者，如果你学习了RXSwift更好。</p>
 <h1 id="start"><a href="#Start" class="headerlink" title="Start"></a>Start</h1><pre><code>1.    git clone  git@github.com:ReactiveCocoa/ReactiveCocoa.git
     •    执行script/bootstrap 脚本
@@ -859,7 +867,7 @@
     <link href="http://valiantcat.com/2016/07/20/ReactiveCocoa-Swift%E9%83%A8%E5%88%86%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-SignalProducer/"/>
     <id>http://valiantcat.com/2016/07/20/ReactiveCocoa-Swift部分入门指南-SignalProducer/</id>
     <published>2016-07-20T04:19:33.000Z</published>
-    <updated>2016-07-22T03:43:03.000Z</updated>
+    <updated>2017-03-13T05:28:14.000Z</updated>
     
     <content type="html"><![CDATA[<p>学习过ReactiCocoa(以下简称RAC)的同学一般都会使用Objective-C的部分，不过RAC3之后支持了Swift，目前RAC3.x支持的是Swift1.x系列，RAC4支持的是Swift2.x系列。今天花了一点时间学习了下Swift部分示例代码。这里做些记录。Swift是支持playground，可以使用Markdown编写文档，并且所见即所得的界面方便学习。更可以插入图片。方便阅读。</p>
 <!-- toc -->
@@ -915,6 +923,7 @@
 <li><a href="#reference">Reference</a></li>
 </ul>
 <!-- tocstop -->
+<!-- index-menu -->
 <h1 id="学习知识必备"><a href="#学习知识必备" class="headerlink" title="学习知识必备"></a>学习知识必备</h1><p>默认你已经学过RAC-OC部分， Swift语言，并对Monad，functional Programming有些简单的了解，或者，如果你学习了RXSwift更好。</p>
 <p>#Start </p>
 <pre><code>1.    git clone  git@github.com:ReactiveCocoa/ReactiveCocoa.git
@@ -1054,7 +1063,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`retry`"</span>) &#123;</div><div class="line">    <span class="keyword">var</span> tries = <span class="number">0</span></div><div class="line">    </div><div class="line">    <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NSError</span>&gt; &#123; observer, disposable <span class="keyword">in</span></div><div class="line">            <span class="keyword">if</span> tries == <span class="number">0</span> &#123;</div><div class="line">                tries += <span class="number">1</span></div><div class="line">                observer.sendFailed(<span class="type">NSError</span>(domain: <span class="string">"retry"</span>, code: <span class="number">0</span>, userInfo: <span class="literal">nil</span>))</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                observer.sendNext(<span class="number">42</span>)</div><div class="line">                observer.sendCompleted()</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        .retry(<span class="number">1</span>)</div><div class="line">        .startWithResult &#123; result <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(result)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `retry` ---</div><div class="line"></div><div class="line">.<span class="type">Success</span>(<span class="number">42</span>)</div></pre></td></tr></table></figure>
 <h2 id="then"><a href="#then" class="headerlink" title="then"></a>then</h2><blockquote>
 <p>当第一个信号发送complete时，第二个信号被替换到信号发送线路上，如果有任何失败事件，后面的就替换失败。 </p>
-<p> 第一个信号发送的所有事件都会被忽略<br>这个没有使用场景比较难理解。看图<br><img src="/2016/07/20/ReactiveCocoa-Swift部分入门指南-SignalProducer/" alt="then"></p>
+<p> 第一个信号发送的所有事件都会被忽略<br>这个没有使用场景比较难理解。看图<br><img src="http://ompeszjl2.bkt.clouddn.com/ReactiveCocoa-Swift%E9%83%A8%E5%88%86%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97-SignalProducer/then.png" alt="then"></p>
 </blockquote>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">scopedExample(<span class="string">"`then`"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> baseProducer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(values: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ])</div><div class="line">    <span class="keyword">let</span> thenProducer = <span class="type">SignalProducer</span>&lt;<span class="type">Int</span>, <span class="type">NoError</span>&gt;(value: <span class="number">42</span>)</div><div class="line">    </div><div class="line">    baseProducer</div><div class="line">        .then(thenProducer)</div><div class="line">        .startWithNext &#123; value <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(value)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--- `then` ---</div><div class="line"></div><div class="line"><span class="number">42</span></div></pre></td></tr></table></figure>
 <h2 id="replaylazily"><a href="#replayLazily" class="headerlink" title="replayLazily"></a>replayLazily</h2><blockquote>
@@ -1096,7 +1105,7 @@
     <link href="http://valiantcat.com/2016/07/14/Swift-Code-Style/"/>
     <id>http://valiantcat.com/2016/07/14/Swift-Code-Style/</id>
     <published>2016-07-14T03:29:12.000Z</published>
-    <updated>2016-07-14T03:46:25.000Z</updated>
+    <updated>2017-03-13T05:29:34.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>最近工作也比较稳定了，公司在做代码规范和组件化的跳转。 鉴于使用Objective-C的开发成员比较多， 我们架构师就整理了Objective-C的代码规范。不过作为Swift开发的老司机，也整理了一套适用与Swift的代码规范。 以后可以直接拿来用了。</p>
@@ -1158,6 +1167,7 @@
 <li><a href="#对于顶级类型函数变量定义明确的列出权限控制">对于顶级类型，函数，变量定义，明确的列出权限控制</a></li>
 </ul>
 <!-- tocstop -->
+<!-- index-menu -->
 <h1 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h1><blockquote>
 <p>// 单行注释 / <em>多行注释</em> /</p>
 <p>/// 标记注释1</p>
@@ -1367,22 +1377,22 @@
     <link href="http://valiantcat.com/2016/05/10/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A/"/>
     <id>http://valiantcat.com/2016/05/10/大学毕业/</id>
     <published>2016-05-10T03:36:11.000Z</published>
-    <updated>2016-05-10T06:49:40.000Z</updated>
+    <updated>2017-03-13T04:00:50.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>上周回到了学校，参加了答辩，照了毕业证，和班里的同学吃了大学的最后一顿饭，和宿舍的兄弟们喝了2次酒(不过我没怎么喝，确实是因为之前住院心里害怕)<br> 不过说实话，我确实不怎么有感觉，毕竟大三刚开始我就只身来到北京，而且宿舍的6个兄弟，五个(PM一枚，iOS,Android程序员各一枚)都在北京(至少2-3年都在)，只剩下一个留在了郑州，不过还好我们都是河南的，过年回家都能见面。</p>
 </blockquote>
-<p>先来几张大一的照片<br><img src="/2016/05/10/大学毕业/" alt="军训"><br><img src="/2016/05/10/大学毕业/" alt="基友装"></p>
-<p>男神宿舍合照，遗憾的是另外一个兄弟不是计算机学院的，不和我们一起<br><img src="/2016/05/10/大学毕业/" alt="合照1"><br><img src="/2016/05/10/大学毕业/" alt="合照2"><br><img src="/2016/05/10/大学毕业/" alt="合照5"></p>
-<p>还有一群大屌丝<br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""></p>
-<p>期间和老婆傻傻来一张（我傻）<br><img src="/2016/05/10/大学毕业/" alt="么么哒"></p>
+<p>先来几张大一的照片<br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A4.jpg" alt="军训"><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A3.jpg" alt="基友装"></p>
+<p>男神宿舍合照，遗憾的是另外一个兄弟不是计算机学院的，不和我们一起<br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A1.jpg" alt="合照1"><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A2.jpg" alt="合照2"><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A5.jpg" alt="合照5"></p>
+<p>还有一群大屌丝<br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A34.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A35.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A36.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A37.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A38.jpg" alt=""></p>
+<p>期间和老婆傻傻来一张（我傻）<br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A6.jpg" alt="么么哒"></p>
 <hr>
 <p>班级之间</p>
-<p>和班长来个<br><img src="/2016/05/10/大学毕业/" alt="班长合照"><br>剩下的是班级同学了 就不写名字了<br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""></p>
-<p>全系的大合照<br><img src="/2016/05/10/大学毕业/" alt=""></p>
-<p>班级的合照<br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""><br><img src="/2016/05/10/大学毕业/" alt=""></p>
+<p>和班长来个<br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A7.jpg" alt="班长合照"><br>剩下的是班级同学了 就不写名字了<br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A8.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A9.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A10.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A11.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A12.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A13.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A14.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A15.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A16.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A17.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A18.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A19.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A20.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A21.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A22.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A23.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A24.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A25.jpg" alt=""></p>
+<p>全系的大合照<br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A26.jpg" alt=""></p>
+<p>班级的合照<br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A27.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A28.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A29.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A30.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A31.jpg" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A32.jpg" alt=""></p>
 <hr>
-<p>回到自己的工作室看看，拍个全景照片<br><img src="/2016/05/10/大学毕业/" alt=""></p>
+<p>回到自己的工作室看看，拍个全景照片<br><img src="http://ompeszjl2.bkt.clouddn.com/%E5%A4%A7%E5%AD%A6%E6%AF%95%E4%B8%9A33.jpg" alt=""></p>
 ]]></content>
     
     <summary type="html">
@@ -1402,7 +1412,7 @@
     <link href="http://valiantcat.com/2016/04/27/HowToUseRunloop/"/>
     <id>http://valiantcat.com/2016/04/27/HowToUseRunloop/</id>
     <published>2016-04-27T07:45:42.000Z</published>
-    <updated>2016-07-22T07:06:52.000Z</updated>
+    <updated>2017-03-13T04:19:20.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li>在写这篇文章的时候，我只是想记录下如何使用Runloop,如果你不太了解Runloop,你可以跳转到文章结束，那里有部分我阅读过的文章。希望适合你。</li>
@@ -1414,7 +1424,7 @@
 <li><code>CFRunLoopObserverRef CFRunLoopObserverCreate ( CFAllocatorRef allocator, CFOptionFlags activities, Boolean repeats, CFIndex order, CFRunLoopObserverCallBack callout, CFRunLoopObserverContext *context );</code></li>
 <li><code>CFRunLoopObserverRef CFRunLoopObserverCreateWithHandler ( CFAllocatorRef allocator, CFOptionFlags activities, Boolean repeats, CFIndex order, void (^block)( CFRunLoopObserverRef observer, CFRunLoopActivity activity) );</code></li>
 </ol>
-<p>##针对1 我们打开Xcode的文档，可以看到<br><img src="/2016/04/27/HowToUseRunloop/" alt="obersver"></p>
+<p>##针对1 我们打开Xcode的文档，可以看到<br><img src="http://ompeszjl2.bkt.clouddn.com/HowToUseRunloop/1.png" alt="obersver"></p>
 <ol>
 <li>allocator：该参数为对象内存分配器，一般使用默认的分配器kCFAllocatorDefault。或者NULL </li>
 <li><p>activities：该参数配置观察者监听Run Loop的哪种运行状态。在示例中，我们让观察者监听Run Loop的所有运行状态。<br> 看起来不知道说的什么 ，来我们点进源码 </p>
@@ -1424,7 +1434,7 @@
 </li>
 <li>order：观察者优先级，当Run Loop中有多个观察者监听同一个运行状态时，那么就根据该优先级判断，0为最高优先级别。</li>
 <li>callout：观察者的回调函数，在Core Foundation框架中用CFRunLoopObserverCallBack重定义了回调函数的闭包。</li>
-<li>context：观察者的上下文。 (类似与<code>KVO</code>传递的context，可以传递信息，)因为这个函数创建ovserver的时候需要传递进一个函数指针，而这个函数指针可能用在n多个oberver  可以当做区分是哪个observer的状机态。（下面的通过block创建的observer一般是一对一的，一般也不需要Context，），还有一个例子类似与NSNOtificationCenter的 <code>SEL</code>和 <code>Block</code>方式，<br>##针对2 我们同样打开Xcode的文档<br><img src="/2016/04/27/HowToUseRunloop/" alt="obersver"></li>
+<li>context：观察者的上下文。 (类似与<code>KVO</code>传递的context，可以传递信息，)因为这个函数创建ovserver的时候需要传递进一个函数指针，而这个函数指针可能用在n多个oberver  可以当做区分是哪个observer的状机态。（下面的通过block创建的observer一般是一对一的，一般也不需要Context，），还有一个例子类似与NSNOtificationCenter的 <code>SEL</code>和 <code>Block</code>方式，<br>##针对2 我们同样打开Xcode的文档<br><img src="http://ompeszjl2.bkt.clouddn.com/HowToUseRunloop/2.png" alt="obersver"></li>
 </ol>
 <p>这里的参数只有block取代了之前的callBack<br>这个block定义方式为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> (^block) (CFRunLoopObserverRef observer, CFRunLoopActivity activity)</div></pre></td></tr></table></figure></p>
 <p><strong>来我们创造一个观察者吧</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 回掉函数</span></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">runLoopObserverCallBack</span><span class="params">(CFRunLoopObserverRef observer, 	CFRunLoopActivity activity, <span class="keyword">void</span> *info)</span></span></div><div class="line"> &#123;</div><div class="line">    PerformanceMonitor *moniotr = (__bridge PerformanceMonitor*)info;</div><div class="line">    </div><div class="line">    moniotr-&gt;activity = activity;</div><div class="line">    </div><div class="line">    <span class="keyword">dispatch_semaphore_t</span> semaphore = moniotr-&gt;semaphore;</div><div class="line">    dispatch_semaphore_signal(semaphore);</div><div class="line">&#125;</div><div class="line"></div><div class="line">    <span class="comment">// 注册RunLoop状态观察</span></div><div class="line">    CFRunLoopObserverContext context = &#123;<span class="number">0</span>,(__bridge <span class="keyword">void</span>*)self,<span class="literal">NULL</span>,<span class="literal">NULL</span>&#125;;</div><div class="line">    </div><div class="line">    observer = CFRunLoopObserverCreate(kCFAllocatorDefault,</div><div class="line">                                       kCFRunLoopAllActivities,</div><div class="line">                                       YES,</div><div class="line">                                       <span class="number">0</span>,</div><div class="line">                                       &amp;runLoopObserverCallBack,</div><div class="line">                                       &amp;context);</div><div class="line">                                       </div><div class="line">                                       </div><div class="line">    <span class="comment">//将观察者添加到主线程runloop的common模式下的观察中</span></div><div class="line">    CFRunLoopAddObserver(CFRunLoopGetMain(), observer, kCFRunLoopCommonModes);</div></pre></td></tr></table></figure></p>
@@ -1436,14 +1446,14 @@
 <hr>
 <p>一般我们在处理Runloop的时候主要是Observer，Timer，Source，同理对应的创建方法给出</p>
 <h1 id="timer"><a href="#timer" class="headerlink" title="timer"></a>timer</h1><ol>
-<li><p>CFRunLoopTimerRef CFRunLoopTimerCreateWithHandler ( CFAllocatorRef allocator, CFAbsoluteTime fireDate, CFTimeInterval interval, CFOptionFlags flags, CFIndex order, void (^block)( CFRunLoopTimerRef timer) );<br><img src="/2016/04/27/HowToUseRunloop/" alt="timerhandler"></p>
+<li><p>CFRunLoopTimerRef CFRunLoopTimerCreateWithHandler ( CFAllocatorRef allocator, CFAbsoluteTime fireDate, CFTimeInterval interval, CFOptionFlags flags, CFIndex order, void (^block)( CFRunLoopTimerRef timer) );<br><img src="http://ompeszjl2.bkt.clouddn.com/HowToUseRunloop/3.png" alt="timerhandler"></p>
 </li>
-<li><p>CFRunLoopTimerRef CFRunLoopTimerCreate ( CFAllocatorRef allocator, CFAbsoluteTime fireDate, CFTimeInterval interval, CFOptionFlags flags, CFIndex order, CFRunLoopTimerCallBack callout, CFRunLoopTimerContext *context );<br>   <img src="/2016/04/27/HowToUseRunloop/" alt="timercallBack"></p>
+<li><p>CFRunLoopTimerRef CFRunLoopTimerCreate ( CFAllocatorRef allocator, CFAbsoluteTime fireDate, CFTimeInterval interval, CFOptionFlags flags, CFIndex order, CFRunLoopTimerCallBack callout, CFRunLoopTimerContext *context );<br>   <img src="http://ompeszjl2.bkt.clouddn.com/HowToUseRunloop/4.png" alt="timercallBack"></p>
 </li>
 </ol>
 <h1 id="source"><a href="#Source" class="headerlink" title="Source"></a>Source</h1><p>souce是事件源不是事件，所以自然也不需要回掉或者block </p>
 <ol>
-<li>CFRunLoopSourceRef CFRunLoopSourceCreate ( CFAllocatorRef allocator, CFIndex order, CFRunLoopSourceContext *context );<br><img src="/2016/04/27/HowToUseRunloop/" alt="source"></li>
+<li>CFRunLoopSourceRef CFRunLoopSourceCreate ( CFAllocatorRef allocator, CFIndex order, CFRunLoopSourceContext *context );<br><img src="http://ompeszjl2.bkt.clouddn.com/HowToUseRunloop/5.png" alt="source"></li>
 </ol>
 <blockquote>
 <p>我觉得Runloop其实是相当好理解的，只不过对于大部分的C 函数，由于很多人的基本功差点，指针用的不太红，看到函数就紧张而已所以才被吹得非常高大上。<br>我们学会了基本的使用runloop，合适使用？<br> 我觉得一般有下面几中原因</p>
@@ -1486,9 +1496,18 @@
     <link href="http://valiantcat.com/2015/10/14/LearnAutoLayout/"/>
     <id>http://valiantcat.com/2015/10/14/LearnAutoLayout/</id>
     <published>2015-10-14T08:18:54.000Z</published>
-    <updated>2016-07-22T07:06:58.000Z</updated>
+    <updated>2017-03-13T04:23:20.000Z</updated>
     
-    <content type="html"><![CDATA[<p><code>觉得我的文章写的好 请关注我的简书</code><a href="http://www.jianshu.com/users/cc1e4faec5f7" target="_blank" rel="external">南栀倾寒</a></p>
+    <content type="html"><![CDATA[<!-- toc -->
+<ul>
+<li><a href="#autolayoutib中操作的属性介绍">AutoLayout+IB中操作的属性介绍</a><ul>
+<li><a href="#属性说明leading-edges左对齐">属性说明：Leading Edges：左对齐</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<!-- index-menu -->
+<p><code>觉得我的文章写的好 请关注我的简书</code><a href="http://www.jianshu.com/users/cc1e4faec5f7" target="_blank" rel="external">南栀倾寒</a></p>
 <hr>
 <blockquote>
 <p>看到群中好多朋友还停留在Frame布局的痛苦时代  ,以及有些开发者接手别人的就项目发现布局一团乱 。<br> 而且没有启动图的时候并不是真正真正适配iPhone 6(S)  iPhone6(S) Plus等设备 。<br>   寒哥准备尽可能详细的讲一讲我所掌握的AutoLayout 。</p>
@@ -1505,15 +1524,15 @@
 <li>在iOS7（Xcode5）开始，Autolayout的开发效率得到很大的提升<br>苹果官方也推荐开发者尽量使用Autolayout来布局UI界面<br>Autolayout能轻松的解决屏幕适配的问题</li>
 </ul>
 <p>##AutoLayout从哪里入手</p>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/1.gif" alt="haha.gif"></p>
 <blockquote>
 <p>自从Xcode6之后 你会看到我们新建一个Single Application 会发现一个ViewController的View非常大    ,跟任何一个iPhone  iPad的尺寸都不一样  ,这些都是 假象 假象  假象 Apple 把尺寸抽象为了一个正方形  到真正的设备上才是真正的布局 </p>
 </blockquote>
-<h2 id="autolayoutib中操作的属性介绍"><a href="#AutoLayout-IB中操作的属性介绍" class="headerlink" title="AutoLayout+IB中操作的属性介绍"></a>AutoLayout+IB中操作的属性介绍</h2><p><img src="/2015/10/14/LearnAutoLayout/" alt="Paste_Image.png"></p>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="Paste_Image.png"></p>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<h2 id="autolayoutib中操作的属性介绍"><a href="#AutoLayout-IB中操作的属性介绍" class="headerlink" title="AutoLayout+IB中操作的属性介绍"></a>AutoLayout+IB中操作的属性介绍</h2><p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/2.png" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/3.png" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/4.png" alt=""></p>
 <p>我们会发现貌似这个玩意好多配置  貌似很麻烦的样子   下面我们挨个讲解  </p>
-<p>###1.相对处理（Pin）：<br><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<p>###1.相对处理（Pin）：<br><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/5.png" alt=""></p>
 <blockquote>
 <p>属性说明：<br>1:距离边缘  最上面的4个虚线表示某个View的距离上边 左边 右边 下边多高<br>2:那个蓝色的Constrain To Margins 是iPhone6出现之后。<br>  Apple 觉得更大的分辨率有点间距好看，   默认为8  ， 如果这个勾上了 这个View距离四周的值就变成了 你输入的值+8。  一般建议勾掉 。</p>
 </blockquote>
@@ -1524,19 +1543,19 @@
 <ul>
 <li>Demo 1 某个View距离父View上下左右间距全部为20  </li>
 </ul>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/6.gif" alt="haha.gif"></p>
 <blockquote>
 <p>请注意我这里把距离下面的 ， 也就是BottomLayoutGuide的约束改成了距离控制器的View   为什么？<br>  因为BottomLayoutGuide是晚于View加载的 如果参考这个 会造成进入页面 会卡一下  尽量不要直接参考下面  TopLayoutGuide 则没事 </p>
 <p>加完约束你会发现貌似并没有什么效果？<br>不是的，屏幕中出现的黄色的线条   这是IB在提升我们你所添加的约束  和真实的尺寸不一样   怎么修改？ 继续图</p>
 </blockquote>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/7.gif" alt="haha.gif"></p>
 <blockquote>
 <p>属性说明3，4  固定某个View的宽高  </p>
 <ul>
 <li>Demo 2 某个View距离在父View的左侧20 上20 宽高为 100 ， 100 </li>
 </ul>
 </blockquote>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/8.gif" alt="haha.gif"></p>
 <blockquote>
 <p>注意我在添加约束的时候有个选项叫做updateFrame  如果勾选 会直接将Frame调整到真实值  ，而不需要再次update 。<br>这里我们只是讲了最简单定位单个View   你会觉得和Frame 并没有什么区别  。<br>区别在于：AutoLayout的核心是参照  也就是基本上任何一个View都可以参照另一个View   </p>
 <ul>
@@ -1546,21 +1565,21 @@
 <ul>
 <li>Demo 3 某个View距离在父View的左侧20 demo2中白色View 上20   宽高和Demo2中的宽高一样</li>
 </ul>
-<p>![haha.gif](9.gif</p>
+<p>![haha.gif](<a href="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/9.gif" target="_blank" rel="external">http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/9.gif</a></p>
 <blockquote>
 <p>属性6 AspectRatio  比例<br>假设某个View距离父View右上角20 ，20 宽高比 2：1  宽100</p>
 </blockquote>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/10.gif" alt="haha.gif"></p>
 <blockquote>
 <p>第七个属性Align其实在第一个面板中已经有了 放在下一部分讲解<br><code>是时候给讲解下约束是什么玩意了</code>刚才你看到我对约束修改了 </p>
 </blockquote>
 <p>我们点击下某个约束</p>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/11.png" alt="Paste_Image.png"></p>
 <p>###AutoLayout的公式<br><code>第一个Item的属性= (&lt;= /&gt;= )第二个Item的属性*Multiplier+Constant</code><br><code>第一个Item的属性= (&lt;= /&gt;= )第二个Item的属性*Multiplier+Constant</code><br><code>第一个Item的属性= (&lt;= /&gt;= )第二个Item的属性*Multiplier+Constant</code></p>
 <p>比如图中的View 约束 可以理解为 View的tralling（右侧） 等于（eauql） 1倍（multpiler）的控制的右侧 + 20（constant）</p>
 <p><code>注意比例是支持表达式的  如 2：3</code><br><code>releation是支持great than  lessthan</code> 具体是多少 系统自动算出</p>
 <hr>
-<p>##2. 对齐处理（Align）<br><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<p>##2. 对齐处理（Align）<br><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/12.png" alt=""></p>
 <blockquote>
 <p>介绍</p>
 <h1 id="属性说明leading-edges左对齐"><a href="#属性说明：Leading-Edges：左对齐" class="headerlink" title="属性说明：Leading Edges：左对齐"></a>属性说明：Leading Edges：左对齐</h1><ul>
@@ -1577,36 +1596,36 @@
 <ul>
 <li>Demo 4 某个View距离在父View的右侧20 demo3中白色View 上20   宽高和Demo3中的宽高一样 并且有对齐</li>
 </ul>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/13.gif" alt="haha.gif"></p>
 <blockquote>
 <p>Demo5 某个View 居中与父View  长宽50</p>
 </blockquote>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/14.gif" alt="haha.gif"></p>
 <blockquote>
 <p>某些控件是有baseLine 的 如UILabel  UITextView  看下不同吧</p>
 </blockquote>
 <ul>
 <li>Demo6 某个label 和另外一个label 基线对齐</li>
 </ul>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/15.gif" alt="haha.gif"></p>
 <hr>
 <p>###3. UILabel内建高度自适应高度</p>
 <p>像label 默认是有宽度的  宽度就是字体自适应的</p>
 <p>这样我们就可以不给UIlabel 高度 把Label的NumberOfline = 0就可以自适应高度了</p>
 <ul>
-<li>Demo7 Label自适应高度<br><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></li>
+<li>Demo7 Label自适应高度<br><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/16.gif" alt="haha.gif"></li>
 </ul>
 <p>###4. 小技巧<br>1.有时候约束太多的时候  我们可以给某个VIew起个假名字 就能很方便的看到是哪个View 了    </p>
 <ol>
 <li>View总是选不中按 ctrl + shift + 单击</li>
 </ol>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/17.gif" alt="haha.gif"></p>
 <p>3.AutoLayout遇见ScrollView<br>参看这个文章 <a href="http://grayluo.github.io/WeiFocusIo/autolayout/2015/01/27/autolayout3/" target="_blank" rel="external">AutoLayout深入浅出三[相遇Scrollview]</a><br>如图</p>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt=""></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/18.gif" alt=""></p>
 <ul>
 <li>Demo 8 ScrollView过长 无法编辑怎么办 </li>
 </ul>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/19.gif" alt="haha.gif"></p>
 <blockquote>
 <p>将控制器改为Freedom  修改ContentView的高度约束  这样ScrollView 就可以滚动了 也可以往下编辑了</p>
 </blockquote>
@@ -1624,7 +1643,7 @@
 </blockquote>
 <hr>
 <p>##总结 在StoryBoard里面开发 其实就是拿着ViewController 当做View用 如果你还是觉得复杂 可以吧View抽象出去</p>
-<p><img src="/2015/10/14/LearnAutoLayout/" alt="haha.gif"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/LearnAutoLayout/20.gif" alt="haha.gif"></p>
 <blockquote>
 <p>时间仓促  有什么不懂的可以留言 或者加群:<code>532084214</code>细问呦</p>
 </blockquote>
@@ -1632,9 +1651,10 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;code&gt;觉得我的文章写的好 请关注我的简书&lt;/code&gt;&lt;a href=&quot;http://www.jianshu.com/users/cc1e4faec5f7&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;南栀倾寒&lt;/a&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;block
+      &lt;!-- toc --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#autolayoutib中操作的属性介绍&quot;&gt;AutoLayout+IB中操作的属性介绍&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#属性说明leading-edges左对齐&quot;&gt;属性说明：Leading Edges：左
     
     </summary>
     
@@ -1648,7 +1668,7 @@
     <link href="http://valiantcat.com/2015/10/10/AutoLayoutQuestion/"/>
     <id>http://valiantcat.com/2015/10/10/AutoLayoutQuestion/</id>
     <published>2015-10-10T08:16:27.000Z</published>
-    <updated>2016-07-22T07:06:36.000Z</updated>
+    <updated>2017-03-13T04:14:40.000Z</updated>
     
     <content type="html"><![CDATA[<p>AutoLayout这玩意越用越上瘾    自从我学会了这个  还是那句话 能不用代码就不用代码 </p>
 <p>这篇文章不讲解AutoLayout 怎么使用  只是总结下最近学的东西 和更多你不知道的细节总结</p>
@@ -1666,13 +1686,13 @@
 <p>看完这个你以后布局更方便了  </p>
 <p>举个例子 AutoLayout分分钟搞定等比例布局 之前我的帖子这样做</p>
 <p>现在有了更简单的</p>
-<p><img src="/2015/10/10/AutoLayoutQuestion/" alt="1"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/AutoLayoutQuestion/1.gif" alt="1"></p>
 <ol>
 <li>AutoLayout与Frame的关系<br>曾经有次我被面试官问了一个面试题     如果你用了AutoLayout 再修改Frame 会有什么效果 有没有什么不好的</li>
 </ol>
 <p>看这问题 所有人都能猜到肯定有不好的  但是具体也不知道是啥  </p>
 <p>看demo  一个view</p>
-<p><img src="/2015/10/10/AutoLayoutQuestion/" alt="1"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/AutoLayoutQuestion/2.gif" alt="1"></p>
 <p>3.AutoLayout动画</p>
 <p>如果你用了AutoLayout  那么做动画的时候  你就不要再操作 Frame  bounds center  等position属性</p>
 <p>因为这些动画都是临时的  下次的View 被 setNeedsUpdateConstraint  这些全都失效   </p>
@@ -1683,7 +1703,7 @@
 <p>针对 Constraint 一掉要调用LayoutIfNeed()  不然会造成不可预料的结果。  有可能下一刻动画剩下  也有可能然并卵       在NSLayoutConstraint中  唯一可变的 也就是 可set 可 get的属性就    constant </p>
 <p>像其他FirstItem等是不可修改的      所以如果要修改参考物参看 下面的方法 </p>
 <p>2 .  替换约束的动画 </p>
-<p><img src="/2015/10/10/AutoLayoutQuestion/" alt="1"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/AutoLayoutQuestion/3.png" alt="1"></p>
 <p>添加约束可以通过<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">self</span>.view.addConstraint(&lt;<span class="meta">#T##constraint: NSLayoutConstraint##NSLayoutConstraint#&gt;)</span></div><div class="line"></div><div class="line"><span class="keyword">self</span>.view.addConstraints(&lt;<span class="meta">#T##constraints: [NSLayoutConstraint]##[NSLayoutConstraint]#&gt;)</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">在iOS <span class="number">8</span>中有更好的方法  newConstraint.active=<span class="literal">true</span> 就可以</div></pre></td></tr></table></figure></p>
 ]]></content>
     
@@ -1707,7 +1727,7 @@
     <link href="http://valiantcat.com/2015/09/22/SwiftValueType/"/>
     <id>http://valiantcat.com/2015/09/22/SwiftValueType/</id>
     <published>2015-09-22T08:11:00.000Z</published>
-    <updated>2016-07-22T07:07:15.000Z</updated>
+    <updated>2017-03-13T05:31:14.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>关于开发到底使用<code>ValueType</code> <code>值类型</code>还是<code>Reference Type</code> <code>引用类型</code>  关于这个   <a href="http://swift.gg/2015/08/14/friday-qa-2015-07-17-when-to-use-swift-structs-and-classes/" target="_blank" rel="external">http://swift.gg/2015/08/14/friday-qa-2015-07-17-when-to-use-swift-structs-and-classes/</a><br>这个文章写得比较好  这里我就不再多说了  我只带大家深入了解一下</p>
@@ -1731,7 +1751,7 @@
 <p>“outer2.value=100 outer2.inner.value=100\n”</p>
 </blockquote>
 <p>画图分析</p>
-<p><img src="/2015/09/22/SwiftValueType/" alt="Paste_Image.png"><br>结论：</p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftValueType/1.png" alt="Paste_Image.png"><br>结论：</p>
 <blockquote>
 <p>如果你有一个引用类型嵌套了另外一个引用类型，没有什么特别的事会发生。像通常那样，任何一个指向内部或者外部值的指针都能操纵他指向的对象。只要其中一个引用操纵值使其改变，其他引用指向的值也就跟着变了。</p>
 </blockquote>
@@ -1759,7 +1779,7 @@
 &gt;<span class="string">"outer2.value=99 outer2.inner.value=99\n"</span>
 </code></pre>
 <p>画图分析</p>
-<p><img src="/2015/09/22/SwiftValueType/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftValueType/2.png" alt="Paste_Image.png"></p>
 <p><em>2</em>  只复制内部值</p>
 <pre><code class="swift">
 <span class="keyword">var</span> out3 = <span class="type">Outter</span>()
@@ -1769,7 +1789,7 @@ out3.value <span class="comment">//99</span>
 out3.inner.value <span class="comment">//99</span>
 </code></pre>
 <p>画图</p>
-<p><img src="/2015/09/22/SwiftValueType/" alt="Paste_Image.png"><br>结论</p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftValueType/3.png" alt="Paste_Image.png"><br>结论</p>
 <blockquote>
 <p>2 如果你有一个值类型嵌套了另外一个值类型，这就会有效地使值所占的内存区域变大。内部值是外部值的一部分。如果你把外部值放到一块新的存储空间里，所有的值包括内部值都会被拷贝。如果你把内部值放进一块新的存储空间中，只有内部值会被拷贝。</p>
 </blockquote>
@@ -1796,7 +1816,7 @@ out3.inner.value <span class="comment">//99</span>
 &gt;<span class="string">"outer2.value=100 outer2.inner.value=100\n"</span>
 </code></pre>
 <p>画图分析</p>
-<p><img src="/2015/09/22/SwiftValueType/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftValueType/4.png" alt="Paste_Image.png"></p>
 <p>结论 </p>
 <blockquote>
 <p>3 一个引用类型嵌套了一个值类型会有效扩大这个引用类型所占内存区域。任何指向外部值的指针都可以操纵一切，包括嵌套的内部值。内部值的任何改变对于引用外部值的指针来说都是可见的。如果你把内部值放进一块新的存储区，就会在那块存储区拷贝一份新的值。</p>
@@ -1825,7 +1845,7 @@ out3.inner.value <span class="comment">//99</span>
 &gt;<span class="string">"outer2.value=99 outer2.inner.value=100\n"</span>
 </code></pre>
 <p>画图分析</p>
-<p><img src="/2015/09/22/SwiftValueType/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftValueType/5.png" alt="Paste_Image.png"></p>
 <p>结论</p>
 <blockquote>
 <p> 一个值类型嵌套一个引用类型就没有那么简单了。你可以有效地打破值语义而不被察觉。这可能是好的也可能是坏的，取决于你怎么做。当你把一个引用类型嵌套进一个值类型中，外部值被放进一块新的内存区域时就会被拷贝，但是拷贝的对象仍然指向原始的那个嵌套对象。<br>对上面的举例</p>
@@ -1837,7 +1857,7 @@ out3.inner.value <span class="comment">//99</span>
 <p>等等 你给我讲了这么多 貌似没什么用啊  </p>
 <p>错  用出躲到你都遗忘了<br>在我们Swift 的世界中 String  Array Dictionary  都是ValueType  那么在他们装了一个AnyObject 的是不是一个<code>Value Type Contain a ReferenceType</code></p>
 <p>下面我们拿Array 距离 Array 可以看做一个特殊的Dictionary  表现形式其实是一样的  </p>
-<p><img src="/2015/09/22/SwiftValueType/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftValueType/6.png" alt="Paste_Image.png"></p>
 <p>例子</p>
 <pre><code class="swift">
 
@@ -1858,7 +1878,7 @@ array2.first!.value = <span class="number">100</span>
 <span class="built_in">print</span>(array1.first!.value)
 </code></pre>
 <p>画图分析</p>
-<p><img src="/2015/09/22/SwiftValueType/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftValueType/7.png" alt="Paste_Image.png"></p>
 <p>虽然数组是值类型 在复制的时候会重新生成一个结构体的实例<br>但是数组内部指向的元素还是同一个 </p>
 <p>到这里很多人或许还觉得讲的没用<br>那我们拿OC举例子</p>
 <pre><code class="objc"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">copy</span>) <span class="built_in">NSString</span> * verifyCode;
@@ -1896,15 +1916,15 @@ array2.first!.value = <span class="number">100</span>
     <link href="http://valiantcat.com/2015/09/14/AutoLayoutEqualLayout/"/>
     <id>http://valiantcat.com/2015/09/14/AutoLayoutEqualLayout/</id>
     <published>2015-09-14T08:09:11.000Z</published>
-    <updated>2016-07-22T07:06:26.000Z</updated>
+    <updated>2017-03-13T04:12:10.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li>9宫格布局  </li>
 </ul>
 <p>有时候开发中会碰到9宫格布局  注意不是collectionView 或者tableView  的数据驱动  就是个死的界面    感觉不难    但是代码写起来超级费劲 尤其是 碰见这个9宫格量比较大的  如 </p>
-<p><img src="/2015/09/14/AutoLayoutEqualLayout/" alt="计算器"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/AutoLayoutEqualLayout/1.png" alt="计算器"></p>
 <p>我相信很多人都觉得这个比较坑爹   代码没有可重用性 又不得不写 autolayout貌似挺好用  但没有小技巧操作起来  非常费劲 一不小心各种错误<br>今天同事在看教程的适合找到了诀窍  1分钟搞定  </p>
-<p>上demo<br><img src="/2015/09/14/AutoLayoutEqualLayout/" alt="demo.gif"></p>
+<p>上demo<br><img src="http://ompeszjl2.bkt.clouddn.com/AutoLayoutEqualLayout/2.gif" alt="demo.gif"></p>
 ]]></content>
     
     <summary type="html">
@@ -1926,7 +1946,7 @@ array2.first!.value = <span class="number">100</span>
     <link href="http://valiantcat.com/2015/09/05/ContainerView/"/>
     <id>http://valiantcat.com/2015/09/05/ContainerView/</id>
     <published>2015-09-05T06:43:53.000Z</published>
-    <updated>2016-07-22T07:06:46.000Z</updated>
+    <updated>2017-03-13T04:17:30.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li>顺便来个广告 <blockquote>
@@ -1936,17 +1956,17 @@ array2.first!.value = <span class="number">100</span>
 </ul>
 <h1 id="storyboard开发"><a href="#StoryBoard开发" class="headerlink" title="StoryBoard开发"></a>StoryBoard开发</h1><p>很多iOS开发者喜欢用StoryBoard开发   实在是非常省心省事<br>但是涉及到一个也没也相对有很多复杂的状态 拖出来的约束也会多到让人恶心</p>
 <p>其实Xcode 帮我们提供了一些方便的容器来辅助开发<br>如图</p>
-<p><img src="/2015/09/05/ContainerView/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/ContainerView/1.png" alt="Paste_Image.png"></p>
 <p>我们假设绿色的和橙色的view 里面设计到非常多乱七八糟的子View<br>按照一般的写法 我们就是指定一个绿色和橙色的view 然后在里面做事件操作  但是我们还是离不开在storyBoard 里面出现一坨约束（请原谅我用这个词汇）</p>
 <p>这样在构造IBOutLet时候就会出现一个ViewController有很多OutLet   多到让你起名字都很难起 而且控制器就代码就会非常多<br>在iOS 5之后出现了ChildViewController 类似于View 可以addSubview  之后viewController 可以addChildViewController</p>
 <p>#解决办法</p>
-<p><code>1</code><br><img src="/2015/09/05/ContainerView/" alt="Paste_Image.png"></p>
+<p><code>1</code><br><img src="http://ompeszjl2.bkt.clouddn.com/ContainerView/2.png" alt="Paste_Image.png"></p>
 <p>  <code>2</code> 这时候你会发现右边多了两个小的控制器</p>
-<p><img src="/2015/09/05/ContainerView/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/ContainerView/3.png" alt="Paste_Image.png"></p>
 <p><code>3</code>这时候新建两个控制器<br>FirstContainerViewController<br>SecondContainerViewController</p>
-<p><img src="/2015/09/05/ContainerView/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/ContainerView/4.png" alt="Paste_Image.png"></p>
 <p><code>4</code>运行项目</p>
-<p><img src="/2015/09/05/ContainerView/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/ContainerView/5.png" alt="Paste_Image.png"></p>
 <blockquote>
 <p>很多人都会说我并不喜欢用StoryBoard  但是一个东西存在总归是有原因的  我以前也不喜欢用StoryBoard 觉得好难控制 AutoLayout<br>原因来自与对Autolayout不熟悉  很多公司的app 很多节目都是完全无法重用的 而且难度也不大  这样的界面要是一直用代码要累死  事实上 你也会写烦  apple 一直在推崇AutoLayout  这是大趋势  迂腐的程序员并不好   像iOS 9出的布局神奇<code>UIStackView</code> 和 <code>Storyboard refrence</code>都是为了简便开发</p>
 </blockquote>
@@ -2019,7 +2039,7 @@ array2.first!.value = <span class="number">100</span>
     <link href="http://valiantcat.com/2015/08/22/learniOS/"/>
     <id>http://valiantcat.com/2015/08/22/learniOS/</id>
     <published>2015-08-22T06:23:13.000Z</published>
-    <updated>2016-07-22T07:07:03.000Z</updated>
+    <updated>2017-03-13T04:26:10.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li>本篇文章主要讲解 4个问题</li>
@@ -2052,13 +2072,13 @@ array2.first!.value = <span class="number">100</span>
 <p>写一个类继承自NSObject </p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line">@interface ThirdPartService : NSObject</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"> <span class="meta">#import <span class="meta-string">"ThirdPartService.h"</span></span></div><div class="line"> <span class="meta">#import <span class="meta-string">"UMSocial.h"</span></span></div><div class="line"> <span class="meta">#import <span class="meta-string">"UMSocialWechatHandler.h"</span></span></div><div class="line"> <span class="meta">#import <span class="meta-string">"UMSocialQQHandler.h"</span></span></div><div class="line"> <span class="meta">#import <span class="meta-string">&lt;MobClick.h&gt;</span></span></div><div class="line"> <span class="meta">#import <span class="meta-string">&lt;FIR/FIR.h&gt;</span></span></div><div class="line"></div><div class="line">@implementation ThirdPartService</div><div class="line"> + (<span class="keyword">void</span>)load &#123;</div><div class="line"><span class="keyword">static</span> <span class="keyword">dispatch_once_t</span> onceToken;</div><div class="line">dispatch_once(&amp;onceToken, ^&#123;</div><div class="line">    <span class="comment">//    TODO  这里是我自己测试的  fir hud</span></div><div class="line">    [FIR handleCrashWithKey:@<span class="string">"XX"</span>];</div><div class="line">    <span class="comment">//    友盟</span></div><div class="line">    [UMSocialData setAppKey:@<span class="string">"XX"</span>];</div><div class="line">    <span class="comment">//     隐藏未安装的平台</span></div><div class="line">    [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ,UMShareToQzone,UMShareToWechatSession,UMShareToWechatTimeline]];</div><div class="line">    <span class="comment">//     注册微信</span></div><div class="line">    [UMSocialWechatHandler setWXAppId:@<span class="string">"XX"</span> appSecret:@<span class="string">"XX"</span> url:@<span class="string">""</span>];</div><div class="line">    <span class="comment">//    注册QQ</span></div><div class="line">    <span class="comment">//    TODO   QQ的不是真的</span></div><div class="line">    [UMSocialQQHandler setQQWithAppId:@<span class="string">"XX"</span> appKey:@<span class="string">"XX"</span> url:@<span class="string">""</span>];</div><div class="line">    </div><div class="line">    <span class="comment">//    TODO    UM统计</span></div><div class="line">    [MobClick startWithAppkey:@<span class="string">""</span>];</div><div class="line">    [MobClick setCrashReportEnabled:NO];</div><div class="line">    NSLog(@<span class="string">"第三方服务注册完毕"</span>);</div><div class="line">&#125;);</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
 <p>类似于定位也可以这样写</p>
-<p><img src="/2015/08/22/learniOS/" alt="1"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/learniOS/1.png" alt="1"></p>
 <p>模块和服务完全拆开   </p>
 <p>但是有的服务 如APNS需要LaunchOption 那就只能写在appdDelegate 不过这样的话已经摘除很多代码了  只剩下几个固定的 到时候再修改appDelegate就会感觉非常清晰 了 </p>
 <hr>
 <p>##2   ViewController继承？</p>
 <p>接着上面讲  我们接入了友盟统计  友盟统计最基本的东西就是 统计页面的pv </p>
-<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/learniOS/2.png" alt="Paste_Image.png"></p>
 <p>友盟的这样写  对于新手的我们就觉得这不就so easy吗<br>我打开了某个vc（HomeViewController）<br>在代码里面写上了这句<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)viewWillAppear:(BOOL)animated &#123;</div><div class="line">   [super viewWillAppear:animated];</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> DEBUG</span></div><div class="line">   [MobClick beginLogPageView:NSStringFromClass([self <span class="keyword">class</span>])];</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125;</div><div class="line">-(<span class="keyword">void</span>)viewWillDisappear:(BOOL)animated &#123;</div><div class="line">    [super viewWillDisappear:animated];</div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> DEBUG</span></div><div class="line"></div><div class="line">  [MobClick endLogPageView:NSStringFromClass([self <span class="keyword">class</span>])];</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>然后我一个项目中可能有几十个 甚至上百个页面需要统计pv 我总不能每个节目都这样写吧  </p>
 <p>聪明的我们想到了继承</p>
@@ -2076,7 +2096,7 @@ array2.first!.value = <span class="number">100</span>
 <p>用方法交叉 我们就可以拦截吸引的方法了 上代码了<br>这样就做到了面向切面编程（AOP）的思想</p>
 <p>上代码<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line"></div><div class="line">@interface UIViewController (AOP)</div><div class="line">#warning  运行时 改变一下方法 做一些切面编程比如 统计 等等</div><div class="line"> @end</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"> #import "UIViewController+AOP.h"</div><div class="line"> #import &lt;objc/runtime.h&gt;</div><div class="line">#import &lt;MobClick.h&gt;</div><div class="line"> @implementation UIViewController (AOP)</div><div class="line"></div><div class="line"> + (void)load &#123;</div><div class="line">   static dispatch_once_t onceToken;</div><div class="line">  dispatch_once(&amp;onceToken, ^&#123;</div><div class="line">    Class class = [self class];</div><div class="line">    // When swizzling a class method, use the following:</div><div class="line">    // Class class = object_getClass((id)self);</div><div class="line">    swizzleMethod(class, @selector(viewDidLoad), @selector(aop_viewDidLoad));</div><div class="line">    swizzleMethod(class, @selector(viewDidAppear:), @selector(aop_viewDidAppear:));</div><div class="line">    swizzleMethod(class, @selector(viewWillAppear:), @selector(aop_viewWillAppear:));</div><div class="line">    swizzleMethod(class, @selector(viewWillDisappear:), @selector(aop_viewWillDisappear:));</div><div class="line">&#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"> void swizzleMethod(Class class, SEL originalSelector, SEL swizzledSelector)   &#123;</div><div class="line">Method originalMethod = class_getInstanceMethod(class, originalSelector);</div><div class="line">Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);</div><div class="line">BOOL didAddMethod =</div><div class="line">class_addMethod(class,</div><div class="line">                originalSelector,</div><div class="line">                method_getImplementation(swizzledMethod),</div><div class="line">                method_getTypeEncoding(swizzledMethod));</div><div class="line"></div><div class="line">if (didAddMethod) &#123;</div><div class="line">    class_replaceMethod(class,</div><div class="line">                        swizzledSelector,</div><div class="line">                        method_getImplementation(originalMethod),</div><div class="line">                        method_getTypeEncoding(originalMethod));</div><div class="line">&#125; else &#123;</div><div class="line">    method_exchangeImplementations(originalMethod, swizzledMethod);</div><div class="line">&#125;</div><div class="line"> &#125;</div><div class="line"> - (void)aop_viewDidAppear:(BOOL)animated &#123;</div><div class="line">[self aop_viewDidAppear:animated];</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"> -(void)aop_viewWillAppear:(BOOL)animated &#123;</div><div class="line">[self aop_viewWillAppear:animated];</div><div class="line"></div><div class="line">#ifndef DEBUG</div><div class="line">   [MobClick beginLogPageView:NSStringFromClass([self class])];</div><div class="line">#endif</div><div class="line">&#125;</div><div class="line"> -(void)aop_viewWillDisappear:(BOOL)animated &#123;</div><div class="line">    [self aop_viewWillDisappear:animated];</div><div class="line">#ifndef DEBUG</div><div class="line"></div><div class="line">    [MobClick endLogPageView:NSStringFromClass([self class])];</div><div class="line">#endif</div><div class="line">&#125;</div><div class="line"> - (void)aop_viewDidLoad &#123;</div><div class="line">[self aop_viewDidLoad];</div><div class="line"></div><div class="line">if ([self isKindOfClass:[UINavigationController class]]) &#123;</div><div class="line">    UINavigationController *nav = (UINavigationController *)self;</div><div class="line">    nav.navigationBar.translucent = NO;</div><div class="line">    nav.navigationBar.barTintColor = GLOBAL_NAVIGATION_BAR_TIN_COLOR;</div><div class="line">    nav.navigationBar.tintColor = [UIColor whiteColor];</div><div class="line">    NSDictionary *titleAtt = @&#123;NSForegroundColorAttributeName:[UIColor whiteColor]&#125;;</div><div class="line">    [[UINavigationBar appearance] setTitleTextAttributes:titleAtt];</div><div class="line">    [[UIBarButtonItem appearance]</div><div class="line">     setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)</div><div class="line">     forBarMetrics:UIBarMetricsDefault];</div><div class="line">&#125;</div><div class="line"></div><div class="line">//    self.view.backgroundColor = [UIColor whiteColor];</div><div class="line">self.navigationController.interactivePopGestureRecognizer.delegate = (id&lt;UIGestureRecognizerDelegate&gt;)self;</div><div class="line"> &#125;</div><div class="line"> @end</div></pre></td></tr></table></figure></p>
 <p>图片代码一份 方便观看</p>
-<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"><br><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/learniOS/3.png" alt="Paste_Image.png"><br><img src="http://ompeszjl2.bkt.clouddn.com/learniOS/4.png" alt="Paste_Image.png"></p>
 <p>我们充分利用了黑魔法达到了面向切面编程的好处 </p>
 <p>思想来源这里<a href="">http://casatwy.com/iosying-yong-jia-gou-tan-viewceng-de-zu-zhi-he-diao-yong-fang-an.html</a></p>
 <p><code>黑魔法非毒药 遵守一个规范写出来的代码是不会Crash的 只要能帮我们解决问题就是好东西</code><br> <code>黑魔法性能 有瓶颈？ 都到runtime的底层了 你还担心有瓶颈  少年安心使用就好了   不服 可以用Time Profiel测试</code><br><code>黑魔法也非万能  像 我们在导航控制器要封装手势 统一管理左侧返回按钮  这些东西 还是继承来得好</code></p>
@@ -2088,7 +2108,7 @@ array2.first!.value = <span class="number">100</span>
 </code></pre><hr>
 <p>##3  网络访问参数到底用基本数据类型还是对象</p>
 <p>下面看两个方法</p>
-<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/learniOS/5.png" alt="Paste_Image.png"></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"> + (<span class="keyword">void</span>)getDataAtPageNo:(NSNumber *)pageNo PageSize:(NSNumber *)pageSize </div><div class="line">complete:(CompleteBlock)complete &#123;</div><div class="line">NSMutableDictionary *param = [NSMutableDictionary dictionary];</div><div class="line">    <span class="keyword">if</span> (pageSize) &#123;</div><div class="line">        [param setObject:pageSize forKey:@<span class="string">"pageSize"</span>];</div><div class="line">   &#125;</div><div class="line"> [param setObject:pageNo forKey:@<span class="string">"pageNo"</span>];</div><div class="line"><span class="comment">// SendRequest</span></div><div class="line">&#125;</div><div class="line"> + (<span class="keyword">void</span>)getData2AtPageNo:(<span class="keyword">long</span> )pageNo PageSize:(<span class="keyword">long</span> )pageSize </div><div class="line"> complete:(CompleteBlock)complete &#123;</div><div class="line">     NSMutableDictionary *param = [NSMutableDictionary dictionary];</div><div class="line"></div><div class="line">        [param setObject:@(pageSize) forKey:@<span class="string">"pageSize"</span>];</div><div class="line">        [param setObject:@(pageNo) forKey:@<span class="string">"pageNo"</span>];</div><div class="line"><span class="comment">// SendRequest</span></div><div class="line"> &#125;</div></pre></td></tr></table></figure>
 <p>在访问网络请求时 对于有参数的请求 设计一个方法 主流为以上两种 </p>
 <ol>
@@ -2111,15 +2131,15 @@ array2.first!.value = <span class="number">100</span>
 <li>对于网络请求的参数 因为NSDictionary只能放对象 所以NSNumber最好的方式</li>
 <li>缓存  无论缓存到plist 还是KeyArchive 都是需要对象的所以NSNumber也非常合适<br>3 展示到页面<br>我见过这样给页面上赋值的朋友  </li>
 </ol>
-<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/learniOS/6.png" alt="Paste_Image.png"></p>
 <p>我们看到这样貌似并没有什么不妥<br>但是我们把设备切换到iPhone5S以下  也就是32位的设备</p>
-<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"><br>注意这里有Warning<br>为什么呢 我们来看下NSInteger的头文件 </p>
-<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"><br>在32下设备是Int  在64位是long<br>我们都知道苹果不允许不支持64位的app上架  但是貌似我们从来没有为32位和64位做适配</p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/learniOS/7.png" alt="Paste_Image.png"><br>注意这里有Warning<br>为什么呢 我们来看下NSInteger的头文件 </p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/learniOS/8.png" alt="Paste_Image.png"><br>在32下设备是Int  在64位是long<br>我们都知道苹果不允许不支持64位的app上架  但是貌似我们从来没有为32位和64位做适配</p>
 <p>其实不然 在printf 和NSLog 时 对应%d %zd %f 占位符是非常严格的 如果不对项目就会造成意外的结果</p>
-<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"></p>
-<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/learniOS/9.png" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/learniOS/10.png" alt="Paste_Image.png"></p>
 <p>其实拿到一个NSNumber我们并不知道他到底是int long  unsigned int  Bool  直接针对某个类型转换是有风险的  但是其实Clang 给我们提供了个非常好用的Macro <code>@()</code></p>
-<p><img src="/2015/08/22/learniOS/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/learniOS/11.png" alt="Paste_Image.png"></p>
 <p>NSNumber并不是一个简单的类 它是cocoa 中  类簇的实现参考资料<br><a href="http://www.cocoachina.com/ios/20140109/7681.html" target="_blank" rel="external">http://www.cocoachina.com/ios/20140109/7681.html</a><br><a href="http://www.cocoachina.com/ios/20150106/10848.html" target="_blank" rel="external">http://www.cocoachina.com/ios/20150106/10848.html</a><br><a href="http://www.cocoachina.com/ios/20141218/10688.html" target="_blank" rel="external">http://www.cocoachina.com/ios/20141218/10688.html</a></p>
 <hr>
 ]]></content>
@@ -2150,39 +2170,38 @@ array2.first!.value = <span class="number">100</span>
     <link href="http://valiantcat.com/2015/08/03/SwiftVariables/"/>
     <id>http://valiantcat.com/2015/08/03/SwiftVariables/</id>
     <published>2015-08-03T11:47:10.000Z</published>
-    <updated>2016-07-22T07:08:01.000Z</updated>
+    <updated>2017-03-13T05:34:44.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
-<li><!-- Swift 存储变量，计算变量探索 -->
+<li>Swift 存储变量，计算变量探索 </li>
+</ul>
 <blockquote>
 <p>  iOS开发者 群532084214 给大家提供一个交流技术 也可以聊天打屁的平台  </p>
 </blockquote>
-</li>
-</ul>
 <p><code>此文默认 读者有iOS开发经验  包括OC  Swift  和一点点的runtime的理解</code></p>
 <p>先新建个项目  Swift 和oc都行  </p>
 <p>新建一个OCClass:NSObject<br>我们来声明一个成员属性</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="1"></p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-01.png" alt="1"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-02.png" alt="Paste_Image.png"></p>
 <p>所有人都知道定义这都ivar的时候  系统会帮你做好几件事<br>生成带下划线的私有成员属性   对应 的setter 和getter</p>
 <p>那么我们来Swift中看一下怎么定义一个成员变量</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-03.png" alt="Paste_Image.png"></p>
 <p>so easy 这个谁不会嘛   （我这里不讨论可选类型  而是讨论 什么叫做存储变量 什么叫做计算变量）</p>
 <p>我们会在想 Swift 会不会像oc一样 给我们同样的生成了 setter  和getter呢<br>于是有的人会这样写 </p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-04.png" alt="Paste_Image.png"></p>
 <p>然后这样调用</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-05.png" alt="Paste_Image.png"></p>
 <p>然后一运行程序 Crash了     很多人 会说 肯定了 不就是循环调用<br>断点出的堆栈信息 这样的</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-06.png" alt="Paste_Image.png"></p>
 <p>很明显 这就是循环调用了   但是你把self.去掉  之后再次运行</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-07.png" alt="Paste_Image.png"></p>
 <p> 还是崩    </p>
 <p>奶奶的要崩溃了   这是什么鬼    </p>
 <p>其实Swift设计的初衷和oc并不是特别一样</p>
 <p>后文解答  </p>
 <p>我们先来看一个mvc的结构图 </p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-08.png" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-09.png" alt="Paste_Image.png"></p>
 <p>其实在mvc中 View是不能拿到model的   他们互相不知道<br>但是在开发过程中  我们很多view的数据来源自model   如果我们在外部提供一个一个的属性  然后等着控制器 去赋值  再在对应的setter里面去 修改view 的显示 我们会发现很累   因为一个页面可能有太多属性  所以在大多数情况 我们在view声明一个model的属性 等值控制器去赋值<br> <code>但是</code> <code>但是</code> <code>但是</code>  </p>
 <p>重要的事情说三遍<br>我们这样我违反了 mvc的思想  其实（mvvm）也是这样的  view不能拿到model   因为你拿到了model  就可以修改  就会造成页面中的数据不对应<br><code>大风险啊</code>   于是Swift中出现了 计算变量这种东西 </p>
 <ul>
@@ -2192,15 +2211,15 @@ array2.first!.value = <span class="number">100</span>
 </li>
 </ul>
 <p> 看官  我真的没逗你  是真的  这种变量主要就是为了 在view里面声明一个只读的变量 去来给页面赋值的   例子</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-10.png" alt="Paste_Image.png"></p>
 <p>这种办法就巧妙的 避开了以前在OC开发iOS时 可能对mvc造成的规则不符的情况   </p>
 <ul>
 <li>这里出现了其他的情况 就是我真的想拥有一个变量  还想在setter方法里面做些别的操作 </li>
 </ul>
 <p>这里我们出现了先入为主的观念  很多java C++ 和OC开发者 都以为对于的setter就是对应的Set方法  其实不是这样的额<br>在Swift中访问控制是有访问控制关键字来决定的<br>如</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-11.png" alt="Paste_Image.png"></p>
 <p>对于的监听方法就变成了这样 </p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-12.png" alt="Paste_Image.png"></p>
 <blockquote>
 <p>在早期 apple 建议开发者 都使用  view 使用kvo去观察model的变化 来给对于的页面赋值   但是也不知道程序员的习惯 还是如何 大家还是我行我素  就在view中拿到model  </p>
 </blockquote>
@@ -2208,7 +2227,7 @@ array2.first!.value = <span class="number">100</span>
 <ul>
 <li>关于网上对于计算变量的写法  </li>
 </ul>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-13.png" alt="Paste_Image.png"></p>
 <p>很多人 都模仿 OC中的写法 自己写个带下划线的私有变量 然后提供 set和get方法    我只能说你根本就没有理解Swift   带着陈旧的思想去学习  多此一举嘛 </p>
 <ul>
 <li>关于两个问题</li>
@@ -2223,17 +2242,17 @@ array2.first!.value = <span class="number">100</span>
 <p>  还记得OC中的面试题吗<br> category 声明一个property   是什么意思<br>怎么给category增加成员属性</p>
 </blockquote>
 <p>在oc的category中写了一个property  其实系统帮你做了一个对应的set 和 get方法的声明 具体也不会有私有变量生成   也不会有方法实现   如果你真的要加变量 就要用到kvo的 关联对象  <code>如果你对runtime不熟悉  去简述搜 runtime  很多好文章</code></p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-14.png" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-15.png" alt="Paste_Image.png"></p>
 <p>在Swift中是这样的</p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-16.png" alt="Paste_Image.png"></p>
 <blockquote>
 <p>关于kvo  Swift的初衷就是为了创造几门极度安全化的语言  所以Swift不建议我们再 使用kvo了   因为   在oc中kvo 会产生  一个私有的中间类   （不懂去看runtime ）      在Swift 真的想用kvo  就要用黑魔法了</p>
 </blockquote>
-<p><code>参看自喵神的tips</code><br><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
-<p><img src="/2015/08/03/SwiftVariables/" alt="Paste_Image.png"></p>
+<p><code>参看自喵神的tips</code><br><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-17.png" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-18.png" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-19.png" alt="Paste_Image.png"></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/SwiftVariables/SwiftVariables-20.png" alt="Paste_Image.png"></p>
 <blockquote>
 <p>“在 Swift 中使用 KVO 有两个显而易见的问题。<br>首先是 Swift 的 KVO 需要依赖的东西比原来多。在 Objective-C 中我们几乎可以没有限制地对所有满足 KVC 的属性进行监听，而现在我们需要属性有 dynamic 进行修饰。大多数情况下，我们想要观察的类不一定是 dynamic 修饰的 (除非这个类的开发者有意为之，否则一般也不会有人愿意多花功夫在属性前加上 dynamic，因为这毕竟要损失一部分性能)，并且有时候我们很可能也无法修改想要观察的类的源码。遇到这样的情况的话，一个可能可行的方案是继承这个类并且将需”“要观察的属性使用 dynamic 进行重写。比如刚才我们的 MyClass 中如果 date 没有 dynamic 的话，我们可能就需要一个新的 MyChildClass 了：”</p>
 </blockquote>
@@ -2242,13 +2261,12 @@ array2.first!.value = <span class="number">100</span>
     <summary type="html">
     
       &lt;ul&gt;
-&lt;li&gt;&lt;!-- Swift 存储变量，计算变量探索 --&gt;
+&lt;li&gt;Swift 存储变量，计算变量探索 &lt;/li&gt;
+&lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;  iOS开发者 群532084214 给大家提供一个交流技术 也可以聊天打屁的平台  &lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;此文默认
+&lt;p&gt;&lt;code&gt;此文默认 读者有iOS开发
     
     </summary>
     

@@ -243,7 +243,7 @@
 <li><code>CFRunLoopObserverRef CFRunLoopObserverCreate ( CFAllocatorRef allocator, CFOptionFlags activities, Boolean repeats, CFIndex order, CFRunLoopObserverCallBack callout, CFRunLoopObserverContext *context );</code></li>
 <li><code>CFRunLoopObserverRef CFRunLoopObserverCreateWithHandler ( CFAllocatorRef allocator, CFOptionFlags activities, Boolean repeats, CFIndex order, void (^block)( CFRunLoopObserverRef observer, CFRunLoopActivity activity) );</code></li>
 </ol>
-<p>##针对1 我们打开Xcode的文档，可以看到<br><img src="/2016/04/27/HowToUseRunloop/" alt="obersver"></p>
+<p>##针对1 我们打开Xcode的文档，可以看到<br><img src="http://ompeszjl2.bkt.clouddn.com/HowToUseRunloop/1.png" alt="obersver"></p>
 <ol>
 <li>allocator：该参数为对象内存分配器，一般使用默认的分配器kCFAllocatorDefault。或者NULL </li>
 <li><p>activities：该参数配置观察者监听Run Loop的哪种运行状态。在示例中，我们让观察者监听Run Loop的所有运行状态。<br> 看起来不知道说的什么 ，来我们点进源码 </p>
@@ -253,7 +253,7 @@
 </li>
 <li>order：观察者优先级，当Run Loop中有多个观察者监听同一个运行状态时，那么就根据该优先级判断，0为最高优先级别。</li>
 <li>callout：观察者的回调函数，在Core Foundation框架中用CFRunLoopObserverCallBack重定义了回调函数的闭包。</li>
-<li>context：观察者的上下文。 (类似与<code>KVO</code>传递的context，可以传递信息，)因为这个函数创建ovserver的时候需要传递进一个函数指针，而这个函数指针可能用在n多个oberver  可以当做区分是哪个observer的状机态。（下面的通过block创建的observer一般是一对一的，一般也不需要Context，），还有一个例子类似与NSNOtificationCenter的 <code>SEL</code>和 <code>Block</code>方式，<br>##针对2 我们同样打开Xcode的文档<br><img src="/2016/04/27/HowToUseRunloop/" alt="obersver"></li>
+<li>context：观察者的上下文。 (类似与<code>KVO</code>传递的context，可以传递信息，)因为这个函数创建ovserver的时候需要传递进一个函数指针，而这个函数指针可能用在n多个oberver  可以当做区分是哪个observer的状机态。（下面的通过block创建的observer一般是一对一的，一般也不需要Context，），还有一个例子类似与NSNOtificationCenter的 <code>SEL</code>和 <code>Block</code>方式，<br>##针对2 我们同样打开Xcode的文档<br><img src="http://ompeszjl2.bkt.clouddn.com/HowToUseRunloop/2.png" alt="obersver"></li>
 </ol>
 <p>这里的参数只有block取代了之前的callBack<br>这个block定义方式为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> (^block) (CFRunLoopObserverRef observer, CFRunLoopActivity activity)</div></pre></td></tr></table></figure></p>
 <p><strong>来我们创造一个观察者吧</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 回掉函数</span></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">runLoopObserverCallBack</span><span class="params">(CFRunLoopObserverRef observer, 	CFRunLoopActivity activity, <span class="keyword">void</span> *info)</span></span></div><div class="line"> &#123;</div><div class="line">    PerformanceMonitor *moniotr = (__bridge PerformanceMonitor*)info;</div><div class="line">    </div><div class="line">    moniotr-&gt;activity = activity;</div><div class="line">    </div><div class="line">    <span class="keyword">dispatch_semaphore_t</span> semaphore = moniotr-&gt;semaphore;</div><div class="line">    dispatch_semaphore_signal(semaphore);</div><div class="line">&#125;</div><div class="line"></div><div class="line">    <span class="comment">// 注册RunLoop状态观察</span></div><div class="line">    CFRunLoopObserverContext context = &#123;<span class="number">0</span>,(__bridge <span class="keyword">void</span>*)self,<span class="literal">NULL</span>,<span class="literal">NULL</span>&#125;;</div><div class="line">    </div><div class="line">    observer = CFRunLoopObserverCreate(kCFAllocatorDefault,</div><div class="line">                                       kCFRunLoopAllActivities,</div><div class="line">                                       YES,</div><div class="line">                                       <span class="number">0</span>,</div><div class="line">                                       &amp;runLoopObserverCallBack,</div><div class="line">                                       &amp;context);</div><div class="line">                                       </div><div class="line">                                       </div><div class="line">    <span class="comment">//将观察者添加到主线程runloop的common模式下的观察中</span></div><div class="line">    CFRunLoopAddObserver(CFRunLoopGetMain(), observer, kCFRunLoopCommonModes);</div></pre></td></tr></table></figure></p>
@@ -265,14 +265,14 @@
 <hr>
 <p>一般我们在处理Runloop的时候主要是Observer，Timer，Source，同理对应的创建方法给出</p>
 <h1 id="timer"><a href="#timer" class="headerlink" title="timer"></a>timer</h1><ol>
-<li><p>CFRunLoopTimerRef CFRunLoopTimerCreateWithHandler ( CFAllocatorRef allocator, CFAbsoluteTime fireDate, CFTimeInterval interval, CFOptionFlags flags, CFIndex order, void (^block)( CFRunLoopTimerRef timer) );<br><img src="/2016/04/27/HowToUseRunloop/" alt="timerhandler"></p>
+<li><p>CFRunLoopTimerRef CFRunLoopTimerCreateWithHandler ( CFAllocatorRef allocator, CFAbsoluteTime fireDate, CFTimeInterval interval, CFOptionFlags flags, CFIndex order, void (^block)( CFRunLoopTimerRef timer) );<br><img src="http://ompeszjl2.bkt.clouddn.com/HowToUseRunloop/3.png" alt="timerhandler"></p>
 </li>
-<li><p>CFRunLoopTimerRef CFRunLoopTimerCreate ( CFAllocatorRef allocator, CFAbsoluteTime fireDate, CFTimeInterval interval, CFOptionFlags flags, CFIndex order, CFRunLoopTimerCallBack callout, CFRunLoopTimerContext *context );<br>   <img src="/2016/04/27/HowToUseRunloop/" alt="timercallBack"></p>
+<li><p>CFRunLoopTimerRef CFRunLoopTimerCreate ( CFAllocatorRef allocator, CFAbsoluteTime fireDate, CFTimeInterval interval, CFOptionFlags flags, CFIndex order, CFRunLoopTimerCallBack callout, CFRunLoopTimerContext *context );<br>   <img src="http://ompeszjl2.bkt.clouddn.com/HowToUseRunloop/4.png" alt="timercallBack"></p>
 </li>
 </ol>
 <h1 id="source"><a href="#Source" class="headerlink" title="Source"></a>Source</h1><p>souce是事件源不是事件，所以自然也不需要回掉或者block </p>
 <ol>
-<li>CFRunLoopSourceRef CFRunLoopSourceCreate ( CFAllocatorRef allocator, CFIndex order, CFRunLoopSourceContext *context );<br><img src="/2016/04/27/HowToUseRunloop/" alt="source"></li>
+<li>CFRunLoopSourceRef CFRunLoopSourceCreate ( CFAllocatorRef allocator, CFIndex order, CFRunLoopSourceContext *context );<br><img src="http://ompeszjl2.bkt.clouddn.com/HowToUseRunloop/5.png" alt="source"></li>
 </ol>
 <blockquote>
 <p>我觉得Runloop其实是相当好理解的，只不过对于大部分的C 函数，由于很多人的基本功差点，指针用的不太红，看到函数就紧张而已所以才被吹得非常高大上。<br>我们学会了基本的使用runloop，合适使用？<br> 我觉得一般有下面几中原因</p>
