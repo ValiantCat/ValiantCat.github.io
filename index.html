@@ -221,12 +221,17 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2 opening-statement">
                 <div class="col-md-4">
-                    <h3><a href="/2017/01/13/情报局-1/">情报局(1)</a></h3>
+                    <h3><a href="/2017/03/13/自动检测第三方Pod小工具/">自动检测第三方Pod小工具</a></h3>
                     <span>
                         <span class="post-meta">
-      <time datetime="2017-01-13T02:54:36.000Z" itemprop="datePublished">
-          2017-01-13
+      <time datetime="2017-03-13T13:59:05.000Z" itemprop="datePublished">
+          2017-03-13
       </time>
+    
+    
+    | 
+    <a href='/tags/Shell-CocoaPod/'>Shell CocoaPod</a>
+    
     
 </span>
                     </span>
@@ -234,15 +239,30 @@
                 <div class="col-md-8">
                     <p>
                       
-                        2017-01-13
-NSArray 用 copy 和 Strong修饰的区别 
-例如 self.a = b;对于不可变对象来说使用copy，和Strong都可以。copy的话对于setter方法，如果对方传进来的是b 不可变对象，那么copy之后a还是不可变对象，别的地方修改了b对a不会影响。如果传进来的b是可变对象，那么copy之后a是不可变对象，修改b还是不会对a造成影响。
-strong对于setter方法， 如果对方传进来的是b
+                        
+
+需求原因
+尝试方案
+检测更新
+备份逻辑
+检测更新
+
+
+通知开发者
+完整演示
+后记
+
+
+
+
+
+需求原因
+ 做了半年的组件化了，原本的项目由一个集中式的仓库开发被拆分为几十个基础组件，还有各种业务组件。仓库在逻辑上分离也给开发和测试带来了很多好处。当然也有不好的地方。业务方的同事对这方面更为敏感，由于开发的时候壳工程有原来的依赖十几个第三方Pod变成了现在依赖将近上百个Pod，频繁的install 或者 update，偶尔会意外造成某些
                       
                     </p>
                     
                     <p class="pull-right readMore">
-                        <a href="/2017/01/13/情报局-1/">Read More...</a>
+                        <a href="/2017/03/13/自动检测第三方Pod小工具/">Read More...</a>
                     </p>
                     
                 </div>
