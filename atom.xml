@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://valiantcat.com/"/>
-  <updated>2017-03-14T02:21:19.000Z</updated>
+  <updated>2017-03-25T12:29:17.000Z</updated>
   <id>http://valiantcat.com/</id>
   
   <author>
@@ -14,6 +14,96 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一次关于IconFont的调研</title>
+    <link href="http://valiantcat.com/2017/03/25/%E4%B8%80%E6%AC%A1%E5%85%B3%E4%BA%8EIconFont%E7%9A%84%E8%B0%83%E7%A0%94/"/>
+    <id>http://valiantcat.com/2017/03/25/一次关于IconFont的调研/</id>
+    <published>2017-03-25T12:04:21.000Z</published>
+    <updated>2017-03-25T12:29:17.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- toc-->
+<blockquote>
+<p>上周在虎哥的直播上承诺放出调研IconFont的调研经过，周末就坚持者写完这个吧。</p>
+</blockquote>
+<h1 id="调研原因"><a href="#调研原因" class="headerlink" title="调研原因"></a>调研原因</h1><p>用户在APP Store下载需要的APP，APP包体积是一个用户比较敏感的用户，过大的APP会让用户产生不良的影响，比如:占用过大的手机存储空间。下载消耗较多网络流量(即便是wifi，后续也可能因为升级过程较为缓慢，导致用户长时间不升级，造成市面上的软件版本碎片化严重)。所以减少APP体积会带来很多正面影响。</p>
+<h1 id="掌链现状"><a href="#掌链现状" class="headerlink" title="掌链现状"></a>掌链现状</h1><blockquote>
+<p>我们以<code>掌上链家APP7.7.0</code>举例分析: 现在在Itunes Store下载额IPA体积大约在<code>91.1M</code>，即便<code></code>公司在iOS9之后新增了<code>APP Slicing</code>功能，在我自己的iPhone 6 Plus下载的APP安装包依然达到了<code>81.7M</code>. 安装包瘦身主要包含资源瘦身和代码段瘦身，这篇文主要调研资源瘦身。</p>
+</blockquote>
+<p><em>资源的主要部分就是图片，请看下面数据</em></p>
+<p>我们把iPA解压之后里面的<code>Assert.car</code>资源包的体积大约在<code>34.1M</code> 。 使用软件导出内部的资源文件发现<code>3X系列的图片</code>大小约为<code>18.1M</code>，<code>2X系列的图片</code>大小约为<code>19.4M</code>，两份加起来大于34.1M是因为软件导出的图片部分没有后缀名默认两份都会存在。所以可以看出我们的图片还是有很大的优化空间的。</p>
+<p>相关数据请看以下图片<br> <img src="http://ompeszjl2.bkt.clouddn.com/%E5%8C%85%E4%BD%93%E7%A7%AF%E4%BC%98%E5%8C%96-iconFont%E8%B0%83%E7%A0%94/01.png" alt=""><br> <img src="http://ompeszjl2.bkt.clouddn.com/%E5%8C%85%E4%BD%93%E7%A7%AF%E4%BC%98%E5%8C%96-iconFont%E8%B0%83%E7%A0%94/02.png" alt=""><br> <img src="http://ompeszjl2.bkt.clouddn.com/%E5%8C%85%E4%BD%93%E7%A7%AF%E4%BC%98%E5%8C%96-iconFont%E8%B0%83%E7%A0%94/03.png" alt=""><br> <img src="http://ompeszjl2.bkt.clouddn.com/%E5%8C%85%E4%BD%93%E7%A7%AF%E4%BC%98%E5%8C%96-iconFont%E8%B0%83%E7%A0%94/04.png" alt=""><br> <img src="http://ompeszjl2.bkt.clouddn.com/%E5%8C%85%E4%BD%93%E7%A7%AF%E4%BC%98%E5%8C%96-iconFont%E8%B0%83%E7%A0%94/05.png" alt=""></p>
+<h1 id="iconfont"><a href="#IconFont" class="headerlink" title="IconFont"></a>IconFont</h1><p>首先要介绍下<a href="http://baike.baidu.com/link?url=GFEvj353kbrZkKiMUswo32x-flN8Z8hvaxbz7zfZ3SocI9j2upeHa0WEERA18ufDt3iD7MhM3PhR1Rd3sd1Up_sNQb7Nek0DI5-94Cz5MKIyURomGbYWndlPMQpgudaa" target="_blank" rel="external">矢量图</a>鉴于矢量图占用尺寸小，放大不失真，我们完全可用一套图来替换iOS传统的2x和3x系列图片，不仅仅是iOS，Android平台也不用切多份图了。</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li>减小体积，字体文件比图片要小</li>
+<li>图标保真缩放，解决2x/3x乃至将来的nx图问题</li>
+<li>方便更改颜色大小，图片复用</li>
+</ol>
+<h2 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h2><p>适用于纯色icon 需要维护字体库</p>
+<h1 id="字体管理"><a href="#字体管理" class="headerlink" title="字体管理"></a>字体管理</h1><p>既然设计到字体，我们就要制作字体，制作字体有两种办法，一种是自己手动去做比如FontForge工具，另外一种是托管到阿里的<a href="http://www.iconfont.cn/" target="_blank" rel="external">iconfont平台</a>，我们的UE做字体设计完全没有意义，可以托管给平台。 托管给平台的好处:</p>
+<ol>
+<li>大大的降低了接入难度</li>
+<li>更方便项目管理。和RD对接更方便</li>
+</ol>
+<p>而且iconFont可以和fontForge双重使用，FontForge工具可以再压缩这个字体文件。榨干最后一滴剩余空间。</p>
+<h1 id="demo"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h1><p>在<a href="http://www.iconfont.cn/" target="_blank" rel="external">iconfont平台</a>建立一个项目，随便去购买几个图标(免费的即可)， <img src="http://ompeszjl2.bkt.clouddn.com/%E5%8C%85%E4%BD%93%E7%A7%AF%E4%BC%98%E5%8C%96-iconFont%E8%B0%83%E7%A0%94/06.png" alt="06">,解压后的文件夹有一个字体文件，双击安装 mac和windows都有对应的工具管理字体<img src="http://ompeszjl2.bkt.clouddn.com/%E5%8C%85%E4%BD%93%E7%A7%AF%E4%BC%98%E5%8C%96-iconFont%E8%B0%83%E7%A0%94/07.png" alt="07">。<br> 近20张icon只占用了10k的资源空间，占用空间极小<br> <img src="http://ompeszjl2.bkt.clouddn.com/%E5%8C%85%E4%BD%93%E7%A7%AF%E4%BC%98%E5%8C%96-iconFont%E8%B0%83%E7%A0%94/08.png" alt="08"></p>
+<p>具体的代码我们这里不再赘述，后面的demo具体展示， 不过我们要讲一讲使用的方案</p>
+<ol>
+<li>UILabel作为Icon</li>
+<li>UIButton的titleLabel作为Icon</li>
+<li>根据字体生成UIImage 鉴于将我们本来的icon当作字体使用，会让我们在项目中添加的控件方式有所变化，而且不容易控制颜色和图标大小。所以我这里推荐第三种方案。</li>
+</ol>
+<p>更详细的方案是我们建立字体组件。将这一块功能单独管理，便于后期迭代和维护，而且屏蔽底层使用直接暴露出对应的图片接口可以让上层无感使用。</p>
+<h1 id="后期如何接入"><a href="#后期如何接入" class="headerlink" title="后期如何接入"></a>后期如何接入</h1><h2 id="首期工作"><a href="#首期工作" class="headerlink" title="首期工作"></a>首期工作</h2><p>这里建议拿掌链下手:原因有一下几点</p>
+<ol>
+<li>掌链面向实际用户，做出来的效果更明显</li>
+<li>掌链的APP安装包也最大，也最有瘦身的价值</li>
+<li>掌链在经过组件化之后资源管理方式较为整齐，后期处理可以分次，灰度过度。 首期可能要麻烦UI同学，整理之前图标的对应的SVG格式，创建对应的字体库文件。工作量可能较大(约千张icon)。组件负责同学建立对应组件。 推荐的模式是可以在IconFont建立项目组，UI为owner，RD为member，方便协作和通知。</li>
+</ol>
+<h2 id="后期维护"><a href="#后期维护" class="headerlink" title="后期维护"></a>后期维护</h2><p>待稳定后，后续迭代更加简单，只需UI同学更新对应的图标，建立新字体，然后组件管理者可以更新。 对APP安装和UI与RD业务迭代效率都有很大提高。</p>
+<h1 id="code"><a href="#CODE" class="headerlink" title="CODE"></a>CODE</h1><p>文件夹见DEMO</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><h2 id="ui参考"><a href="#UI参考" class="headerlink" title="UI参考"></a>UI参考</h2><p><a href="http://www.iconfont.cn" target="_blank" rel="external">http://www.iconfont.cn</a> <a href="https://icomoon.io" target="_blank" rel="external">https://icomoon.io</a> <a href="http://fontello.com" target="_blank" rel="external">http://fontello.com</a> <a href="http://fontawesome.io/icons/" target="_blank" rel="external">http://fontawesome.io/icons/</a></p>
+<h2 id="rd参考"><a href="#RD参考" class="headerlink" title="RD参考"></a>RD参考</h2><p>Android：<a href="https://github.com/mikepenz/Android-Iconics" target="_blank" rel="external">https://github.com/mikepenz/Android-Iconics</a></p>
+<p>iOS： <a href="https://github.com/PrideChung/FontAwesomeKit" target="_blank" rel="external">https://github.com/PrideChung/FontAwesomeKit</a></p>
+<p><a href="http://johnwong.github.io/mobile/2015/04/03/using-icon-font-in-ios.html" target="_blank" rel="external">使用IconFont减小iOS应用体积</a></p>
+<hr>
+<p>  华丽的分割线 </p>
+<hr>
+<h1 id="沟通结果"><a href="#沟通结果" class="headerlink" title="沟通结果"></a>沟通结果</h1><p>经过沟通发现掌上链家并不太适合这样的方式，原因如下</p>
+<ol>
+<li>之前的icon很多是用ps做的 如果改用iconfont很多图层效果无法实现</li>
+<li>即便新的icon用Sketch制作矢量图，但是icon在掌链中能制作矢量图的占比较小，且对设计的人力要求过大。</li>
+<li><p>位图(png，jpg)等才是占用资源大户。<br>后期考虑的方案</p>
+</li>
+<li><p>压缩大图 推荐使用<a href="http://ppduck.com/" target="_blank" rel="external">PPDUCK</a>(收费) <a href="https://imageoptim.com/mac" target="_blank" rel="external">imageOption</a>，<a href="https://www.baidu.com/link?url=KkC7lFY89TwZELeYuV93DGrVaUInl3IYeq69FIHm0vp6mG8NrKBif_ewcW-9aZKC&amp;wd=&amp;eqid=cf83ff7b00071ce80000000358d65ecf" target="_blank" rel="external">]tinyPng</a></p>
+</li>
+<li>删除重复资源(上海链家合并期间部分资源重复，但是由于工期太短没有剔除)</li>
+<li>替换旧icon ,且可以统一UI风格</li>
+</ol>
+<h1 id="尝试"><a href="#尝试" class="headerlink" title="尝试"></a>尝试</h1><blockquote>
+<p> 我尝试使用了上面推荐的三个压缩软件进行压缩，对比如下</p>
+<ol>
+<li>imageOption可以使图片减少30%左右，但是压缩巨慢，压缩2500张图片耗费12H以上并且，CPU一直维持在70%左右，但是图片是无损压缩，可以放心使用</li>
+<li>PPDuck压缩2500张图片需要花费5分钟不到，效果达到了惊人的70%，但是缺点也很明显，收费😂😂😂,不过我已经买了会员，有需要统一处理大批量的同学可以私信我我,,无偿帮忙，一般这种需求不会经常出现，在某次做包体积优化的时候才会出现一次。</li>
+<li>tinyPng，TinyPng的压缩也很厉害，缺点是需要上传图片到网站，再下载回来，也很耗时，且很麻烦，不过github有开源的工具TinyPng4MAC,可以使用。但是2500张经常会让程序Crash</li>
+</ol>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>之所以写这篇文章，是想记录一下经过，并且向看这个文章的小伙伴没树立一个我自己的观点。无论技术有多优秀，我们最终是要落实到业务的，所以不要为了技术而技术，做事情要有始有终。很多人也会经常有困惑说我整天忙于业务，不知道如何提升，我这里想说的是所有人一开始就是做业务的，那些技术大牛更是，只有自己意识到自己的开发中涉及到的不足，私下补上自己的基本功，并且深入下去才能提高，一味的找理由说自己业务忙没时间学习都是借口(当然996这样无限制体力劳动的公司可以走人了)。</p>
+<p>最后代码部分真的很简单 我就写了几行代码，最后放在<a href="https://github.com/ValiantCat/IconFontDemo/tree/master" target="_blank" rel="external">GitHub</a>上面供参考了；</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;!-- toc--&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上周在虎哥的直播上承诺放出调研IconFont的调研经过，周末就坚持者写完这个吧。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;调研原因&quot;&gt;&lt;a href=&quot;#调研原因&quot; class=&quot;headerlink&quot; tit
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>自动检测第三方Pod小工具</title>
