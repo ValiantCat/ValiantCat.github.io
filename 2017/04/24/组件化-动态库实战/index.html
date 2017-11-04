@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>组件化-动态库实战 | 茶茶的小屋</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="茶茶的小屋">
+    <meta name="author" content="寒哥">
+    <meta name="description" content="iOS 开发， Swift，Objective-C,OC" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="茶茶的小屋" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/github.css" type="text/css">
+    
+
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <!-- <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://www.jianshu.com/users/cc1e4faec5f7" class="animsition-link">寒哥的简书</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/xinxinqiu" class="animsition-link">寒哥的CSDN</a></li>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" class="animsition-link">寒哥的Github</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">茶茶的小屋</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-04-24T03:17:41.000Z" itemprop="datePublished">
+          2017-04-24
+      </time>
+    
+</span>
+                <h1>组件化-动态库实战</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<!-- toc -->
+<ul>
+<li><a href="#起因">起因</a></li>
+<li><a href="#理论功底">理论功底</a><ul>
+<li><a href="#动态库和静态库">动态库和静态库</a><ul>
+<li><a href="#介绍">介绍</a></li>
+<li><a href="#静态库和动态库的区别">静态库和动态库的区别</a></li>
+<li><a href="#举个例子-ios项目中使用embeded-framework">举个例子， iOS项目中使用Embeded Framework</a></li>
+<li><a href="#静态库和动态库如何构建和加载">静态库和动态库如何构建和加载</a></li>
+<li><a href="#静态库和动态库依赖关系">静态库和动态库依赖关系</a></li>
+</ul>
+</li>
+<li><a href="#xcode-项目结构">Xcode 项目结构</a><ul>
+<li><a href="#ios依赖管理事实上的标准">iOS依赖管理事实上的标准</a></li>
+</ul>
+</li>
+<li><a href="#解决问题">解决问题</a><ul>
+<li><a href="#制作动态库">制作动态库</a></li>
+</ul>
+</li>
+<li><a href="#剖析下动态库framework吧">剖析下动态库Framework吧</a><ul>
+<li><a href="#回过头来看embened-framework">回过头来看Embened Framework</a></li>
+<li><a href="#why-swift-does-not-support-staic-libraies">Why Swift does not Support Staic Libraies</a></li>
+<li><a href="#cocoapods-使用use_framework">CocoaPods 使用Use_framework!</a></li>
+<li><a href="#动态库framework的文件结构">动态库Framework的文件结构</a><ul>
+<li><a href="#更愉快的导入文件">更愉快的导入文件</a></li>
+</ul>
+</li>
+<li><a href="#资源问题">资源问题</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#参考">参考</a></li>
+</ul>
+<!-- tocstop -->
+<!-- index-menu -->
+<hr>
+<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><blockquote>
+<p> 去年，链家网iOS端，之前由于所有的业务端代码都是混乱管理，造成开发有很多痛点<code>无法单测</code> <code>团队成员提交代码冲突机率大</code> <code>CI配合效果差</code> <code>功能性代码多端无法复用</code> <code>单仓库代码量大</code> <code>编译时间长</code> 等等痛点，领导和组内多次沟通开始着手组件化开发，希望能改进这些开发中的痛点，成立组件化团队。<br> 组件化的方案大同小异，基础性代码封装私有库，业务组件交互交由中间件负责，项目依赖工具用 iOS项目事实上的标准 <code>CocoaPods</code><br>前期的基础性组件拆分都较为顺利，从依赖树的叶子节点开发是最合适的方案。<br>随着组件抽离的越来越多，私有库的依赖体系也越来越复杂，慢慢过渡到了业务组件。业务组件用了Swift的第三方组件，用了Swift库的同学都知道必须加上<code>use_frameworks!</code>，这个标记是说Pod管理的依赖全部编译为<code>动态库</code>，然后呢我们的很多组件又依赖了诸如百度地图，微信分享等<code>静态库</code>，于是我在执行 <code>pod install</code> 报了一个没有碰见过的错误</p>
+</blockquote>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[!] The <span class="string">'Pods-LJA_Example'</span> target has transitive dependencies that <span class="keyword">include</span> static <span class="symbol">binaries:</span> (<span class="regexp">/Users/nero</span><span class="regexp">/Desktop/</span>Static_Dynamic/Componment/Example/Pods/libWeChatSDK/libWeChatSDK.a)</div></pre></td></tr></table></figure>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/installError.png" alt="installError"></p>
+<blockquote>
+<p>这就尴尬了，于是一阵疯狂的搜索 google stackoverflow 等，然而并没有什么卵用，而且上面催得急，根本没时间处理这些<code>小问题</code> 业务重构是最主要的，以至于我们的业务组件没有做到独立仓库拆分。<br>直到最近终于找到了解决办法:(   主要是自己的功力不够深厚</p>
+</blockquote>
+<h1 id="理论功底"><a href="#理论功底" class="headerlink" title="理论功底"></a>理论功底</h1><h2 id="动态库和静态库"><a href="#动态库和静态库" class="headerlink" title="动态库和静态库"></a>动态库和静态库</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><blockquote>
+<p>首先静态库和动态库都是以二进制提供代码复用的代码库</p>
+<ul>
+<li>静态库 常见的是 <code>.a</code></li>
+<li>动态库常见的是 <code>.dll(windows)</code> <code>.dylib(mac)</code> <code>so(linux)</code></li>
+<li>framework(in Apple):  Framework是Cocoa/Cocoa Touch程序中使用的一种资源打包方式，可以将代码文件、头文件、资源文件、说明文档等集中在一起，方便开发者使用。<br>也就是说我们的framework其实是资源打包的方式，和静态库动态库的本质是没有关系的</li>
+</ul>
+</blockquote>
+<h3 id="静态库和动态库的区别"><a href="#静态库和动态库的区别" class="headerlink" title="静态库和动态库的区别"></a>静态库和动态库的区别</h3><p>静态库: 链接时会被完整的复制到可执行文件中，所以如果两个程序都用了某个静态库，那么每个二进制可执行文件里面其实都含有这份静态库的代码<br>动态库: 链接时不复制，在程序启动后用dyld加载，然后再决议符号，所以理论上动态库只用存在一份，好多个程序都可以动态链接到这个动态库上面，达到了节省内存(不是磁盘是内存中只有一份动态库)，还有另外一个好处，由于动态库并不绑定到可执行程序上，所以我们想升级这个动态库就很容易，windows 和linux上面一般插件和模块机制都是这样实现的。</p>
+<p>But我们的苹果爸爸在iOS平台上规定不允许存在动态库，并且所有的IPA都需要经过苹果爸爸的私钥加密后才能用，基本你用了动态库也会因为签名不对无法加载，(越狱和非APP store除外)。于是就把开发者自己开发动态库掐死在幻想中。<br>直到有一天，苹果爸爸的iOS升级到了8，iOS出现了<code>APP Extension</code>，<code>swift</code>编程语言也诞生了，由于iOS 主APP需要和Extension共享代码，Swift语言的机制也只能有动态库，于是苹果爸爸尴尬了，不过这难不倒我们的苹果爸爸，毕竟我是爸爸，规则是我来定，我想怎样就怎样，于是提出了一个概念<code>Embedded Framework</code>，这种动态库允许<code>APP</code> 和 <code>APP Extension</code>共享代码，但是这份动态库的生命被限定在一个APP进程内。简单点可以理解为 被阉割的动态库。</p>
+<h3 id="举个例子-ios项目中使用embeded-framework"><a href="#举个例子，-iOS项目中使用Embeded-Framework" class="headerlink" title="举个例子，  iOS项目中使用Embeded Framework"></a>举个例子，  iOS项目中使用Embeded Framework</h3><p>如果你把某个自己开发的动态库(系统的不算，毕竟苹果是爸爸)放在了<code>Linked Frameworks and Libraries</code>里面，程序一启动就会报<code>Reason: Image Not Found</code>，你只能把它放在<code>Embeded Binaries</code>里面才能正常使用，<br>看图: <img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/useEmbededFramework.png" alt=""></p>
+<h3 id="静态库和动态库如何构建和加载"><a href="#静态库和动态库如何构建和加载" class="headerlink" title="静态库和动态库如何构建和加载"></a>静态库和动态库如何构建和加载</h3><p>简单点，说话的方式简单点~~ </p>
+<hr>
+<p>上面的介绍貌似有点抽象啊 套用在美团技术分享大会上的话就是:<br>静态库: 一堆目标文件(.o/.obj)的打包体(并非二进制文件)<br>动态库: 一个没有main函数的可执行文件</p>
+<hr>
+<p>这里我们来复习下C语言的基本功，编译和链接<br>编译:将我们的源代码文件编译为目标文件<br>链接:将我们的各种目标文件加上一些第三方库，和系统库链接为可执行文件。<br> 由于某个目标文件的符号(可以理解为变量，函数等)可能来自其他目标文件，其实链接这一步最主要的操作就是 决议符号的地址。</p>
+<ul>
+<li>若符号来⾃静态库(本质就是.o的集合包)或 .o，将其纳⼊链接产物，并确定符号地址</li>
+<li>若符号来⾃动态库，打个标记，等启动的时候再说—交给dyld去加载和链接符号</li>
+</ul>
+<p>于是链接加装载就有了不同的情况</p>
+<ol>
+<li>Load 装载：将库⽂件载⼊内存<ul>
+<li>Static Loading：启动时</li>
+<li>Dynamic Loading：启动后（使⽤时）</li>
+</ul>
+</li>
+<li>Link 链接：决议符号地址<ul>
+<li>Static Linking：构建（链接）时</li>
+<li>Dynamic Linking：运⾏时（启动时或使⽤时）</li>
+</ul>
+</li>
+</ol>
+<p>然后组合起来就是2*2 = 4了</p>
+<ol>
+<li>Static Loading + Static Linking</li>
+<li>Static Loading + Dynamic Linking</li>
+<li>Dynamic Loading + Dynamic Linking</li>
+<li><del>Dynamic Loading + Static Linking</del><br>第一种是纯静态库相关了<br>第二种就是静态加载(启动时)，动态链接 ，链接时，动态库参与链接，但是这时候只是给符号打了标记告诉我这个符号来自与动态库，程序启动时，iOS或者Mac OS操作系统的dyld自动 load+link。<br>既然全部都是自动的。那么符号的调用方完全不知道你到底是源码还是静态库，动态库 。<br>第三种收到调用dlopen + performSelector 通常iOS的APP不适用这里不讨论<br>第四种，没见过，个人也不是特别懂<br>有需求请参看文后的<code>程序员的自我修养</code>一书</li>
+</ol>
+<h3 id="静态库和动态库依赖关系"><a href="#静态库和动态库依赖关系" class="headerlink" title="静态库和动态库依赖关系"></a>静态库和动态库依赖关系</h3><p>既然有2种库，那么依赖关系又是2*2喽</p>
+<ol>
+<li>libA.a dependency libB.a</li>
+<li>UIKit.dylib dependency Foundation.dylib</li>
+<li>libA.a dependency Foundation.dylib</li>
+<li>MyXX.dylib dependency libA.a</li>
+</ol>
+<p>第一种 静态库互相依赖，这种情况非常常见，制作静态库的时候只需要有被依赖的静态库头文件在就能编译出来。但是这就意味者你要收到告诉使用者你的依赖关系<br>幸运的是 <code>CocoaPod</code>就是这样做的<br>第二种动态库依赖动态库，两个动态库是相互隔离的具有<code>隔离性</code>，但是制作的静态库的时候需要被依赖动态库参与链接，但是具体的符号决议交给<code>dyld</code>来做。<br>第三种，静态库依赖动态库，也很常见，静态库制作的时候也需要动态库参与链接，但是符号的决议交给dyld来做。<br>第四种，动态库依赖静态库，这种情况就有点特殊了。首先我们设想动态库编译的时候需要静态库参与编译，但是静态库交由dyld来做符号决议，but 这和我们前面说的就矛盾了啊。静态库本质是一堆.o的打包体，首先并不是二进制可执行文件，再者你无法保证主程序把静态库参与链接共同生成二进制可执行文件。这就尴尬了。<br>怎么办？<br>目前的编译器的解决办法是，首先我无法保证主程序是否包含静态库，再者静态库也无法被<code>dyld</code>加载，那么我直接把你静态库的.o偷过来，共同组成一个新的二进制。也被称做<code>吸附性</code></p>
+<p>那么我有多份动态库都依赖同样的静态库，这就尴尬了，每个动态库为了保证自己的正确性会把静态库吸附进来。然后两个库包含了同样的静态库，于是问题就出现了。 看到这里想必前面出现的错误你已经能猜出来了把~_~</p>
+<p>后面再详细解释</p>
+<p>先来个总结<br>可执⾏⽂件（主程序或者动态库）在构建的链接阶段</p>
+<ul>
+<li>遇到静态库，吸附进来</li>
+<li>遇到动态库，打标记，彼此保持独⽴</li>
+</ul>
+<h2 id="xcode-项目结构"><a href="#Xcode-项目结构" class="headerlink" title="Xcode 项目结构"></a>Xcode 项目结构</h2><p>target-对于一个产物(app,.a ,.framework)<br>project-一个项目包含多个target<br>workspace:一个包含多个target<br>schema: 指定了一个产物是按照何种的依赖关系，编译-链接到最终的一个产物</p>
+<h3 id="ios依赖管理事实上的标准"><a href="#iOS依赖管理事实上的标准" class="headerlink" title="iOS依赖管理事实上的标准"></a>iOS依赖管理事实上的标准</h3><p>这么多年，Apple的博客和文档也就告诉了我们什么是静态库 什么是动态库，如何制作等。但是并没有给我们提供一系列的依赖管理工具。所以CocoaPods成了事实上的标准。<br>通常CocoaPods管理的工程结构如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">• CocoaPods</div><div class="line">      + App.workspace</div><div class="line">            + App.project</div><div class="line">            • Pods.project</div><div class="line">                    • pod target =&gt; .a</div></pre></td></tr></table></figure></p>
+<p>那么当我们按下CMD+B的时候，整个项目按照先编译被依赖Pod，然后依赖其他Pod的Pod也被构建出来，最终所有的组件被编译为一个<code>lib-Pods-XXXAPP.a</code>被添加进项目进去。资源通过CocoaPods提供的脚本也一并被复制进去。想了解CocoaPods做了什么的读者可以参看后面的链接</p>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>这么多理论功底的建立，相信我们已经能分析出来之前<code>pod install</code>的原因了。就是用了<code>use_framework</code>那么我们的所有Pod都会以动态库(Embeded Framework)的形式去构建，于是那些非开源的库(如 百度地图，微信分享)如果被多个Pod依赖(组件化开发中太常见了)于是被吸附到动态库里面，所以CocoaPod直接就不让我们install成功。因为你现在的依赖管理就是错误的。<br>在听取美团叶樉老师分享的时候 他们的出发点是因为要绕过苹果爸爸在iOS9以下对__text段60M的限制使用了动态库方案，我们是因为某些swift库必须要用到(历史遗留原因)动态库。美团的做法是摘除依赖关系，自定义CocoaPods(开源的本来就是用着不爽我就改)。但是我是个小菜鸡啊。我也不会ruby(以后会学的)，但是叶樉老师给我提了别的idea。  前面我们知道 动态库和动态库是<code>隔离性</code>，动态库依赖静态库具有<code>吸附性</code>，那么我们可以自定义一个动态库把百度地图这种静态库吸附进来。对外整体呈现的是动态库特性。其他的组件依赖我们自定义的动态库，由于<code>隔离性</code>的存在，不会出现问题。</p>
+<h3 id="制作动态库"><a href="#制作动态库" class="headerlink" title="制作动态库"></a>制作动态库</h3><p>1 创建动态库项目这里以wx举例<br><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/createDynamicFramework.png" alt=""></p>
+<p>2 按照微信的官方文档。添加依赖库(我是因为pod install巨慢 所以我直接拽进来了)<br><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/wxDdependency.png" alt=""></p>
+<p>3 将wx的PublicHeader暴露出来，注意由于我并没有使用到wx相关API所以链接器帮我们链接动态库 的时候可能并不会把wx静态库吸附进来。我们手动在build Setting的other link flags加上<code>-all_load</code>标记<br><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/publicHeader.png" alt=""></p>
+<p>4.在Schema里面跳转编译配置为Release ，并且选择所有的CPU架构<br><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/SchemaRelease.png" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/buildArchive.png" alt=""></p>
+<p>5 然后选择模拟器或者Generic iOS Device运行编译就会生成对应版本的Framework了。<br><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/releaseFrameworl.png" alt=""></p>
+<p>6.但是为了保证开发者使用的时候是真机模拟器都能正常使用，我们需要合并不同架构<br>这里在<code>Build Phases</code>里添加以下脚本，真机和模拟器都Build一遍之后就会在工程目录下生成Products文件夹，</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$&#123;ACTION&#125;</span>"</span> = <span class="string">"build"</span> ]</div><div class="line"><span class="keyword">then</span></div><div class="line">INSTALL_DIR=<span class="variable">$&#123;SRCROOT&#125;</span>/Products/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.framework</div><div class="line">DEVICE_DIR=<span class="variable">$&#123;BUILD_ROOT&#125;</span>/<span class="variable">$&#123;CONFIGURATION&#125;</span>-iphoneos/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.framework</div><div class="line">SIMULATOR_DIR=<span class="variable">$&#123;BUILD_ROOT&#125;</span>/<span class="variable">$&#123;CONFIGURATION&#125;</span>-iphonesimulator/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.framework</div><div class="line"><span class="keyword">if</span> [ <span class="_">-d</span> <span class="string">"<span class="variable">$&#123;INSTALL_DIR&#125;</span>"</span> ]</div><div class="line"><span class="keyword">then</span></div><div class="line">rm -rf <span class="string">"<span class="variable">$&#123;INSTALL_DIR&#125;</span>"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line">mkdir -p <span class="string">"<span class="variable">$&#123;INSTALL_DIR&#125;</span>"</span></div><div class="line">cp -R <span class="string">"<span class="variable">$&#123;DEVICE_DIR&#125;</span>/"</span> <span class="string">"<span class="variable">$&#123;INSTALL_DIR&#125;</span>/"</span></div><div class="line"><span class="comment">#ditto "$&#123;DEVICE_DIR&#125;/Headers" "$&#123;INSTALL_DIR&#125;/Headers"</span></div><div class="line">lipo -create <span class="string">"<span class="variable">$&#123;DEVICE_DIR&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;SIMULATOR_DIR&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>"</span> -output <span class="string">"<span class="variable">$&#123;INSTALL_DIR&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>"</span></div><div class="line">open <span class="string">"<span class="variable">$&#123;DEVICE_DIR&#125;</span>"</span></div><div class="line">open <span class="string">"<span class="variable">$&#123;SRCROOT&#125;</span>/Products"</span></div><div class="line"><span class="keyword">fi</span></div></pre></td></tr></table></figure>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/fatframework.png" alt=""></p>
+<p>于是我们有了我们自己的私有动态库LJWXSDK，那么我们来验证我们之前的问题<br>首先指定一个LJWXSDK.podspec这里我直接传到了我的<a href="https://github.com/ValiantCat/LJWXSDK" target="_blank" rel="external">Github</a>上面</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Be sure to run `pod lib lint LJPod.podspec' to ensure this is a</span></div><div class="line"><span class="comment"># valid spec before submitting.</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Any lines starting with a # are optional, but their use is encouraged</span></div><div class="line"><span class="comment"># To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html</span></div><div class="line"><span class="comment">#</span></div><div class="line"></div><div class="line">Pod::Spec.new <span class="keyword">do</span> <span class="params">|s|</span></div><div class="line">  s.name             = <span class="string">'LJWXSDK'</span></div><div class="line">  s.version          = <span class="string">'0.1.0'</span></div><div class="line">  s.summary          = <span class="string">'A short description of LJWXSDK.'</span></div><div class="line"></div><div class="line"></div><div class="line">  s.description      = <span class="string">&lt;&lt;-DESC</span></div><div class="line">  TODO: Add long description of the pod here.</div><div class="line">  DESC</div><div class="line"></div><div class="line">  s.homepage         = <span class="string">'https://github.com/ValiantCat/LJWXSDK'</span></div><div class="line"></div><div class="line">  s.license          = &#123; <span class="symbol">:type</span> =&gt; <span class="string">'MIT'</span>, <span class="symbol">:file</span> =&gt; <span class="string">'LICENSE'</span> &#125;</div><div class="line">  s.author           = &#123; <span class="string">'ValiantCat'</span> =&gt; <span class="string">'519224747@qq.com'</span> &#125;</div><div class="line">  s.source = &#123; <span class="symbol">:http</span>  =&gt; <span class="string">'http://onk2m6gtu.bkt.clouddn.com/LJWXSDK.framework.zip'</span> &#125;</div><div class="line"></div><div class="line"></div><div class="line">  s.ios.deployment_target = <span class="string">'8.0'</span></div><div class="line">  s.default_subspec = <span class="string">'zip'</span></div><div class="line"></div><div class="line">  s.subspec <span class="string">'zip'</span> <span class="keyword">do</span> <span class="params">|zip|</span></div><div class="line">  </div><div class="line">    puts <span class="string">'-------------------------------------------------------------------'</span></div><div class="line">    puts <span class="string">'Notice:LJWXSDK is zip now'</span></div><div class="line">    puts <span class="string">'-------------------------------------------------------------------'</span></div><div class="line"></div><div class="line">    zip.ios.vendored_frameworks = <span class="string">'*.framework'</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>注意上面我是把二进制压缩丢进了七牛的oss文件存储。毕竟免费还快。</p>
+<p>然后通过pod lib create创建了一个pod用来验证之前我们的传递性依赖问题，<br>文件夹结构如下</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── Example</div><div class="line">│   ├── LJA</div><div class="line">│   │   ├── Base.lproj</div><div class="line">│   │   │   ├── LaunchScreen.storyboard</div><div class="line">│   │   │   └── Main.storyboard</div><div class="line">│   │   ├── Images.xcassets</div><div class="line">│   │   │   └── AppIcon.appiconset</div><div class="line">│   │   │       └── Contents.json</div><div class="line">│   │   ├── LJA-Info.plist</div><div class="line">│   │   ├── LJA-Prefix.pch</div><div class="line">│   │   ├── LJAppDelegate.h</div><div class="line">│   │   ├── LJAppDelegate.m</div><div class="line">│   │   ├── LJViewController.h</div><div class="line">│   │   ├── LJViewController.m</div><div class="line">│   │   ├── en.lproj</div><div class="line">│   │   │   └── InfoPlist.strings</div><div class="line">│   │   └── main.m</div><div class="line">│   ├── LJA.xcodeproj</div><div class="line">│   ├── LJA.xcworkspace</div><div class="line">│   ├── Podfile</div><div class="line">│   ├── Podfile.lock</div><div class="line">│   ├── Pods</div><div class="line">│   │   ├── Headers</div><div class="line">│   │   ├── LJWXSDK</div><div class="line">│   │   │   └── LJWXSDK.framework</div><div class="line">│   │   │       ├── Headers</div><div class="line">│   │   │       │   ├── LJWXSDK.h</div><div class="line">│   │   │       │   ├── WXApi.h</div><div class="line">│   │   │       │   ├── WXApiObject.h</div><div class="line">│   │   │       │   └── WechatAuthSDK.h</div><div class="line">│   │   │       ├── Info.plist</div><div class="line">│   │   │       ├── LJWXSDK</div><div class="line">│   │   │       ├── Modules</div><div class="line">│   │   │       │   └── module.modulemap</div><div class="line">│   │   │       ├── _CodeSignature</div><div class="line">│   │   │       │   └── CodeResources</div><div class="line">│   │   │       └── read_me.txt</div><div class="line">│   │   ├── Local\ Podspecs</div><div class="line">│   │   │   ├── LJA.podspec.json</div><div class="line">│   │   │   ├── LJB.podspec.json</div><div class="line">│   │   │   └── LJWXSDK.podspec.json</div><div class="line">│   │   ├── Manifest.lock</div><div class="line">│   │   ├── Pods.xcodeproj</div><div class="line">│   │   │   ├── project.pbxproj</div><div class="line">│   │   │   ├── project.xcworkspace</div><div class="line">│   │   ├── Target\ Support\ Files</div><div class="line">│   │   │   ├── LJA</div><div class="line">│   │   │   │   ├── Info.plist</div><div class="line">│   │   │   │   ├── LJA-dummy.m</div><div class="line">│   │   │   │   ├── LJA-prefix.pch</div><div class="line">│   │   │   │   ├── LJA-umbrella.h</div><div class="line">│   │   │   │   ├── LJA.modulemap</div><div class="line">│   │   │   │   └── LJA.xcconfig</div><div class="line">│   │   │   ├── LJB</div><div class="line">│   │   │   │   ├── Info.plist</div><div class="line">│   │   │   │   ├── LJB-dummy.m</div><div class="line">│   │   │   │   ├── LJB-prefix.pch</div><div class="line">│   │   │   │   ├── LJB-umbrella.h</div><div class="line">│   │   │   │   ├── LJB.modulemap</div><div class="line">│   │   │   │   └── LJB.xcconfig</div><div class="line">│   │   │   ├── Pods-LJA_Example</div><div class="line">│   │   │   │   ├── Info.plist</div><div class="line">│   │   │   │   ├── Pods-LJA_Example-acknowledgements.markdown</div><div class="line">│   │   │   │   ├── Pods-LJA_Example-acknowledgements.plist</div><div class="line">│   │   │   │   ├── Pods-LJA_Example-dummy.m</div><div class="line">│   │   │   │   ├── Pods-LJA_Example-frameworks.sh</div><div class="line">│   │   │   │   ├── Pods-LJA_Example-resources.sh</div><div class="line">│   │   │   │   ├── Pods-LJA_Example-umbrella.h</div><div class="line">│   │   │   │   ├── Pods-LJA_Example.debug.xcconfig</div><div class="line">│   │   │   │   ├── Pods-LJA_Example.modulemap</div><div class="line">│   │   │   │   └── Pods-LJA_Example.release.xcconfig</div><div class="line">│   │   │   └── Pods-LJA_Tests</div><div class="line">│   │   │       ├── Info.plist</div><div class="line">│   │   │       ├── Pods-LJA_Tests-acknowledgements.markdown</div><div class="line">│   │   │       ├── Pods-LJA_Tests-acknowledgements.plist</div><div class="line">│   │   │       ├── Pods-LJA_Tests-dummy.m</div><div class="line">│   │   │       ├── Pods-LJA_Tests-frameworks.sh</div><div class="line">│   │   │       ├── Pods-LJA_Tests-resources.sh</div><div class="line">│   │   │       ├── Pods-LJA_Tests-umbrella.h</div><div class="line">│   │   │       ├── Pods-LJA_Tests.debug.xcconfig</div><div class="line">│   │   │       ├── Pods-LJA_Tests.modulemap</div><div class="line">│   │   │       └── Pods-LJA_Tests.release.xcconfig</div><div class="line">│   │   └── libWeChatSDK</div><div class="line">│   │       ├── README.md</div><div class="line">│   │       ├── WXApi.h</div><div class="line">│   │       ├── WXApiObject.h</div><div class="line">│   │       ├── WechatAuthSDK.h</div><div class="line">│   │       └── libWeChatSDK.a</div><div class="line">├── LICENSE</div><div class="line">├── LJA</div><div class="line">│   ├── Assets</div><div class="line">│   └── Classes</div><div class="line">│       └── LJA.m</div><div class="line">├── LJA.podspec</div><div class="line">├── LJB</div><div class="line">│   ├── Assets</div><div class="line">│   └── Classes</div><div class="line">│       └── LJB.m</div><div class="line">├── LJB.podspec</div><div class="line">├── README.md</div><div class="line">└── _Pods.xcodeproj -&gt; Example/Pods/Pods.xcodeproj</div></pre></td></tr></table></figure>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/testframework.png" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/dependencyDynamicLibrary.png" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/useDynamicFramework.png" alt=""></p>
+<p>测试工程我也丢在7牛上面。<a href="http://onk2m6gtu.bkt.clouddn.com/Componment.zip" target="_blank" rel="external">下载</a>测试即可<br>编译运行。完美。我们又可以愉快的和swift第三方库配合使用。<br>很多人可能会问 诸如百度地图 微信这种sdk为什么官方不支持动态库版(所说的都是embeded Framework)，猜测是为了兼容更低iOS7版本吧<br>很多人会觉得麻烦的要死。首先每个公司多多少少都有历史包袱，麻烦也要做，再者这是一次对基本功的补充，即便你们没有用到，但是为了学习，这篇教程所做的也值得你尝试一次。</p>
+<h2 id="剖析下动态库framework吧"><a href="#剖析下动态库Framework吧" class="headerlink" title="剖析下动态库Framework吧"></a>剖析下动态库Framework吧</h2><p>上述解决了我们一开始遇到的问题。but既然动态库和静态库压根就不一回事，所以里面还是有很多细节值得我们去了解的。</p>
+<h3 id="回过头来看embened-framework"><a href="#回过头来看Embened-Framework" class="headerlink" title="回过头来看Embened Framework"></a>回过头来看Embened Framework</h3><p>首先我们之前记得如果一个动态库加在<code>LinkedFrameworksand Libraies</code>程序启动就会报ImageNotFound，如果放在<code>EmbededBinaries</code>里面就可以。这是为什么呢。我们拿MacoView来看下两种情况下可执行文件的细节</p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/loadEmbededFramework.png" alt=""></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/loadSystemFramework.png" alt=""></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/appContentFiles.png" alt=""></p>
+<p>其中@rpth这个路径表示的位置可以查看<a href="http://www.jianshu.com/p/cd614e080078" target="_blank" rel="external">Xcode 中的链接路径问题</a><br>这样我们就知道了其实加在<code>EmbededBinaries</code>里面的东西其实会被复制一份到xx.app里面，所以这个名字起得还是不错的直译就是<code>嵌入的框架</code></p>
+<h3 id="why-swift-does-not-support-staic-libraies"><a href="#Why-Swift-does-not-Support-Staic-Libraies" class="headerlink" title="Why Swift does not Support Staic Libraies"></a>Why Swift does not Support Staic Libraies</h3><p>造成这个的主要原因是Swift的运行时库(不等同于OC的runtime概念)，由于Swift的ABI不稳定，静态库会导致最终的目标程序中包含重复的运行库，相关可以看下最后的参考文章<a href="https://github.com/ksm/SwiftInFlux#static-libraries" target="_blank" rel="external">SwiftInFlux#static-libraries</a>。等到我们的SwiftABI稳定之后，我们的静态库支持可能就又会出现了。当然也可能不出，Swift伴随诞生的SPM(Swift，Package Manager)，可能有更好的<code>官方的</code>包依赖管理工具。让我们期待吧。</p>
+<h3 id="cocoapods-使用use_framework"><a href="#CocoaPods-使用Use-framework" class="headerlink" title="CocoaPods 使用Use_framework!"></a>CocoaPods 使用Use_framework!</h3><p>既然加了Swift的第三方库之后就需要在<code>Podfile</code>里面加上<code>use_framework!</code> 那么CocoaPods就会帮我们生成动态库，但是奇怪的是，我们并没有在主工程的<code>embeded binaries</code>看到这个动态库，这又是什么鬼。其实是CocoaPods使用脚本帮我们加进去了。脚本位置在主工程的 <code>build Phase</code>下的 <code>Emded Pods frameworks</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">"<span class="variable">$&#123;SRCROOT&#125;</span>/Pods/Target Support Files/Pods-LJA_Example/Pods-LJA_Example-frameworks.sh"</span></div></pre></td></tr></table></figure>
+<h3 id="动态库framework的文件结构"><a href="#动态库Framework的文件结构" class="headerlink" title="动态库Framework的文件结构"></a>动态库Framework的文件结构</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── Headers</div><div class="line">│   ├── LJWXSDK.h</div><div class="line">│   ├── WXApi.h</div><div class="line">│   ├── WXApiObject.h</div><div class="line">│   └── WechatAuthSDK.h</div><div class="line">├── Info.plist</div><div class="line">├── LJWXSDK</div><div class="line">├── Modules</div><div class="line">│   └── module.modulemap</div><div class="line">└── _CodeSignature</div><div class="line">    └── CodeResources</div></pre></td></tr></table></figure>
+<ol>
+<li>Headers  一般是头文件。非private里面的头文件都会在里面</li>
+<li>info.plist 配置信息，不深究</li>
+<li>Modules   这个文件夹里有个module.modulemap文件，后面在讲解</li>
+<li>二进制文件，这就是上面提到的<code>不带 main的二进制文件了</code>，.o的打包体</li>
+<li>_codeSignature 签名文件 (苹果爸爸的约束)</li>
+<li>more  资源文件。这里暂时没用到，所以没有 ，但是这个也是个大坑</li>
+</ol>
+<h4 id="更愉快的导入文件"><a href="#更愉快的导入文件" class="headerlink" title="更愉快的导入文件"></a>更愉快的导入文件</h4><p><code>@class，@protocol</code> 不说了就是声明一个类，并不导入。<br><code>#import &lt;&gt;, #import&quot;&quot;</code>是加强版的<code>#include&lt;&gt;，#include&quot;&quot;</code> 防止重复导入的。<br><code>#import&lt;&gt;</code> : 通过 build setting里面中的 header Search Path里面去找<br><code>#import&quot;&quot; :</code> 第一步先搜索user Header search Path 再搜索 header search Path 。所以对我们的framework来说，<code>CocoaPod</code> 帮我们加到了 Header search Path 目前2种导入方式都是可以支持的。<br>上面的导入方式都带了 某个framework的路径 <xx xx.h=""> “xx/xx.h” ，我们在开发自己主工程的时候会发现我们导入主工程其他类是不需要导入前缀的。 这又是怎么回事。<br>看下面的配置<img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/no-recursive.png" alt=""> 目前的配置是non-recursive。如果把non去掉意思就是我可以递归的去查找某些framework下面的头文件了。  但是Xcode的效率肯定就会有影响。<br>还是不建议修改的好。</xx></p>
+<hr>
+<p>大家都知道iOS7之后多了@import，这又是什么鬼。<br>简单理解这个方式叫做Module导入，好处就是使用了@import之后不需要在project setting手动添加 framework，系统会自动加载，而且效率更高。<br>最主要的是swift也只能这样用。<br>导入的时候系统会查找如果有模块同名的文件就会导入这个文件。如果没有CocoaPods帮我们生成一个<code>module-umbrela.hl</code>文件，然后就是导入的这个文件。</p>
+<p>回过头来看我们的framework的结构 里面有个<code>Modules</code>文件夹，里面有个文件<code>module.modulemap</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">framework <span class="keyword">module</span> LJWXSDK &#123;</div><div class="line">  umbrella header <span class="string">"LJWXSDK.h"</span></div><div class="line"></div><div class="line">  <span class="keyword">export</span> *</div><div class="line">  <span class="keyword">module</span> * &#123; <span class="keyword">export</span> * &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们可以看到其实被暴露的header就是这个文件，之前我在按照<code>#import &quot;/&quot;</code>的时候有个警告</p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%8A%A8%E6%80%81%E5%BA%93%E5%AE%9E%E6%88%98/missSubModule.png" alt=""><br>而且按照@import导入的东西发现没有导入可用的头文件就是因为并没有在 umbrella header的头文件中加入其他头文件。<br>加入之后我们就可以完美的使用<code>@import</code> ，并且<code>#import&quot;/&quot;</code> 也不会报warning<br>更多关于<code>umbrella Header</code> 参看文后参考</p>
+<h3 id="资源问题"><a href="#资源问题" class="headerlink" title="资源问题"></a>资源问题</h3><p>首先我们来看常见的资源文件:主要分为图片和其他类资源那么加载图片和加载其他资源都是怎么做的？<br>1:  <code>[UIimage imageNamed:]</code><br>2:  <code>[NSbundle bundleForclass[XXX class]]</code><br>其实方式1去本质就是去<code>mainBundle</code>去拿资源，方式2从<code>XXX</code>所在的框架里面去拿。<br>前面也说道framework只是资源的打包方式，本质上是有两种的。<br>我们这个framework如果本质是静态库，那么无需改变使用方式，资源最终都会打包到<code>Main Bundle</code>里面<br>如果我们这个framework本质是动态库，那么我们的资源就发生了变化，资源就会被存放在 framework里面。所以我们需要使<code>[NSbundle bundleForclass[XXX class]]</code>。需要注意的是很多人为了简单，下意识的使用<code>self class</code> 传递，但是有可能这个<code>self实例</code>不在资源所属的framework。所以会出现资源加载 失败。一定要谨慎使用。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://item.jd.com/10362683979.html" target="_blank" rel="external">程序员的自我修养，链接，装载 和库</a><br><a href="https://www.zybuluo.com/qidiandasheng/note/603907" target="_blank" rel="external">iOS里的动态库和静态库</a><br><a href="https://www.quora.com/Systems-Programming-What-is-the-exact-difference-between-Dynamic-loading-and-dynamic-linking" target="_blank" rel="external">Systems Programming: What is the exact difference between Dynamic loading and dynamic linking?</a><br><a href="http://draveness.me/cocoapods.html" target="_blank" rel="external">CocoaPods 都做了什么？</a><br><a href="https://www.codeproject.com/articles/187181/dynamic-linking-of-imported-functions-in-mach-o" target="_blank" rel="external">Dynamic Linking of Imported Functions in Mach-O</a><br><a href="https://www.zybuluo.com/qidiandasheng/note/602118" target="_blank" rel="external">OS里的导入头文件</a><br><a href="http://blog.startry.com/2015/08/25/Renaming-umbrella-header-for-iOS-framework/" target="_blank" rel="external">iOS - Umbrella Header在framework中的应用</a><br><a href="https://github.com/ksm/SwiftInFlux#static-libraries" target="_blank" rel="external">SwiftInFlux#static-libraries</a><br><a href="https://www.zybuluo.com/qidiandasheng/note/602118" target="_blank" rel="external">iOS里的导入头文件</a><br><a href="http://blog.startry.com/2015/08/25/Renaming-umbrella-header-for-iOS-framework/" target="_blank" rel="external">iOS - Umbrella Header在framework中的应用</a><br><a href="https://stackoverflow.com/questions/18947516/import-vs-import-ios-7" target="_blank" rel="external">@import vs #import - iOS 7</a></p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2017/05/15/组件化-动态库实战续/" style="float: left;">
+        ← 组件化-动态库实战续
+    </a>
+    
+    
+    <a class="pull-right" href="/2017/03/25/一次关于IconFont的调研/">
+        一次关于IconFont的调研 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2017/04/24/组件化-动态库实战/" data-title="组件化-动态库实战" data-url="http://valiantcat.com/2017/04/24/组件化-动态库实战/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"chachaHouse"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By 寒哥. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

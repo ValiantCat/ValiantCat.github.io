@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>iOS界的毒瘤-MethodSwizzling | 茶茶的小屋</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="茶茶的小屋">
+    <meta name="author" content="寒哥">
+    <meta name="description" content="iOS 开发， Swift，Objective-C,OC" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="茶茶的小屋" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/github.css" type="text/css">
+    
+
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <!-- <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://www.jianshu.com/users/cc1e4faec5f7" class="animsition-link">寒哥的简书</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/xinxinqiu" class="animsition-link">寒哥的CSDN</a></li>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" class="animsition-link">寒哥的Github</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">茶茶的小屋</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-11-02T11:08:26.000Z" itemprop="datePublished">
+          2017-11-02
+      </time>
+    
+</span>
+                <h1>iOS界的毒瘤-MethodSwizzling</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<h1 id="为什么有这篇博文"><a href="#为什么有这篇博文" class="headerlink" title="为什么有这篇博文"></a>为什么有这篇博文</h1><p>不知道何时开始iOS面试开始流行起来询问什么是 Runtime，于是 iOSer 一听 Runtime 总是就提起 MethodSwizzling，开口闭口就是黑科技。但其实如果读者留意过C语言的 Hook 原理其实会发现所谓的钩子都是框架或者语言的设计者预留给我们的工具，而不是什么黑科技，MethodSwizzling 其实只是一个简单而有趣的机制罢了。然而就是这样的机制，在日常中却总能成为万能药一般的被肆无忌惮的使用。</p>
+<p>很多 iOS 项目初期架构设计的不够健壮，后期可扩展性差。于是 iOSer 想起了 MethodSwizzling 这个武器，将项目中一个正常的方法 hook 的满天飞，导致项目的质量变得难以控制。曾经我也爱在项目中滥用 MethodSwizzling，但在踩到坑之前总是不能意识到这种糟糕的做法会让项目陷入怎样的险境。于是我才明白学习某个机制要去深入的理解机制的设计，而不是跟风滥用，带来糟糕的后果。最后就有了这篇文章。</p>
+<h1 id="hook的对象"><a href="#Hook的对象" class="headerlink" title="Hook的对象"></a>Hook的对象</h1><p>在 iOS 平台常见的 hook 的对象一般有两种：</p>
+<ol>
+<li>C/C++ functions</li>
+<li>Objective-C method </li>
+</ol>
+<p>对于 C/C+ +的 hook 常见的方式可以使用 facebook 的 <code>fishhook</code> 框架，具体原理可以参考深入理解<code>Mac OS X &amp; iOS 操作系统</code> 这本书。<br>对于 Objective-C Methods 可能大家更熟悉一点，本文也只讨论这个。</p>
+<h2 id="最常见的hook代码"><a href="#最常见的hook代码" class="headerlink" title="最常见的hook代码"></a>最常见的hook代码</h2><p>相信很多人使用过 <a href="https://github.com/rentzsch/jrswizzle" target="_blank" rel="external">JRSwizzle</a> 这个库，或者是看过 <a href="http://nshipster.cn/method-swizzling/" target="_blank" rel="external">http://nshipster.cn/method-swizzling/</a> 的博文。<br>上述的代码简化如下。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">+ (<span class="built_in">BOOL</span>)jr_swizzleMethod:(SEL)origSel_ withMethod:(SEL)altSel_ error:(<span class="built_in">NSError</span>**)error_ &#123;</div><div class="line"></div><div class="line">	Method origMethod = class_getInstanceMethod(<span class="keyword">self</span>, origSel_);</div><div class="line">	<span class="keyword">if</span> (!origMethod) &#123;</div><div class="line">		SetNSError(error_, <span class="string">@"original method %@ not found for class %@"</span>, <span class="built_in">NSStringFromSelector</span>(origSel_), [<span class="keyword">self</span> <span class="keyword">class</span>]);</div><div class="line">		<span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	Method altMethod = class_getInstanceMethod(<span class="keyword">self</span>, altSel_);</div><div class="line">	<span class="keyword">if</span> (!altMethod) &#123;</div><div class="line">		SetNSError(error_, <span class="string">@"alternate method %@ not found for class %@"</span>, <span class="built_in">NSStringFromSelector</span>(altSel_), [<span class="keyword">self</span> <span class="keyword">class</span>]);</div><div class="line">		<span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	class_addMethod(<span class="keyword">self</span>,</div><div class="line">					origSel_,</div><div class="line">					class_getMethodImplementation(<span class="keyword">self</span>, origSel_),</div><div class="line">					method_getTypeEncoding(origMethod));</div><div class="line"></div><div class="line">	class_addMethod(<span class="keyword">self</span>,</div><div class="line">					altSel_,</div><div class="line">					class_getMethodImplementation(<span class="keyword">self</span>, altSel_),</div><div class="line">					method_getTypeEncoding(altMethod));</div><div class="line"></div><div class="line">	method_exchangeImplementations(class_getInstanceMethod(<span class="keyword">self</span>, origSel_), class_getInstanceMethod(<span class="keyword">self</span>, altSel_));</div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div></pre></td></tr></table></figure>
+<p>在Swizzling情况极为普通的情况下上述代码不会出现问题，但是场景复杂之后上面的代码会有很多安全隐患。</p>
+<h2 id="methodswizzling泛滥下的隐患"><a href="#MethodSwizzling泛滥下的隐患" class="headerlink" title="MethodSwizzling泛滥下的隐患"></a>MethodSwizzling泛滥下的隐患</h2><p>Github有一个很健壮的库 <a href="https://github.com/rabovik/RSSwizzle/" target="_blank" rel="external">RSSwizzle</a>(这也是本文推荐Swizzling的最终方式) 指出了上面代码带来的风险点。</p>
+<ol>
+<li><p>只在 +load 中执行 swizzling 才是安全的。 </p>
+</li>
+<li><p>被 hook 的方法必须是当前类自身的方法，如果把继承来的 IMP copy 到自身上面会存在问题。父类的方法应该在调用的时候使用，而不是 swizzling 的时候 copy 到子类。</p>
+</li>
+<li><p>被 Swizzled 的方法如果依赖与 cmd ，hook 之后 cmd 发送了变化，就会有问题(一般你 hook 的是系统类，也不知道系统用没用 cmd 这个参数)。</p>
+</li>
+<li><p>命名如果冲突导致之前 hook 的失效 或者是循环调用。</p>
+</li>
+</ol>
+<p>上述问题中第一条和第四条说的是通常的 MethodSwizzling 是在分类里面实现的, 而分类的 Method 是被Runtime 加载的时候追加到类的 MethodList ，如果不是在 <code>+load</code> 是执行的 Swizzling 一旦出现重名，那么 SEL 和 IMP 不匹配致 hook 的结果是循环调用。</p>
+<p>第三条是一个不容易被发现的问题。<br>我们都知道 Objective-C Method 都会有两个隐含的参数 <code>self, cmd</code>，有的时候开发者在使用关联属性的适合可能懒得声明 (void *) 的 key，直接使用 cmd 变量 <code>objc_setAssociatedObject(self, _cmd, xx, 0);</code> 这会导致对当前IMP对 cmd 的依赖。</p>
+<p>一旦此方法被 Swizzling，那么方法的 cmd 势必会发生变化，出现了 bug 之后想必你一定找不到，等你找到之后心里一定会问候那位 Swizzling 你的方法的开发者祖宗十八代安好的，再者如果你 Swizzling 的是系统的方法恰好系统的方法内部用到了 cmd …~_~（此处后背惊起一阵冷汗）。</p>
+<h2 id="copy父类的方法带来的问题"><a href="#Copy父类的方法带来的问题" class="headerlink" title="Copy父类的方法带来的问题"></a>Copy父类的方法带来的问题</h2><p>上面的第二条才是我们最容易遇见的场景，并且是99%的开发者都不会注意到的问题。下面我们来做个试验</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)sayHello &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"person say hello"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Student</span> : <span class="title">Person</span></span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Student</span> (<span class="title">swizzle</span>)</span></div><div class="line"></div><div class="line">+ (<span class="keyword">void</span>)load &#123;</div><div class="line">    [<span class="keyword">self</span> jr_swizzleMethod:<span class="keyword">@selector</span>(s_sayHello) withMethod:<span class="keyword">@selector</span>(sayHello) error:<span class="literal">nil</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)s_sayHello &#123;</div><div class="line">    [<span class="keyword">self</span> s_sayHello];</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Student + swizzle say hello"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span> (<span class="title">swizzle</span>)</span></div><div class="line"></div><div class="line">+ (<span class="keyword">void</span>)load &#123;</div><div class="line">    [<span class="keyword">self</span> jr_swizzleMethod:<span class="keyword">@selector</span>(p_sayHello) withMethod:<span class="keyword">@selector</span>(sayHello) error:<span class="literal">nil</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)p_sayHello &#123;</div><div class="line">    [<span class="keyword">self</span> p_sayHello];</div><div class="line">    </div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Person + swizzle say hello"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>上面的代码中有一个 Person 类实现了 <code>sayHello</code> 方法，有一个 Student 继承自 Person， 有一个Student 分类 Swizzling 了原来的 <code>sayHello</code>, 还有一个 Person 的分类也 Swizzling 了原来的 <code>sayhello</code> 方法。</p>
+<p>当我们生成一个 Student 类的实例并且调用 <code>sayHello</code> 方法，我们期望的输出如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="string">"person say hello"</span></div><div class="line"><span class="string">"Person + swizzle say hello"</span></div><div class="line"><span class="string">"Student + swizzle say hello"</span></div></pre></td></tr></table></figure>
+<p>但是输出有可能是这样的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="string">"person say hello"</span></div><div class="line"><span class="string">"Student + swizzle say hello"</span></div></pre></td></tr></table></figure>
+<p>出现这样的场景是由于在 <code>build Phases</code> 的 <code>compile Source</code> 顺序子类分类在父类分类之前。   </p>
+<p>我们都知道在 Objective-C 的世界里父类的 <code>+load</code> 早于子类，但是并没有限制父类的分类加载会早于子类的分类的加载，实际上这取决于编译的顺序。最终会按照编译的顺序合并进 <code>Mach-O</code> 的固定 section 内。  </p>
+<p>下面会分析下为什么代码会出现这样的场景。</p>
+<p>最开始的时候父类拥有自己的 <code>sayHello</code> 方法，子类拥有分类添加的 <code>s_sayHello</code> 方法并且在 <code>s_sayHello</code> 方法内部调用了 sel 为 <code>s_sayHello</code> 方法。 </p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/MethodSwizzling/1.png" alt=""></p>
+<p>但是子类的分类在使用上面提到的 MethodSwizzling 的方法会导致如下图的变化</p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/MethodSwizzling/2.png" alt=""></p>
+<p>由于调用了 <code>class_addMethod</code> 方法会导致重新生成一份新的Method添加到 Student 类上面 但是 sel 并没有发生变化，IMP 还是指向父类唯一的那个 IMP。<br>之后交换了子类两个方法的 IMP 指针。于是方法引用变成了如下结构。<br>其中虚线指出的是方法的调用路径。</p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/MethodSwizzling/3.png" alt=""></p>
+<p>单纯在 Swizzling 一次的时候并没有什么问题，但是我们并不能保证同事出于某种不可告人的目的的又去 Swizzling 了父类，或者是我们引入的第三库做了这样的操作。</p>
+<p>于是我们在 Person 的分类里面 Swizzling 的时候会导致方法结构发生如下变化。</p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/MethodSwizzling/4.png" alt=""></p>
+<p>我们的代码调用路径就会是下图这样，相信你已经明白了前面的代码执行结果中为什么父类在子类之后 Swizzling 其实并没有对子类 hook 到。</p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/MethodSwizzling/5.png" alt=""></p>
+<p>这只是其中一种很常见的场景，造成的影响也只是 Hook 不到父类的派生类而已，也不会造成一些严重的 Crash 等明显现象，所以大部分开发者对此种行为是毫不知情的。</p>
+<p>对于这种 Swizzling 方式的不确定性有一篇博文分析的更为全面<a href="http://yulingtianxia.com/blog/2017/04/17/Objective-C-Method-Swizzling/" target="_blank" rel="external">玉令天下的博客Objective-C Method Swizzling</a></p>
+<h2 id="换个姿势来swizzling"><a href="#换个姿势来Swizzling" class="headerlink" title="换个姿势来Swizzling"></a>换个姿势来Swizzling</h2><p>前面提到 <a href="https://github.com/rabovik/RSSwizzle/" target="_blank" rel="external">RSSwizzle</a> 是另外一种更加健壮的Swizzling方式。</p>
+<p>这里使用到了如下代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">RSSwizzleInstanceMethod([Student <span class="keyword">class</span>],</div><div class="line">                         @selector(sayHello),</div><div class="line">                         RSSWReturnType(<span class="keyword">void</span>),</div><div class="line">                         RSSWArguments(),</div><div class="line">                         RSSWReplacement(</div><div class="line">                                         &#123;</div><div class="line">                                             <span class="comment">// Calling original implementation.</span></div><div class="line">                                             RSSWCallOriginal();</div><div class="line">                                             <span class="comment">// Returning modified return value.</span></div><div class="line">                                             NSLog(@<span class="string">"Student + swizzle say hello sencod time"</span>);</div><div class="line">                                         &#125;), <span class="number">0</span>, <span class="literal">NULL</span>);</div><div class="line"></div><div class="line"> RSSwizzleInstanceMethod([Person <span class="keyword">class</span>],</div><div class="line">                         @selector(sayHello),</div><div class="line">                         RSSWReturnType(<span class="keyword">void</span>),</div><div class="line">                         RSSWArguments(),</div><div class="line">                         RSSWReplacement(</div><div class="line">                                         &#123;</div><div class="line">                                             <span class="comment">// Calling original implementation.</span></div><div class="line">                                             RSSWCallOriginal();</div><div class="line">                                             <span class="comment">// Returning modified return value.</span></div><div class="line">                                             NSLog(@<span class="string">"Person + swizzle say hello"</span>);</div><div class="line">                                         &#125;), <span class="number">0</span>, <span class="literal">NULL</span>);</div></pre></td></tr></table></figure>
+<p>由于 RS 的方式需要提供一种 Swizzling 任何类型的签名的 SEL，所以 RS 使用的是宏作为代码包装的入口，并且由开发者自行保证方法的参数个数和参数类型的正确性，所以使用起来也较为晦涩。 可能这也是他为什么这么优秀但是 star 很少的原因吧 :(。</p>
+<p>我们将宏展开</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">RSSwizzleImpFactoryBlock newImp = ^<span class="keyword">id</span>(RSSwizzleInfo *swizzleInfo) &#123;</div><div class="line">    <span class="keyword">void</span> (*originalImplementation_)(__attribute__((objc_ownership(none))) <span class="keyword">id</span>, SEL);</div><div class="line">    SEL selector_ = <span class="keyword">@selector</span>(sayHello);</div><div class="line">    <span class="keyword">return</span> ^<span class="keyword">void</span> (__attribute__((objc_ownership(none))) <span class="keyword">id</span> <span class="keyword">self</span>) &#123;</div><div class="line">        IMP xx = method_getImplementation(class_getInstanceMethod([Student <span class="keyword">class</span>], selector_));</div><div class="line">        IMP xx1 = method_getImplementation(class_getInstanceMethod(class_getSuperclass([Student <span class="keyword">class</span>]) , selector_));</div><div class="line">        IMP oriiMP = (IMP)[swizzleInfo getOriginalImplementation];</div><div class="line">            ((__<span class="keyword">typeof</span>(originalImplementation_))[swizzleInfo getOriginalImplementation])(<span class="keyword">self</span>, selector_);</div><div class="line">        <span class="comment">//只有这一行是我们的核心逻辑</span></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Student + swizzle say hello"</span>);</div><div class="line">        </div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">&#125;;</div><div class="line">[RSSwizzle swizzleInstanceMethod:<span class="keyword">@selector</span>(sayHello)</div><div class="line">                         inClass:[[Student <span class="keyword">class</span>] <span class="keyword">class</span>]</div><div class="line">                   newImpFactory:newImp</div><div class="line">                            mode:<span class="number">0</span> key:((<span class="keyword">void</span>*)<span class="number">0</span>)];;</div></pre></td></tr></table></figure>
+<p>RSSwizzle核心代码其实只有一个函数</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> swizzle(Class classToSwizzle,</div><div class="line">                    SEL selector,</div><div class="line">                    RSSwizzleImpFactoryBlock factoryBlock)</div><div class="line">&#123;</div><div class="line">    Method method = class_getInstanceMethod(classToSwizzle, selector);</div><div class="line"></div><div class="line">    __block IMP originalIMP = <span class="literal">NULL</span>;</div><div class="line"></div><div class="line"></div><div class="line">    RSSWizzleImpProvider originalImpProvider = ^IMP&#123;</div><div class="line"></div><div class="line">        IMP imp = originalIMP;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> (<span class="literal">NULL</span> == imp)&#123;</div><div class="line"></div><div class="line">            Class superclass = class_getSuperclass(classToSwizzle);</div><div class="line">            imp = method_getImplementation(class_getInstanceMethod(superclass,selector));</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> imp;</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    RSSwizzleInfo *swizzleInfo = [RSSwizzleInfo new];</div><div class="line">    swizzleInfo.selector = selector;</div><div class="line">    swizzleInfo.impProviderBlock = originalImpProvider;</div><div class="line"></div><div class="line">    <span class="keyword">id</span> newIMPBlock = factoryBlock(swizzleInfo);</div><div class="line">    </div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *methodType = method_getTypeEncoding(method);</div><div class="line">    </div><div class="line">    IMP newIMP = imp_implementationWithBlock(newIMPBlock);</div><div class="line"></div><div class="line">    originalIMP = class_replaceMethod(classToSwizzle, selector, newIMP, methodType);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上述代码已经删除无关的加锁，防御逻辑，简化理解。</p>
+<p>我们可以看到 RS 的代码其实是构造了一个 Block 里面装着我们需要的执行的代码。</p>
+<p>然后再把我们的名字叫 <code>originalImpProviderBloc</code> 当做参数传递到我们的block里面，这里面包含了对将要被 Swizzling 的原始 IMP 的调用。</p>
+<p>需要注意的是使用 <code>class_replaceMethod</code> 的时候如果一个方法来自父类，那么就给子类 add 一个方法， 并且把这个 NewIMP 设置给他，然后返回的结果是NULL。</p>
+<p>在 <code>originalImpProviderBloc</code> 里面我们注意到如果 <code>imp</code> 是 NULL的时候，是动态的拿到父类的 Method 然后去执行。</p>
+<p>我们还用图来分析代码。</p>
+<p>最开始 Swizzling 第一次的时候，由于子类不存在 <code>sayHello</code> 方法，再添加方法的时候由于返回的原始 IMP 是 NULL，所以对父类的调用是动态获取的，而不是通过之前的 sel 指针去调用。</p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/MethodSwizzling/6.png" alt=""></p>
+<p>如果我们再次对 Student Hook，由于 Student 已经有 <code>sayHello</code> 方法，这次 replace 会返回原来 IMP 的指针， 然后新的 IMP 会执被填充到 Method 的指针指向。</p>
+<p>由此可见我们的方法引用是一个链表形状的。</p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/MethodSwizzling/7.png" alt=""></p>
+<p>同理我们在 hook 父类的时候 父类的方法引用也是一个链表样式的。</p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/MethodSwizzling/8.png" alt=""></p>
+<p>相信到了这里你已经理解 RS 来 Swizzling 方式是：</p>
+<p>如果是父类的方法那么就动态查找，如果是自身的方法就构造方法引用链。来保证多次 Swizzling 的稳定性，并且不会和别人的 Swizzling 冲突。</p>
+<p>而且 RS 的实现由于不是分类的方法也不用约束开发者必须在 <code>+load</code> 方法调用才能保证安全，并且cmd 也不会发生变化。</p>
+<h1 id="其他hook方式"><a href="#其他Hook方式" class="headerlink" title="其他Hook方式"></a>其他Hook方式</h1><p>其实著名的 Hook 库还有一个叫 <a href="https://github.com/steipete/Aspects" target="_blank" rel="external">Aspect</a> 他利用的方法是把所有的方法调用指向 <code>_objc_msgForward</code> 然后自行实现消息转发的步骤，在里面自行处理参数列表和返回值，通过 NSInvocation 去动态调用。</p>
+<p>国内知名的热修复库 <code>JSPatch</code> 就是借鉴这种方式来实现热修复的。</p>
+<p>但是上面的库要求必须是最后执行的确保 Hook 的成功。 而且他不兼容其他 Hook 方式，所以技术选型的时候要深思熟虑。</p>
+<h1 id="什么时候需要swizzling"><a href="#什么时候需要Swizzling" class="headerlink" title="什么时候需要Swizzling"></a>什么时候需要Swizzling</h1><p>我记得第一次学习 AO P概念的时候是当初在学习 javaWeb 的时候 Serverlet 里面的 FilterChain，开发者可以实现各种各种的过滤器然后在过滤器中插入log， 统计， 缓存等无关主业务逻辑的功能行性代码， 著名的框架 <code>Struts2</code> 就是这样实现的。</p>
+<p>iOS 中由于 Swizzling 的 API 的简单易用性导致开发者肆意滥用，影响了项目的稳定性。<br>当我们想要 Swizzling 的时候应该思考下我们能不能利用良好的代码和架构设计来实现，或者是深入语言的特性来实现。</p>
+<h2 id="一个利用语言特性的例子"><a href="#一个利用语言特性的例子" class="headerlink" title="一个利用语言特性的例子"></a>一个利用语言特性的例子</h2><p>我们都知道在iOS8下的操作系统中通知中心会持有一个 <code>__unsafe_unretained</code> 的观察者指针。如果观察者在 dealloc 的时候忘记从通知中心中移除，之后如果触发相关的通知就会造成 Crash。 </p>
+<p>我在设计防 Crash 工具 <a href="https://github.com/ValiantCat/XXShield" target="_blank" rel="external">XXShield</a> 的时候最初是 Hook NSObjec 的 <code>dealloc</code> 方法，在里面做相应的移除观察者操作。后来一位真大佬提出这是一个非常不明智的操作，因为 dealloc 会影响全局的实例的释放，开发者并不能保证代码质量非常有保障，一旦出现问题将会引起整个 APP 运行期间大面积崩溃或异常行为。</p>
+<p>下面我们先来看下 ObjCRuntime 源码关于一个对象释放时要做的事情，代码约在<code>objc-runtime-new.mm</code>第6240行。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/***********************************************************************</span></div><div class="line">* objc_destructInstance</div><div class="line">* Destroys an instance without freeing memory. </div><div class="line">* Calls C++ destructors.</div><div class="line">* Calls ARC ivar cleanup.</div><div class="line">* Removes associative references.</div><div class="line">* Returns `obj`. Does nothing if `obj` is nil.</div><div class="line">**********************************************************************/</div><div class="line"><span class="function"><span class="keyword">void</span> *<span class="title">objc_destructInstance</span><span class="params">(id obj)</span> </span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (obj) &#123;</div><div class="line">        <span class="comment">// Read all of the flags at once for performance.</span></div><div class="line">        <span class="keyword">bool</span> cxx = obj-&gt;hasCxxDtor();</div><div class="line">        <span class="keyword">bool</span> assoc = obj-&gt;hasAssociatedObjects();</div><div class="line"></div><div class="line">        <span class="comment">// This order is important.</span></div><div class="line">        <span class="keyword">if</span> (cxx) object_cxxDestruct(obj);</div><div class="line">        <span class="keyword">if</span> (assoc) _object_remove_assocations(obj);</div><div class="line">        obj-&gt;clearDeallocating();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> obj;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/***********************************************************************</span></div><div class="line">* object_dispose</div><div class="line">* fixme</div><div class="line">* Locking: none</div><div class="line">**********************************************************************/</div><div class="line"><span class="function">id </span></div><div class="line"><span class="title">object_dispose</span><span class="params">(id obj)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!obj) <span class="keyword">return</span> nil;</div><div class="line"></div><div class="line">    objc_destructInstance(obj);    </div><div class="line">    <span class="built_in">free</span>(obj);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> nil;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的逻辑中明确了写明了一个对象在释放的时候初了调用 <code>dealloc</code> 方法，还需要断开实例上绑定的观察对象， 那么我们可以在添加观察者的时候给观察者动态的绑定一个关联对象，然后关联对象可以反向持有观察者,然后在关联对象释放的时候去移除观察者，由于不能造成循环引用所以只能选择 <code>__weak</code> 或者 <code>__unsafe_unretained</code> 的指针， 实验得知  <code>__weak</code> 的指针在 <code>dealloc</code> 之前就已经被清空， 所以我们只能使用 <code>__unsafe_unretained</code> 指针。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">XXObserverRemover</span> : <span class="title">NSObject</span> </span>&#123;</div><div class="line">    __<span class="keyword">strong</span> <span class="built_in">NSMutableArray</span> *_centers;</div><div class="line">    __<span class="keyword">unsafe_unretained</span> <span class="keyword">id</span> _obs;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">XXObserverRemover</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">instancetype</span>)initWithObserver:(<span class="keyword">id</span>)obs &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> init]) &#123;</div><div class="line">        _obs = obs;</div><div class="line">        _centers = @[].mutableCopy;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)addCenter:(<span class="built_in">NSNotificationCenter</span>*)center &#123;</div><div class="line">    <span class="keyword">if</span> (center) &#123;</div><div class="line">        [_centers addObject:center];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)dealloc &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="built_in">NSNotificationCenter</span> *center <span class="keyword">in</span> _centers) &#123;</div><div class="line">            [center removeObserver:_obs];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="keyword">void</span> addCenterForObserver(<span class="built_in">NSNotificationCenter</span> *center ,<span class="keyword">id</span> obs) &#123;</div><div class="line">    XXObserverRemover *remover = <span class="literal">nil</span>;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">char</span> removerKey;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        remover = objc_getAssociatedObject(obs, &amp;removerKey);</div><div class="line">        <span class="keyword">if</span> (!remover) &#123;</div><div class="line">            remover = [[XXObserverRemover alloc] initWithObserver:obs];</div><div class="line">            objc_setAssociatedObject(obs, &amp;removerKey, remover, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</div><div class="line">        &#125;</div><div class="line">        [remover addCenter:center];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"><span class="keyword">void</span> autoHook() &#123;</div><div class="line">    RSSwizzleInstanceMethod([<span class="built_in">NSNotificationCenter</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(addObserver:selector:name:object:),</div><div class="line">                            RSSWReturnType(<span class="keyword">void</span>), RSSWArguments(<span class="keyword">id</span> obs,SEL cmd,<span class="built_in">NSString</span> *name,<span class="keyword">id</span> obj),</div><div class="line">                            RSSWReplacement(&#123;</div><div class="line">        RSSWCallOriginal(obs,cmd,name,obj);</div><div class="line">        addCenterForObserver(<span class="keyword">self</span>, obs);</div><div class="line">    &#125;), <span class="number">0</span>, <span class="literal">NULL</span>);</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>需要注意的是在添加关联者的时候一定要将代码包含在一个自定义的 <code>AutoreleasePool</code> 内。</p>
+<p>我们都知道在 Objective-C 的世界里一个对象如果是 Autorelease 的 那么这个对象在当前方法栈结束后才会延时释放，在 ARC 环境下，一般一个 Autorelease 的对象会被放在一个系统提供的 AutoreleasePool 里面，然后AutoReleasePool drain 的时候再去释放内部持有的对象，通常情况下命令行程序是没有问题的，但是在iOS的环境中 AutoReleasePool是在 Runloop 控制下在空闲时间进行释放的，这样可以提升用户体验，避免造成卡顿，但是在我们这种场景中会有问题，我们严格依赖了观察者调用 dealloc 的时候关联对象也会去 dealloc，如果系统的 AutoReleasePool 出现了延时释放，会导致当前对象被回收之后 过段时间关联对象才会释放，这时候前文使用的 __unsafe_unretained 访问的就是非法地址。</p>
+<p>我们在添加关联对象的时候添加一个自定义的 AutoreleasePool 保证了对关联对象引用的单一性，保证了我们依赖的释放顺序是正确的。从而正确的移除观察者。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="https://github.com/rentzsch/jrswizzle" target="_blank" rel="external">JRSwizzle</a></li>
+<li><a href="https://github.com/rabovik/RSSwizzle/" target="_blank" rel="external">RSSwizzle</a></li>
+<li><a href="https://github.com/steipete/Aspects" target="_blank" rel="external">Aspect</a></li>
+<li><a href="http://yulingtianxia.com/blog/2017/04/17/Objective-C-Method-Swizzling/" target="_blank" rel="external">玉令天下的博客Objective-C Method Swizzling</a></li>
+<li><a href="https://github.com/ValiantCat/MethodSwizzlingDemo" target="_blank" rel="external">示例代码</a></li>
+</ol>
+<h1 id="友情感谢"><a href="#友情感谢" class="headerlink" title="友情感谢"></a>友情感谢</h1><p>最后感谢 <a href="sindrilin.com">骑神</a> 大佬修改我那蹩脚的文字描述。</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2017/11/04/iOS-APP-运行时防Crash工具XXShield练就/" style="float: left;">
+        ← iOS-APP-运行时防Crash工具XXShield练就
+    </a>
+    
+    
+    <a class="pull-right" href="/2017/10/30/理解Mach-O文件格式-1/">
+        理解Mach-O文件格式(1) →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2017/11/02/iOS界的毒瘤-MethodSwizzling/" data-title="iOS界的毒瘤-MethodSwizzling" data-url="http://valiantcat.com/2017/11/02/iOS界的毒瘤-MethodSwizzling/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"chachaHouse"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By 寒哥. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

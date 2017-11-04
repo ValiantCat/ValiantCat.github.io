@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>组件化-二进制方案 | 茶茶的小屋</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="茶茶的小屋">
+    <meta name="author" content="寒哥">
+    <meta name="description" content="iOS 开发， Swift，Objective-C,OC" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="茶茶的小屋" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/github.css" type="text/css">
+    
+
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <!-- <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://www.jianshu.com/users/cc1e4faec5f7" class="animsition-link">寒哥的简书</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/xinxinqiu" class="animsition-link">寒哥的CSDN</a></li>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" class="animsition-link">寒哥的Github</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">茶茶的小屋</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-05-16T03:32:19.000Z" itemprop="datePublished">
+          2017-05-16
+      </time>
+    
+</span>
+                <h1>组件化-二进制方案</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<!-- toc -->
+<ul>
+<li><a href="#为什么要做二进制">为什么要做二进制</a></li>
+<li><a href="#二进制需求">二进制需求</a></li>
+<li><a href="#二进制实施方案">二进制实施方案</a><ul>
+<li><a href="#私有库二进制方案">私有库二进制方案</a><ul>
+<li><a href="#如何制作静态库">如何制作静态库</a></li>
+<li><a href="#发布我们的二进制">发布我们的二进制</a></li>
+<li><a href="#如何lint">如何lint</a></li>
+<li><a href="#业务方更进一步的需求">业务方更进一步的需求</a></li>
+<li><a href="#后续优化">后续优化</a></li>
+</ul>
+</li>
+<li><a href="#第三方库二进制方案">第三方库二进制方案</a></li>
+</ul>
+</li>
+<li><a href="#参考">参考</a></li>
+</ul>
+<!-- tocstop -->
+<!-- index-menu -->
+<h1 id="为什么要做二进制"><a href="#为什么要做二进制" class="headerlink" title="为什么要做二进制"></a>为什么要做二进制</h1><blockquote>
+<p>随着APP业务规模越来越大，代码量的不断增多，再加上团队迭代节奏变快，开发的痛点越来越明显—编译耗时较长。目前我司代码量约40w行左右, 业务开发人员每次从git仓库拉代码都会让Xcode重新编译.不同开发机性能也不一，快的可以8min编译完，慢的则达到20min，极大的影响了开发效率。<br>另外一种需求是我们的代码对于不同的团队有不同的权限管理。我可能不希望直接发布我的源码，而是通过二进制和文档的方式提供给业务方。</p>
+</blockquote>
+<h1 id="二进制需求"><a href="#二进制需求" class="headerlink" title="二进制需求"></a>二进制需求</h1><p>既然我们想做二进制，那么我们要考虑到我们如何做，如何来衡量做出来的二进制方案的成效。<br>参考网上二进制方案和自己公司内业务开发的痛点我们列了如下的需求。</p>
+<ol>
+<li>我需要平滑的过度到二进制方案，不能对业务团队有大的影响</li>
+<li>对于二进制库，编译虽然快了，但是出现错误无法调试，我需要更快捷的切换为源码形式</li>
+<li>可以复用原来的组件仓库，不希望把二进制到处复制</li>
+<li>二进制的生成有更方便的流程</li>
+<li>我希望我的调用方不需要有奇怪的调用方式，如 ‘2.2.1 Binary’</li>
+<li>虽然Podfile是ruby代码但是很多业务方的同学不懂，不希望出现ruby逻辑，增大接入难度</li>
+<li>照例使用旧的<code>pod install</code>或者<code>pod update</code>命令，不希望有其他别的操作。</li>
+<li><p>组件提供者不希望维护多份Podspec文件</p>
+<pre><code>结合前面几篇讲解组件化-动态库的文章。我又加了一条
+</code></pre></li>
+<li>二进制是静态库，最好是静态framework。</li>
+</ol>
+<h1 id="二进制实施方案"><a href="#二进制实施方案" class="headerlink" title="二进制实施方案"></a>二进制实施方案</h1><p>公司的库无非就2种:</p>
+<ol>
+<li>第三方库</li>
+<li>自己开发的私有库<br>下面分别讲解</li>
+</ol>
+<h2 id="私有库二进制方案"><a href="#私有库二进制方案" class="headerlink" title="私有库二进制方案"></a>私有库二进制方案</h2><h3 id="如何制作静态库"><a href="#如何制作静态库" class="headerlink" title="如何制作静态库"></a>如何制作静态库</h3><p>首先我们肯定是有源码才有的二进制。前面的需求也提到了组件维护者需要很容易的得到二进制库。首先想到的就是写脚本，但是脚本肯定依赖于模板工程，然后配置源文件，配置资源文件，配置依赖。又是工作量~~。所幸，CocoaPods已经有一个插件<a href="https://github.com/CocoaPods/cocoapods-packager" target="_blank" rel="external">cocoapods-packager</a>帮我们提供这个功能。<br>安装很简单执行下面命令<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gem install cocoapods-packager</div></pre></td></tr></table></figure></p>
+<p>那么我们前面提到的配置源文件，配置依赖，配置资源文件，其实有一个东西 我们已经做过了。那就是我们对外发布的PodSpec文件。<br>那么打包一个库也很简单<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">➜  0.0.4 git:(master) ✗ pod package --help</div><div class="line">Usage:</div><div class="line"></div><div class="line">    $ pod package NAME [SOURCE]</div><div class="line"></div><div class="line">      Package a podspec into a static library.</div><div class="line"></div><div class="line">Options:</div><div class="line"></div><div class="line">    --force                                                         Overwrite existing</div><div class="line">                                                                    files.</div><div class="line">    --no-mangle                                                     Do not mangle</div><div class="line">                                                                    symbols of</div><div class="line">                                                                    depedendant Pods. </div><div class="line">    --embedded                                                      Generate embedded</div><div class="line">                                                                    frameworks.</div><div class="line">    --library                                                       Generate static</div><div class="line">                                                                    libraries.</div><div class="line">    --dynamic                                                       Generate dynamic</div><div class="line">                                                                    framework.</div><div class="line">    --bundle-identifier                                             Bundle identifier</div><div class="line">                                                                    <span class="keyword">for</span> dynamic</div><div class="line">                                                                    framework</div><div class="line">    --exclude-deps                                                  Exclude symbols</div><div class="line">                                                                    from dependencies.</div><div class="line">    --configuration                                                 Build the</div><div class="line">                                                                    specified</div><div class="line">                                                                    configuration</div><div class="line">                                                                    (e.g. Debug).</div><div class="line">                                                                    Defaults to</div><div class="line">                                                                    Release</div><div class="line">    --subspecs                                                      Only include the</div><div class="line">                                                                    given subspecs</div><div class="line">    --spec-sources=private,https://github.com/CocoaPods/Specs.git   The sources to</div><div class="line">                                                                    pull dependant</div><div class="line">                                                                    pods from</div><div class="line">                                                                    (defaults to</div><div class="line">                                                                    https://github.com/CocoaPods/Specs.git)</div></pre></td></tr></table></figure></p>
+<p>以下是一个简单的demo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod package LJStability.podspec --embedded</div></pre></td></tr></table></figure></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%B9%E6%A1%88/packageaLib.png" alt=""></p>
+<p>接下来将这个二进制文件放在我们的源码仓库即可</p>
+<h3 id="发布我们的二进制"><a href="#发布我们的二进制" class="headerlink" title="发布我们的二进制"></a>发布我们的二进制</h3><p>我们解决了如何快速制作二进制库，那么如何发布呢？<br>网上很多方案是在podspec写判断条件，然后通过特殊的install/update方式去使用。在我们这边的实践情况来看，这套方案有几个弊端。</p>
+<ol>
+<li>使用这些库让业务方改变了使用pod的方式</li>
+<li>切换源码还是二进制是全局的，我无法做到只切换某个组件为源码形式。</li>
+<li>CocoaPods自身会给我们的install/update做缓存，本来是好事，但是现在变成了负担，我们要频繁的清理缓存，造成了下次install/update缓慢。</li>
+</ol>
+<p>那么我们能不能一个PodSpec发布多个子pod呢，当然是支持的，CocoaPods官方文档介绍了subspec这个东西。这个subspec原本是做更细程度的模块划分，并且这些模块间是不能有互相依赖的(可以单向)，换个想法既然都互相依赖了那就说明这些模块是无法做到更详细的拆解的就不适合拆分做subspec。关于Subspec做的比较好的有2个库 <a href="https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking.podspec" target="_blank" rel="external">AFNetworking.podspec</a>和<a href="https://github.com/rs/SDWebImage/blob/master/SDWebImage.podspec" target="_blank" rel="external">SDWebImage.podspec</a><br>那么我们可以指定做2个subspec一个叫做framework一个叫做source，指定默认的为framework即可，那么我在使用的时候有下面两种引入方法<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pod <span class="string">'Test'</span> <span class="comment"># 这会默认导入二进制库</span></div><div class="line">pod <span class="string">'Test/source'</span> 这会导入源码</div></pre></td></tr></table></figure></p>
+<p>下面是podspec书写<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">Pod::Spec.new <span class="keyword">do</span> <span class="params">|s|</span></div><div class="line">s.name             = <span class="string">"LJStability"</span></div><div class="line">s.version          = <span class="string">"0.0.5"</span></div><div class="line">s.summary          = <span class="string">"链家网防Crash组件"</span></div><div class="line">s.description      = <span class="string">"链家网防Crash组件支持7种Crash防护 \</span></div><div class="line">1. unrecoginzed Selector Crash \</div><div class="line">2. KVO Crash \</div><div class="line">3. Container Crash \</div><div class="line">4. NSNotification Crash \</div><div class="line">5. NSNull Crash \ </div><div class="line">6. NSTimer Crash \</div><div class="line">7. 野指针 Crash  "</div><div class="line"></div><div class="line"></div><div class="line">s.license          = &#123;<span class="symbol">:type</span> =&gt; <span class="string">'MIT'</span>, <span class="symbol">:file</span> =&gt; <span class="string">'LICENSE'</span>&#125;</div><div class="line">s.homepage         = <span class="string">'xx.git'</span></div><div class="line">s.author           = &#123; <span class="string">"author"</span> =&gt; <span class="string">"xx@lianjia.com"</span> &#125;</div><div class="line">s.source           = &#123; <span class="symbol">:git</span> =&gt; <span class="string">"http://git.xx.git"</span>, <span class="symbol">:commit</span> =&gt; <span class="string">""</span> &#125;</div><div class="line"></div><div class="line">s.platform              = <span class="symbol">:ios</span>, <span class="string">'7.0'</span></div><div class="line">s.ios.deployment_target = <span class="string">'7.0'</span></div><div class="line"></div><div class="line"></div><div class="line">  s.default_subspec = <span class="string">'framework'</span></div><div class="line">  s.subspec <span class="string">'source'</span> <span class="keyword">do</span> <span class="params">|source|</span></div><div class="line">    source.source_files = <span class="string">'LJStability/LJStability/Classes/**/*'</span></div><div class="line"></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  s.subspec <span class="string">'framework'</span> <span class="keyword">do</span> <span class="params">|framework|</span></div><div class="line"></div><div class="line">    framework.ios.vendored_frameworks = <span class="string">'LJStability/Pod/*.framework'</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># dependencys</span></div><div class="line">s.dependency <span class="string">'Crashlytics'</span></div><div class="line">s.dependency <span class="string">'JRSwizzle'</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%B9%E6%A1%88/useFramework.png" alt=""><br><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%B9%E6%A1%88/useSource.png" alt=""><br>通过上面的方案我们解决了前面所说的三个问题。业务方正常使用install/update即可，我可以动态切换部分组件到源码形式，我也不用总是频繁的清理pod的缓存。</p>
+<h3 id="如何lint"><a href="#如何lint" class="headerlink" title="如何lint"></a>如何lint</h3><p>我们为了保证将要发布的podspec是正确的，会有lint(校验)这个步骤<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">➜  ~ pod spec lint --help</div><div class="line">Usage:</div><div class="line"></div><div class="line">    $ pod spec lint [NAME.podspec|DIRECTORY|http://PATH/NAME.podspec ...]</div><div class="line"></div><div class="line">      Validates `NAME.podspec`. If a `DIRECTORY` is provided, it validates the podspec</div><div class="line">      files found, including subfolders. In case the argument is omitted, it defaults</div><div class="line">      to the current working dir.</div><div class="line"></div><div class="line">Options:</div><div class="line"></div><div class="line">    --quick                                           Lint skips checks that would</div><div class="line">                                                      require to download and build</div><div class="line">                                                      the spec</div><div class="line">    --allow-warnings                                  Lint validates even if warnings</div><div class="line">                                                      are present</div><div class="line">    --subspec=NAME                                    Lint validates only the given</div><div class="line">                                                      subspec</div><div class="line">    --no-subspecs                                     Lint skips validation of</div><div class="line">                                                      subspecs</div><div class="line">    --no-clean                                        Lint leaves the build directory</div><div class="line">                                                      intact for inspection</div><div class="line">    --fail-fast                                       Lint stops on the first failing</div><div class="line">                                                      platform or subspec</div><div class="line">    --use-libraries                                   Lint uses static libraries to</div><div class="line">                                                      install the spec</div><div class="line">    --sources=https://github.com/artsy/Specs,master   The sources from which to pull</div><div class="line">                                                      dependent pods (defaults to</div><div class="line">                                                      https://github.com/CocoaPods/Specs.git).</div><div class="line">                                                      Multiple sources must be</div><div class="line">                                                      comma-delimited.</div><div class="line">    --private                                         Lint skips checks that apply</div><div class="line">                                                      only to public specs</div><div class="line">    --swift-version=VERSION                           The SWIFT_VERSION that should be</div><div class="line">                                                      used to lint the spec. This</div><div class="line">                                                      takes precedence over a</div><div class="line">                                                      .swift-version file.</div><div class="line">    --skip-import-validation                          Lint skips validating that the</div><div class="line">                                                      pod can be imported</div><div class="line">    --silent                                          Show nothing</div><div class="line">    --verbose                                         Show more debugging information</div><div class="line">    --no-ansi                                         Show output without ANSI codes</div><div class="line">    --help</div></pre></td></tr></table></figure></p>
+<p>之前我们校验一个podspec文件是否书写正确可能只是简单的加上文件名即可，不过有了subspec我们就要关心这些参数了 ，如果使用了上文说的工作方式，那么我们就要分别校验2个subspec了，并且由于我们制作的是静态库，需要加上<code>--use-libraries</code> 默认情况下使用的是<code>use_framework!</code>模式。</p>
+<h3 id="业务方更进一步的需求"><a href="#业务方更进一步的需求" class="headerlink" title="业务方更进一步的需求"></a>业务方更进一步的需求</h3><p>本来到了这里，我们的教程基本结束了，但是业务方提了新需求，上文的截图中我们看到，我们发布的源码是没有文件夹组织结构的，业务方同学说，我能不能更好的组织下文件夹结构，这样方便我调试。<br>这里的解决办法其实也很简单，将subspec分为2大部分，1是private的subspec用于组织文件夹结构，2是public的subspec如 framework和source用于供调用方使用。<br>以下是一个例子<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line">Pod::SPod::Spec.new <span class="keyword">do</span> <span class="params">|s|</span></div><div class="line">s.name             = <span class="string">"LJStability"</span></div><div class="line">s.version          = <span class="string">"0.0.5"</span></div><div class="line">s.summary          = <span class="string">"链家网防Crash组件"</span></div><div class="line">s.description      = <span class="string">"链家网防Crash组件支持7种Crash防护 \</span></div><div class="line">1. unrecoginzed Selector Crash \</div><div class="line">2. KVO Crash \</div><div class="line">3. Container Crash \</div><div class="line">4. NSNotification Crash \</div><div class="line">5. NSNull Crash \ </div><div class="line">6. NSTimer Crash \</div><div class="line">7. 野指针 Crash  "</div><div class="line"></div><div class="line"></div><div class="line">s.license          = &#123;<span class="symbol">:type</span> =&gt; <span class="string">'MIT'</span>, <span class="symbol">:file</span> =&gt; <span class="string">'LICENSE'</span>&#125;</div><div class="line">s.homepage         = <span class="string">'xx.git'</span></div><div class="line">s.author           = &#123; <span class="string">"author"</span> =&gt; <span class="string">"xx@lianjia.com"</span> &#125;</div><div class="line">s.source           = &#123; <span class="symbol">:git</span> =&gt; <span class="string">"http://git.xx.git"</span>, <span class="symbol">:commit</span> =&gt; <span class="string">""</span> &#125;</div><div class="line"></div><div class="line">s.platform              = <span class="symbol">:ios</span>, <span class="string">'7.0'</span></div><div class="line">s.ios.deployment_target = <span class="string">'7.0'</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">  s.default_subspec = <span class="string">'framework'</span></div><div class="line"></div><div class="line"><span class="comment">#public</span></div><div class="line">  s.subspec <span class="string">'source'</span> <span class="keyword">do</span> <span class="params">|source|</span></div><div class="line"></div><div class="line"></div><div class="line">    source.dependency <span class="string">'LJStability/SDK'</span></div><div class="line">    source.dependency <span class="string">'LJStability/FoundationContainer'</span></div><div class="line">    source.dependency <span class="string">'LJStability/KVO'</span></div><div class="line">    source.dependency <span class="string">'LJStability/Notification'</span></div><div class="line">    source.dependency <span class="string">'LJStability/NSNull'</span></div><div class="line">    source.dependency <span class="string">'LJStability/NSTimer'</span></div><div class="line">    source.dependency <span class="string">'LJStability/SmartKit'</span></div><div class="line">    source.dependency <span class="string">'LJStability/DanglingPointerStability'</span></div><div class="line">    source.dependency <span class="string">'LJStability/Record'</span></div><div class="line"></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  s.subspec <span class="string">'framework'</span> <span class="keyword">do</span> <span class="params">|framework|</span></div><div class="line"></div><div class="line">    framework.ios.vendored_frameworks = <span class="string">'Pod/*.framework'</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  </div><div class="line"><span class="comment">#  private</span></div><div class="line">  s.subspec <span class="string">'SDK'</span> <span class="keyword">do</span> <span class="params">|sdk|</span></div><div class="line">    sdk.source_files = <span class="string">'LJStability/Classes/*'</span></div><div class="line">    sdk.requires_arc = <span class="literal">true</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  s.subspec <span class="string">'FoundationContainer'</span> <span class="keyword">do</span> <span class="params">|foundationContainer|</span></div><div class="line">    foundationContainer.requires_arc = <span class="literal">true</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  s.subspec <span class="string">'KVO'</span> <span class="keyword">do</span> <span class="params">|kvo|</span></div><div class="line"> </div><div class="line">    kvo.requires_arc = <span class="literal">true</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  s.subspec <span class="string">'Notification'</span> <span class="keyword">do</span> <span class="params">|notification|</span></div><div class="line">    notification.requires_arc = <span class="literal">true</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  s.subspec <span class="string">'NSNull'</span> <span class="keyword">do</span> <span class="params">|nSNull|</span></div><div class="line"></div><div class="line">    nSNull.requires_arc = <span class="literal">true</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  s.subspec <span class="string">'NSTimer'</span> <span class="keyword">do</span> <span class="params">|nSTimer|</span></div><div class="line"></div><div class="line">    nSTimer.requires_arc = <span class="literal">true</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  s.subspec <span class="string">'SmartKit'</span> <span class="keyword">do</span> <span class="params">|smartKit|</span></div><div class="line"></div><div class="line">    smartKit.requires_arc = <span class="literal">true</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  s.subspec <span class="string">'DanglingPointerStability'</span> <span class="keyword">do</span> <span class="params">|danglingPointerStability|</span></div><div class="line"></div><div class="line">  <span class="keyword">end</span></div><div class="line">  s.subspec <span class="string">'Record'</span> <span class="keyword">do</span> <span class="params">|record|</span></div><div class="line">    record.requires_arc = <span class="literal">true</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">      <span class="comment"># dependencys</span></div><div class="line">      s.dependency <span class="string">'Crashlytics'</span></div><div class="line">      s.dependency <span class="string">'JRSwizzle'</span></div><div class="line"></div><div class="line"></div><div class="line">  <span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>上面的关于公司内部文件我删除了，以上部分只是一份参考。<br>调用方如图<br><img src="http://ompeszjl2.bkt.clouddn.com/%E7%BB%84%E4%BB%B6%E5%8C%96-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%B9%E6%A1%88/usedependencySubspec.png" alt=""></p>
+<h3 id="后续优化"><a href="#后续优化" class="headerlink" title="后续优化"></a>后续优化</h3><p>至此，我们的私有库组件二进制的方案已经演示完毕。<br>这里我要总结下我的看法 :<br>    CocoaPods只是一个工具，我们在使用的时候要么把这个工具用的熟练到极致，要么我们修改这个工具创造出更适合的工具。<br><code>强烈建议学下ruby，自己去定制CocoaPods</code><br>不过我们上面的教程虽然给业务方解决了问题，但是其中还是有很多人工成本在里面的，人工编写podspec文件，人工打包静态库，人工lint podspec。这些都是重复性且没有技术含量的工作。<br>所以我们后续优化的点有以下:</p>
+<ol>
+<li>根据规范自动的生成podspec文件</li>
+<li>自动的打包静态库</li>
+<li>更新podspec文件的多个subspec</li>
+<li>自动校验podspec的文件是否正确</li>
+</ol>
+<h2 id="第三方库二进制方案"><a href="#第三方库二进制方案" class="headerlink" title="第三方库二进制方案"></a>第三方库二进制方案</h2><p>关于第三方库，由于podspec文件并不在我们控制，所以我们不能自己去发布并且修改podspec,网上有的方案是使用prepare_command。文后有参考链接这里不做讨论了。<br>但是可以预见的随着公司规模的扩大，我们最好的做法就是对于第三方代码和podspec文件完全做镜像。我们自己控制这些库，也就不存在第三方库一说了。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="http://mdsb100-xiabigao.daoapp.io/2016/07/15/ios-cocoapodszu-jian-ping-hua-er-jin-zhi-hua-fang-an-ji-xiang-xi-jiao-cheng/" target="_blank" rel="external">CocoaPods组件平滑二进制化解决方案 ​​​​</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzIwMTYzMzcwOQ==&amp;mid=2650948341&amp;idx=1&amp;sn=bf12097fe33d3bb553fab040a394eab6&amp;mpshare=1&amp;scene=23&amp;srcid=0515n9WefWwsmEZQMGRdWcqN#rd" target="_blank" rel="external">Pod 预编译，减少不必要的生命浪费</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzIwMTYzMzcwOQ==&amp;mid=2650948487&amp;idx=1&amp;sn=213a822249d48feae28a7aff182cd295&amp;chksm=8d1c1945ba6b9053e189b7f4b5d16e95cc18e61ac12f93f81bd778f1df981fc6341f9d7071a0&amp;mpshare=1&amp;scene=23&amp;srcid=0515bBA7snAAtOREqJNYAU9Q#rd" target="_blank" rel="external">I have a pod, I have a carthage, En…</a></li>
+<li><a href="https://imfong.com/post/Talk-iOS-Library-Binary-Practice" target="_blank" rel="external">谈谈CocoaPods组件二进制化方案</a></li>
+</ol>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2017/05/24/CocoaPods使用详解/" style="float: left;">
+        ← CocoaPods使用详解
+    </a>
+    
+    
+    <a class="pull-right" href="/2017/05/15/组件化-动态库实战续/">
+        组件化-动态库实战续 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2017/05/16/组件化-二进制方案/" data-title="组件化-二进制方案" data-url="http://valiantcat.com/2017/05/16/组件化-二进制方案/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"chachaHouse"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By 寒哥. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

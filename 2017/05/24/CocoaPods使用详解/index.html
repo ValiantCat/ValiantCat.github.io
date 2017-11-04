@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>CocoaPods使用详解 | 茶茶的小屋</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="茶茶的小屋">
+    <meta name="author" content="寒哥">
+    <meta name="description" content="iOS 开发， Swift，Objective-C,OC" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="茶茶的小屋" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/github.css" type="text/css">
+    
+
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <!-- <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://www.jianshu.com/users/cc1e4faec5f7" class="animsition-link">寒哥的简书</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/xinxinqiu" class="animsition-link">寒哥的CSDN</a></li>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" class="animsition-link">寒哥的Github</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">茶茶的小屋</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-05-24T09:38:11.000Z" itemprop="datePublished">
+          2017-05-24
+      </time>
+    
+</span>
+                <h1>CocoaPods使用详解</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<h1 id="cocoapods是什么"><a href="#CocoaPods是什么" class="headerlink" title="CocoaPods是什么"></a>CocoaPods是什么</h1><blockquote>
+<p> 在Objective-C时代，开发iOS项目是没有官方支持的包管理工具的。不过有一些极客帮我们做了一个管理工具就是CocoaPods，随着第三库上传到CocoaPods上的数量井喷式增长，CocoaPods已经是iOS项目依赖管理事实上的标准，以下简称<code>Pods</code>。<br>鉴于公司内部很多开发人员都需要使用CocoaPods-包括使用Pods管理依赖，发布自己的SDK，所以有必要梳理一下CocoaPods相关的使用，其中不涉及到CocoaPods是如何设计并实现的。</p>
+</blockquote>
+<h1 id="cocoapods-工作流程"><a href="#CocoaPods-工作流程" class="headerlink" title="CocoaPods 工作流程"></a>CocoaPods 工作流程</h1><p><img src="http://ompeszjl2.bkt.clouddn.com/CocoaPods%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/CocoaPodsWorkFlow.png" alt=""></p>
+<p>以下是各个组成部分的介绍:<br>源码仓库是开发者源代码存放的位置。<br>Spec仓库是存放描述对其他开发者提供Pod的描述文件的位置。<br>LocalSpec仓库是对应远程Spec的镜像，主要用来本地加速索引，查找等功能。<br>PodCache一般是用于缓存下载下来的第三方Pods所提供的文件，加速下次安装。<br>PodsIndex用于对所有的Pods建立索引加快查找可使用库，版本号相关的信息。<br>ShellProject是开发使用的工程。</p>
+<h1 id="一次完整工作流的举例"><a href="#一次完整工作流的举例" class="headerlink" title="一次完整工作流的举例"></a>一次完整工作流的举例</h1><p>SDK(如AFNetworking)提供者Andy提交自己的源代码到某个代码仓库，经过一段时间测试，Andy决定发布一个SDK来装逼，于是Andy编写了一个自己SDK的描述文件(Podspec/.json)文件，校验完成后Andy将这个文件push到Spec仓库上。</p>
+<p>某程序员 Jack开发一项功能时发现了一个用着比较方便的库，于是他安装了CocoaPods，第一次安装的时候Pods镜像了远程Spec仓库，并且建立了索引文件。Jack通过 <code>Pod Search XX</code>发现这个库，在自己项目的<code>Podfile</code>里面引入了这个库，通过<code>Pod install</code>命令安装了这个库，同时为了加速下次使用Pods帮Jack在本地缓存了这些已经下载的文件。</p>
+<h1 id="发布自己的pod"><a href="#发布自己的Pod" class="headerlink" title="发布自己的Pod"></a>发布自己的Pod</h1><h2 id="创建sdk"><a href="#创建SDK" class="headerlink" title="创建SDK"></a>创建SDK</h2><p>对于源码仓库，每个开发者都不会陌生，通常情况下我们只需要在某个仓库直接开发我们的SDK然后编辑我们的Podspec描述文件即可，但是不建议这样做，因为一开始我们在一个项目中直接开发，到最后编写描述描述文件的时候，由于环境的变更，最后校验可能会产生很多问题，所以最好的是就是我们的SDK和我们的SDKExapmle工程就是隔离的。幸运的是CocoaPods官方本来就是支持创建这样的工程的。<br><img src="http://ompeszjl2.bkt.clouddn.com/CocoaPods%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/createSDK.gif" alt=""><br>文件结构如下<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">── Example</div><div class="line">│   ├── Podfile</div><div class="line">│   ├── Podfile.lock</div><div class="line">│   ├── Pods</div><div class="line">│   ├── Test</div><div class="line">│   ├── Test.xcodeproj</div><div class="line">│   └── Tests</div><div class="line">├── LICENSE</div><div class="line">├── README.md</div><div class="line">├── Test</div><div class="line">│   ├── Assets</div><div class="line">│   └── Classes</div><div class="line">│       └── ReplaceMe.m</div><div class="line">├── Test.podspec</div><div class="line">└── _Pods.xcodeproj -&gt; Example/Pods/Pods.xcodeproj</div></pre></td></tr></table></figure></p>
+<p>与之相关的命令还有<code>pod lib lint</code> 用于校验我们开发的库是否正确。需要主要的是这个命令测试的是开发中的Pod，并不能保证发布后的Podspec文件是否正确。所以也不建议使用。<br>打开我们的测试工程如下<br><img src="http://ompeszjl2.bkt.clouddn.com/CocoaPods%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/developmentPod.png" alt=""><br>这时候我们如果新建文件，测试工程需要重新install才能正常引用，需要注意的是如果我们开发的SDK依赖于其他外部SDK，我们需要在Podspec文件中描述依赖关系，然后重新install，不能直接在测试工程添加，这样无法保证最后发布的SDK环境的正确性。</p>
+<h2 id="校验podspec"><a href="#校验Podspec" class="headerlink" title="校验Podspec"></a>校验Podspec</h2><p>源码开发到一定阶段的时候，我们需要发布我们的SDK，第一步就是校验，相关命令如下:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">➜  Test git:(master) ✗ pod spec </div><div class="line">Usage:</div><div class="line"></div><div class="line">    $ pod spec COMMAND</div><div class="line"></div><div class="line">      Manage pod specs</div><div class="line"></div><div class="line">Commands:</div><div class="line"></div><div class="line">    + cat       Prints a spec file</div><div class="line">    + create    Create spec file stub.</div><div class="line">    + edit      Edit a spec file</div><div class="line">    + lint      Validates a spec file</div><div class="line">    + <span class="built_in">which</span>     Prints the path of the given spec</div></pre></td></tr></table></figure></p>
+<p>最主要的就是 <code>pod spec lint</code><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">➜  Test git:(master) ✗ pod spec lint --help</div><div class="line">Usage:</div><div class="line"></div><div class="line">    $ pod spec lint [NAME.podspec|DIRECTORY|http://PATH/NAME.podspec ...]</div><div class="line"></div><div class="line">      Validates `NAME.podspec`. If a `DIRECTORY` is provided, it validates the podspec</div><div class="line">      files found, including subfolders. In <span class="keyword">case</span> the argument is omitted, it defaults</div><div class="line">      to the current working dir.</div><div class="line"></div><div class="line">Options:</div><div class="line"></div><div class="line">    --quick                                           Lint skips checks that would</div><div class="line">                                                      require to download and build</div><div class="line">                                                      the spec</div><div class="line">    --allow-warnings                                  Lint validates even <span class="keyword">if</span> warnings</div><div class="line">                                                      are present</div><div class="line">    --subspec=NAME                                    Lint validates only the given</div><div class="line">                                                      subspec</div><div class="line">    --no-subspecs                                     Lint skips validation of</div><div class="line">                                                      subspecs</div><div class="line">    --no-clean                                        Lint leaves the build directory</div><div class="line">                                                      intact <span class="keyword">for</span> inspection</div><div class="line">    --fail-fast                                       Lint stops on the first failing</div><div class="line">                                                      platform or subspec</div><div class="line">    --use-libraries                                   Lint uses static libraries to</div><div class="line">                                                      install the spec</div><div class="line">    --sources=https://github.com/artsy/Specs,master   The sources from <span class="built_in">which</span> to pull</div><div class="line">                                                      dependent pods (defaults to</div><div class="line">                                                      https://github.com/CocoaPods/Specs.git).</div><div class="line">                                                      Multiple sources must be</div><div class="line">                                                      comma-delimited.</div><div class="line">    --private                                         Lint skips checks that apply</div><div class="line">                                                      only to public specs</div><div class="line">    --swift-version=VERSION                           The SWIFT_VERSION that should be</div><div class="line">                                                      used to lint the spec. This</div><div class="line">                                                      takes precedence over a</div><div class="line">                                                      .swift-version file.</div><div class="line">    --skip-import-validation                          Lint skips validating that the</div><div class="line">                                                      pod can be imported</div><div class="line">    --silent                                          Show nothing</div><div class="line">    --verbose                                         Show more debugging information</div><div class="line">    --no-ansi                                         Show output without ANSI codes</div><div class="line">    --help                                            Show <span class="built_in">help</span> banner of specified</div><div class="line">                                                      <span class="built_in">command</span></div></pre></td></tr></table></figure></p>
+<p>其中需要注意的是校验这一步默认使用的是 <code>use_framework!</code>形式，鉴于之前我们组件化中的规定，不允许开发动态库，所以我们一般要加上<code>--use-libraries</code>，其他选项视情况而定。</p>
+<h2 id="发布到远程spec仓库"><a href="#发布到远程Spec仓库" class="headerlink" title="发布到远程Spec仓库"></a>发布到远程Spec仓库</h2><p>关于 仓库相关的命令如下<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">  Test git:(master) ✗ pod repo --help</div><div class="line">Usage:</div><div class="line"></div><div class="line">    $ pod repo [COMMAND]</div><div class="line"></div><div class="line">      Manage spec-repositories</div><div class="line"></div><div class="line">Commands:</div><div class="line"></div><div class="line">    + add       Add a spec repo</div><div class="line">    + lint      Validates all specs <span class="keyword">in</span> a repo</div><div class="line">    &gt; list      List repos</div><div class="line">    + push      Push new specifications to a spec-repo</div><div class="line">    + remove    Remove a spec repo</div><div class="line">    + update    Update a spec repo</div></pre></td></tr></table></figure></p>
+<p>我们可以在本地添加源，管理源，还可以发布我们的SDK，不过需要注意的是由于我们的私有Spec仓库需要Code Review的权限。所以这些不适合我们的开发环境。<br>需要注意的是私有Spec源是如何管理我们的各种SDK的描述文件的，<br>官方给得文件结构如下<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── Specs</div><div class="line">    └── [SPEC_NAME]</div><div class="line">        └── [VERSION]</div><div class="line">            └── [SPEC_NAME].podspec</div></pre></td></tr></table></figure></p>
+<p>所以我们只要校验我们的Podspec文件。然后按照合适的的文件夹结构去存放并且push到我们私有的仓库即可。举例如下 <code>Test  |____1.0.0 |____Test.podspec</code>即可。</p>
+<h1 id="使用私有的sdk"><a href="#使用私有的SDK" class="headerlink" title="使用私有的SDK"></a>使用私有的SDK</h1><h2 id="添加其他源"><a href="#添加其他源" class="headerlink" title="添加其他源"></a>添加其他源</h2><p>在Podfile如果需要引入私有的SDK，需要指定私有源，并且需要同时添加共有源，否则CocoaPods无法检索到，代码如下<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">source <span class="string">'https://github.com/artsy/Specs.git'</span></div><div class="line">source <span class="string">'https://github.com/CocoaPods/Specs.git'</span></div></pre></td></tr></table></figure></p>
+<h2 id="pod-install-vs-pod-update"><a href="#Pod-install-VS-pod-update" class="headerlink" title="Pod install VS pod update"></a>Pod install VS pod update</h2><ul>
+<li>pod instll</li>
+</ul>
+<p>无论是否是第一次使用，install 命令在于安装新的 第三方库，注意的是在CocoaPods1.0版本后，install命令并不会让 Spec Repo仓库发生更新，所以install的库可能并不是最新版本。</p>
+<ul>
+<li>pod update</li>
+</ul>
+<p>update 命令可以更新第三库，不带参数默认更新全部。并且会引起先更新 Spec Repo.</p>
+<p>Q： Pod install 做了什么？<br>A:  每一次编辑Podfile,无论是删除 还是新增都需要重新install。这个命令会把所有安装的Pods的版本信息写进 Podfile.lock 文件。这个文件保证这些库的版本正确。并且只会锁定不在Podfile.lock里面的版本信息。其他Pods保持Podfile.locks文件中锁定的版本号。</p>
+<p>Q: Pod update 做了什么？<br>A： 当运行update命令时，CocoaPods会忽略Podfile.lock里面的版本，并且帮我们寻找到最接近Podfile里面描述的版本，然后重新把最新版本写进Podfile.lock文件。<br>并且这个命令不会帮我们安装我们新加入的Pod</p>
+<h2 id="其他补充"><a href="#其他补充" class="headerlink" title="其他补充"></a>其他补充</h2><ul>
+<li><p>pod outdated</p>
+<p>可以列出当然Podfile里面安装的Pod且能够升级新版本的Pod列表。</p>
+</li>
+<li><p>为了保证多人协同开发，请保证Podfile.lock 加入版本控制</p>
+</li>
+<li><p>pod deintegrate<br>  Pod是一种集中式包管理的工具，并且会侵入工程，这个命令可以让外面你的项目恢复到集成CocoaPods之前。</p>
+</li>
+</ul>
+<h1 id="podsindex-和-podcache"><a href="#PodsIndex-和-PodCache" class="headerlink" title="PodsIndex 和 PodCache"></a>PodsIndex 和 PodCache</h1><p>PodsIndex是为了加快我们搜索的，存放路径为<code>~/Library/Caches/CocoaPods/search_index.json</code>。<br>Pod Cache可以帮助我们管理已有的缓存，文件路径存放如下<code>/Library/Caches/CocoaPods/Pods</code>。需要注意的是如果想清空所有缓存，删除此文件或者使用命令删除都可，但是如果只是要删除单个Pod的缓存，建议使用命令，因为在某个Pod的podspec文件和源文件是分开管理的。</p>
+<h1 id="关于podspec更多讲解"><a href="#关于Podspec更多讲解" class="headerlink" title="关于Podspec更多讲解"></a>关于Podspec更多讲解</h1><p><code>spec.frameworks</code>  VS  <code>spec.library</code> VS <code>spec.dependency</code> VS <code>spec.vendored_libraries</code> VS <code>spec.vendored_frameworks</code></p>
+<p><code>dependency</code> 描述的是此Pod依赖的外部Pod。<br><code>spec.frameworks</code>和<code>spec.library</code>描述的为此Pod依赖系统的库。<br>librarary这个指静态库，且不能带<code>lib</code>前缀和<code>.a</code>后缀, 按照C语言共享库的规范。CocoaPods会自动补全。<br>frameworks指以framework打包的静态库或者动态库，不能添加<code>.framework</code>后缀。<br><code>vendored_libraries</code>是指开发SDK的人直接提供的二进制静态库，需要完整的匹配到文件。<br><code>vendored_frameworks</code>是指开发SDK的人直接提供的Framwork形式的库，需要完整的匹配到文件。</p>
+<hr>
+<p><code>subspec</code>不要出现互相依赖，并且不建议使用subspec。</p>
+<h1 id="其他奇技淫巧"><a href="#其他奇技淫巧" class="headerlink" title="其他奇技淫巧"></a>其他奇技淫巧</h1><ul>
+<li><p>加快校验过程<br>发布我们的SDK的这一过程为了保证我们的Pods环境配置正确，需要 lint这一过程，但是这一过程非常缓慢，消耗时间。前面说到了我们会在本地建立一个远程Spec仓库的镜像(其实就是把远程的仓库 clone下来)。我们完全可以直接在本地仓库修改我们自己的Podspec文件，然后在本地使用某个测试工程直接去 <code>pod install</code>.加快lint效率。</p>
+</li>
+<li><p>永远只新增版本<br>这条建议是在实践中发现，由于大家大都初次开发Pod，会有很多地方考虑不到位，很多同学直接发现出错之后，并没有新增版本，而是直接改掉某些配置，接入Pod的同学重新install发现 内容并没有发生变化，原因是本地有Cache，且版本号没有发生变化，极易导致无法定位问题。</p>
+</li>
+</ul>
+<h1 id="自动化"><a href="#自动化" class="headerlink" title="自动化"></a>自动化</h1><p>前面已经讲解完了关于CocoaPod使用和发布。其中很多部分人为操作，非常耗时，我们可以借助自动化工具<br><img src="http://ompeszjl2.bkt.clouddn.com/CocoaPods%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/fastlane_text.png" alt="fastlane"></p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2017/09/17/iOS-从中级到中级/" style="float: left;">
+        ← iOS 从中级到中级
+    </a>
+    
+    
+    <a class="pull-right" href="/2017/05/16/组件化-二进制方案/">
+        组件化-二进制方案 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2017/05/24/CocoaPods使用详解/" data-title="CocoaPods使用详解" data-url="http://valiantcat.com/2017/05/24/CocoaPods使用详解/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"chachaHouse"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By 寒哥. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

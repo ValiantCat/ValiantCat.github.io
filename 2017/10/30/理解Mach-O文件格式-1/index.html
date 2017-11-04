@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>理解Mach-O文件格式(1) | 茶茶的小屋</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="茶茶的小屋">
+    <meta name="author" content="寒哥">
+    <meta name="description" content="iOS 开发， Swift，Objective-C,OC" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="茶茶的小屋" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/github.css" type="text/css">
+    
+
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <!-- <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://www.jianshu.com/users/cc1e4faec5f7" class="animsition-link">寒哥的简书</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/xinxinqiu" class="animsition-link">寒哥的CSDN</a></li>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" class="animsition-link">寒哥的Github</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">茶茶的小屋</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-10-30T11:38:06.000Z" itemprop="datePublished">
+          2017-10-30
+      </time>
+    
+</span>
+                <h1>理解Mach-O文件格式(1)</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<h1 id="写在之前"><a href="#写在之前" class="headerlink" title="写在之前"></a>写在之前</h1><p>之前工作中对Mach-O文件有一定的接触, 原本早就想写一篇文章分享一下，但是奈何只是不够深入, 总怕分析的有问题误导读者。</p>
+<p>最近又在阅读深入解析Mac OS X 与iOS 操作系统，借着这个机会记录下自己的学习成果, 并结合之前的经验, 加上一些实例让读者更好的理解。<br>毕竟对于程序员来说 大部分人对抽象的概念的感觉就是 <code>听说过很多原理, 依然不知道大佬说的是什么</code></p>
+<h1 id="mac-os-与-ios-支持的文件类型"><a href="#Mac-OS-与-iOS-支持的文件类型" class="headerlink" title="Mac OS 与 iOS 支持的文件类型"></a>Mac OS 与 iOS 支持的文件类型</h1><p>在<code>Unix-Like</code>系列的操作系统, 可以通过命令 <code>chmod +x</code> 给予文件可执行权限, 但是这不代表这个文件具有可执行权限, 实际上 Apple家的操作系统只支持三种文件格式。</p>
+<ol>
+<li>以<code>#!</code>开头的脚本文件</li>
+<li>通用二进制文件</li>
+<li>Mach-O格式文件</li>
+</ol>
+<p>但是实际上  以<code>#!</code>开头的脚本文件其实是shell解释器找到后面指定的脚本解释器来执行的, 而通用二进制文件其实是多个架构的Mach-O文件的打包体。<br>通用二进制文件其实有个更加形象化的名字<code>fat binary</code><br>那么操作系统如何知道你打开的文件是何种类型的？<br>其实是通过这些文件头的固定数字来区分的, 对于这些固定数字通常叫做 <code>Magic Number</code>（魔数）.</p>
+<p>对于<code>fat binary</code>的魔数是 <code>0xcafebabe</code>（小端）<code>0xbebafeca</code>大端<br>对于<code>Mach-O</code>的魔数是 <code>0xfeedface</code>(32位) <code>0xfeedfacf</code>(64位)</p>
+<p>多说无益~~上代码 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">我们以/usr/bin/perl为例 (这是一个fat binary)</div><div class="line">$ file /usr/bin/perl</div><div class="line">/usr/bin/perl: Mach-O universal binary with <span class="number">2</span> architectures: [x86_64:Mach-O <span class="number">64</span>-bit executable x86_64] [i386:Mach-O executable i386]</div><div class="line">/usr/bin/perl (<span class="keyword">for</span> architecture x86_64):	Mach-O <span class="number">64</span>-bit executable x86_64</div><div class="line">/usr/bin/perl (<span class="keyword">for</span> architecture i386):	Mach-O executable i386</div><div class="line">$ otool -vh /usr/bin/perl</div><div class="line">Mach header</div><div class="line">      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags</div><div class="line">MH_MAGIC_64  X86_64        ALL LIB64     EXECUTE    <span class="number">17</span>       <span class="number">1800</span>   NOUNDEFS DYLDLINK TWOLEVEL PIE</div></pre></td></tr></table></figure>
+<p> 不过可能你觉得拿着系统的命令来看感觉不那么真实, 那么cat命令我们都用过吧，来看下<br> <img src="http://ompeszjl2.bkt.clouddn.com/%E7%90%86%E8%A7%A3Mach-O%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F-1/magicNumber.jpg" alt=""></p>
+<p>在<code>/usr/include/mach-o/fat.h</code>路径下有关于<code>fat binary</code>文件的头文件定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> fat_header &#123;</div><div class="line">	<span class="keyword">uint32_t</span>	magic;		<span class="comment">/* FAT_MAGIC or FAT_MAGIC_64 */</span></div><div class="line">	<span class="keyword">uint32_t</span>	nfat_arch;	<span class="comment">/* 包含的架构数 */</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> fat_arch &#123;</div><div class="line">	<span class="keyword">cpu_type_t</span>	cputype;	<span class="comment">/* cpu类型 */</span></div><div class="line">	<span class="keyword">cpu_subtype_t</span>	cpusubtype;	<span class="comment">/* 机器标示符  */</span></div><div class="line">	<span class="keyword">uint32_t</span>	offset;		<span class="comment">/* 当前架构在这个文件中的便宜量 */</span></div><div class="line">	<span class="keyword">uint32_t</span>	size;		<span class="comment">/* 当前架构在文件中的长度*/</span></div><div class="line">	<span class="keyword">uint32_t</span>	align;		<span class="comment">/* 对齐方式 */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>不知道大家还记得不记得之前使用windows的时候有System32和64之分, 那是因为在windows操作系统中不同架构的可执行文件是分开存放的。</p>
+<p>苹果在某次WWDC大会声称自己优雅的将多个架构合并在了一个文件中。<del>引来果粉一阵鼓掌</del>。<br>其实<code>fat binary</code>文件的真正布局非常简单。</p>
+<p>以/usr/bin/perl为例<br><img src="http://ompeszjl2.bkt.clouddn.com/%E7%90%86%E8%A7%A3Mach-O%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F-1/fatBinary.jpg" alt=""><br>Apple的实现只是将不同架构的文件并排放在一起，然后在文件头部添加不同架构的描述信息, 然后再加载当前架构的Mach-O文件 丢弃掉其他架构的部分即可。实在是简单粗暴~~</p>
+<h1 id="mach-o文件结构"><a href="#Mach-O文件结构" class="headerlink" title="Mach-O文件结构"></a>Mach-O文件结构</h1><p>Unix标准了一个可移植的二进制格式<code>ELF</code>但是苹果并没有实现它而是维护了一套NeXTSTEP的遗物 <code>Mach-Object</code>简称<code>Mach-O</code>。<br>但是这并不是说苹果不遵守<code>POSXI</code>规范，这个规范通常说的是源码级别的跨平台性，对于二进制则不强制要求。</p>
+<p>下面是一个官方提供的图片。<br><img src="http://ompeszjl2.bkt.clouddn.com/%E7%90%86%E8%A7%A3Mach-O%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F-1/appleDoc.jpg" alt=""></p>
+<h2 id="mach-0-header"><a href="#Mach-0-Header" class="headerlink" title="Mach-0 Header"></a>Mach-0 Header</h2><p>先来介绍Mach-O的Header（只介绍64位）信息。<br>相关头文件定义在<code>/usr/include/mach-o/loader.h</code>里面。如果需要使用只需要加载<code>&lt;mach-O/loader.h&gt;</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> mach_header_64 &#123;</div><div class="line">	<span class="keyword">uint32_t</span>	magic;		<span class="comment">/* mach magic number identifier */</span></div><div class="line">	<span class="keyword">cpu_type_t</span>	cputype;	<span class="comment">/* cpu specifier */</span></div><div class="line">	<span class="keyword">cpu_subtype_t</span>	cpusubtype;	<span class="comment">/* machine specifier */</span></div><div class="line">	<span class="keyword">uint32_t</span>	filetype;	<span class="comment">/* 文件类型 */</span></div><div class="line">	<span class="keyword">uint32_t</span>	ncmds;		<span class="comment">/* load commadns的个数 */</span></div><div class="line">	<span class="keyword">uint32_t</span>	sizeofcmds;	<span class="comment">/* load commands的总大小 */</span></div><div class="line">	<span class="keyword">uint32_t</span>	flags;		<span class="comment">/* 动态连接器标志*/</span></div><div class="line">	<span class="keyword">uint32_t</span>	reserved;	<span class="comment">/* 保留*/</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/* Constant for the magic field of the mach_header_64 (64-bit architectures) */</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_MAGIC_64 0xfeedfacf <span class="comment">/* 小端 */</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_CIGAM_64 0xcffaedfe <span class="comment">/* 大端 */</span></span></div></pre></td></tr></table></figure>
+<p>注： Mach-O文件不仅仅是可执行文件, 也包括目标文件（.o） 动态库, Bundle插件等。<br>标志位<br>flag 标记了一些dyld加载 执行 中可配置的信息。<br><code>关于Mach-O文件的魔数信息，有兴趣的读者可以按照之前的方式亲自动手尝试一下</code></p>
+<h2 id="mach-o-load-commands"><a href="#Mach-O-Load-commands" class="headerlink" title="Mach-O Load commands"></a>Mach-O Load commands</h2><p>Mach-O文件中最重要的元信息就是 load Commands，加载命令紧跟在文件头信息之后。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//   [_mach_header_|___load_commands___||___load_commands___||____other____|]</span></div><div class="line"></div><div class="line"><span class="keyword">struct</span> load_command &#123;</div><div class="line">	<span class="keyword">uint32_t</span> cmd;		<span class="comment">/*  load command的类型 */</span></div><div class="line">	<span class="keyword">uint32_t</span> cmdsize;	<span class="comment">/*  command 的长度 */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><img src="http://ompeszjl2.bkt.clouddn.com/%E7%90%86%E8%A7%A3Mach-O%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F-1/loadCommand.jpg" alt=""></p>
+<h2 id="lc_segment"><a href="#LC-SEGMENT" class="headerlink" title="LC_SEGMENT"></a>LC_SEGMENT</h2><p>对于加载命令是LC_SEGMENT的命令指定了内核如何设置新运行的进程的内存空间<br>对应的头文件也在<code>&lt;mach-o/loader.h&gt;</code> </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> segment_command_64 &#123; <span class="comment">/* for 64-bit architectures */</span></div><div class="line">	<span class="keyword">uint32_t</span>	cmd;		<span class="comment">/* LC_SEGMENT_64 */</span></div><div class="line">	<span class="keyword">uint32_t</span>	cmdsize;	<span class="comment">/* includes sizeof section_64 structs */</span></div><div class="line">	<span class="keyword">char</span>		segname[<span class="number">16</span>];	<span class="comment">/* segment name */</span></div><div class="line">	<span class="keyword">uint64_t</span>	vmaddr;		<span class="comment">/* 当前segment加载的虚拟内存起始地址 */</span></div><div class="line">	<span class="keyword">uint64_t</span>	vmsize;		<span class="comment">/* 当前segment加载的虚拟内存地址占用的长度  */</span></div><div class="line">	<span class="keyword">uint64_t</span>	fileoff;	<span class="comment">/* segment在文件中的偏移 */</span></div><div class="line">	<span class="keyword">uint64_t</span>	filesize;	<span class="comment">/* segment在文件中的长度 */</span></div><div class="line">	<span class="keyword">vm_prot_t</span>	maxprot;	<span class="comment">/* 最大的保护级别 */</span></div><div class="line">	<span class="keyword">vm_prot_t</span>	initprot;	<span class="comment">/* 初始化的保护级别 */</span></div><div class="line">	<span class="keyword">uint32_t</span>	nsects;		<span class="comment">/* 包含sections的个数  */</span></div><div class="line">	<span class="keyword">uint32_t</span>	flags;		<span class="comment">/* 标志位 */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>由于有了LC_SEGMENT命令。对于每一个Segment，将文件中偏移量为fileOff长度为filesize的文件内容加载到虚拟地址为vmaddr的位置，长度为vmsize, 页面的权限通过initprot来初始化（比如设定读/写/执行, 段的保护级别可以动态设置最大不超过maxprot</p>
+<p>常见的Segment有以下几个</p>
+<ol>
+<li>__TEXT 代码段</li>
+<li>__PAGEZERO 空指针陷阱</li>
+<li>__DATA 数据段</li>
+<li>__LINKEDIT 包含需要被动态链接器使用的信息，包括符号表、字符串表、重定位项表等。</li>
+<li><strong>OBJC(现已经被合并到</strong>DATA部分)包含会被Objective Runtime使用到的一些数据。</li>
+</ol>
+<p>当然读者如果有兴趣查看其他所有的loadcommands可以去loader.h头文件定义去查看，也可以实际操练一下<br>如 使用otool 查看某些mach-O文件的所有load_commands</p>
+<p><code>otool -l /bin/ls</code></p>
+<h2 id="section"><a href="#section" class="headerlink" title="section"></a>section</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">类型声明如下</div><div class="line"><span class="keyword">struct</span> section_64 &#123; <span class="comment">/* for 64-bit architectures */</span></div><div class="line">	<span class="keyword">char</span>		sectname[<span class="number">16</span>];	<span class="comment">/* name of this section */</span></div><div class="line">	<span class="keyword">char</span>		segname[<span class="number">16</span>];	<span class="comment">/* segment this section goes in */</span></div><div class="line">	<span class="keyword">uint64_t</span>	addr;		<span class="comment">/* memory address of this section */</span></div><div class="line">	<span class="keyword">uint64_t</span>	size;		<span class="comment">/* size in bytes of this section */</span></div><div class="line">	<span class="keyword">uint32_t</span>	offset;		<span class="comment">/* file offset of this section */</span></div><div class="line">	<span class="keyword">uint32_t</span>	align;		<span class="comment">/* section alignment (power of 2) */</span></div><div class="line">	<span class="keyword">uint32_t</span>	reloff;		<span class="comment">/* file offset of relocation entries */</span></div><div class="line">	<span class="keyword">uint32_t</span>	nreloc;		<span class="comment">/* number of relocation entries */</span></div><div class="line">	<span class="keyword">uint32_t</span>	flags;		<span class="comment">/* flags (section type and attributes)*/</span></div><div class="line">	<span class="keyword">uint32_t</span>	reserved1;	<span class="comment">/* reserved (for offset or index) */</span></div><div class="line">	<span class="keyword">uint32_t</span>	reserved2;	<span class="comment">/* reserved (for count or sizeof) */</span></div><div class="line">	<span class="keyword">uint32_t</span>	reserved3;	<span class="comment">/* reserved */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>对于<strong>TEXT, </strong>DATA下面, 又有细分的各种Section，常见的如</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TEXT.text</td>
+<td>只有可执行的机器码</td>
+</tr>
+<tr>
+<td>TEXT.cstring</td>
+<td>硬编码去重后的C字符串</td>
+</tr>
+<tr>
+<td>TEXT.const</td>
+<td>初始化过的常量</td>
+</tr>
+<tr>
+<td>DATA.data</td>
+<td>初始化过的可变的数据</td>
+</tr>
+<tr>
+<td>DATA.bss</td>
+<td>没有初始化的静态变量</td>
+</tr>
+<tr>
+<td>DATA.common</td>
+<td>没有初始化过的符号声明</td>
+</tr>
+<tr>
+<td>DATA.objc_clasname</td>
+<td>oc类名称</td>
+</tr>
+<tr>
+<td>DATA.objc_classlist</td>
+<td>类列表</td>
+</tr>
+<tr>
+<td>DATA.objc_protocollist</td>
+<td>协议列表</td>
+</tr>
+</tbody>
+</table>
+<p>···<br>其他的就不一一列举，建议读者亲自动手试一试, 会发现很多有价值的东西</p>
+<h2 id="了解这些有什么用"><a href="#了解这些有什么用？" class="headerlink" title="了解这些有什么用？"></a>了解这些有什么用？</h2><p>相信看了这些内容, 你已经大致知道Mach-O文件的物理布局, 那么我们知道了这个文件格式能用来做什么呢？<br>理解了这个可以用来做下面一些东西：</p>
+<ol>
+<li>依赖解耦</li>
+<li>元信息获取</li>
+<li>调试代码</li>
+<li>CI工具插件检测</li>
+<li>逆向</li>
+</ol>
+<p>相关一些示例放在下篇文章讲解。</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2017/11/02/iOS界的毒瘤-MethodSwizzling/" style="float: left;">
+        ← iOS界的毒瘤-MethodSwizzling
+    </a>
+    
+    
+    <a class="pull-right" href="/2017/09/17/iOS-从中级到中级/">
+        iOS 从中级到中级 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2017/10/30/理解Mach-O文件格式-1/" data-title="理解Mach-O文件格式(1)" data-url="http://valiantcat.com/2017/10/30/理解Mach-O文件格式-1/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"chachaHouse"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By 寒哥. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/aiqiuqiu" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
